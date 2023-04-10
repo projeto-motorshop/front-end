@@ -29,6 +29,10 @@ export const HeaderStyle = styled.div`
         }
     }
 
+    .data_user {
+        display: flex;
+    }
+
     .btnUser {
         border-left: 2px solid var(--grey6);
         display: flex;
