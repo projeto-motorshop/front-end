@@ -1,10 +1,120 @@
-import { CardPicturesStyle } from "./style";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 
 
 export function CardPictures() {
     return (
         <>
-            <CardPicturesStyle />
+            <Flex
+                flexDir="column"
+                mt={30}
+                w="27rem"
+                h="24rem"
+                p={40}
+                bg="#FDFDFD"
+                borderRadius={4}
+            >
+                <Text
+                    fontSize={20}
+                    mb={50}
+                >
+                    Fotos
+                </Text>
+                <Flex
+                    flexWrap="wrap"
+                    justifyContent="center"
+                >
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+
+                    <Box
+                        w="6rem"
+                        h="6rem"
+                        bg="#E9ECEF"
+                        mr={15}
+                        mb={15}
+                    >
+                        <Image
+                            src="../../../../public/card-image.svg"
+                            alt=""
+                            w="6rem"
+                            h="4rem"
+                        />
+                    </Box>
+                </Flex>
+            </Flex>
         </>
     )
 }
