@@ -15,8 +15,7 @@ export const CardStyle = styled.div`
         flex-direction: column;
         align-items: center;
         width: calc((100% - 10rem) / 3);
-        height: 32rem;
-        padding: 1rem;
+        padding: 0 1rem;
         gap: 1rem;
     }
 
@@ -37,19 +36,12 @@ export const CardStyle = styled.div`
 
         p:nth-child(1) {
             color: var(--grey1);
-            font-family: "Lexend";
-            font-style: normal;
             font-weight: 600;
-            font-size: 16px;
-            line-height: 20px;
         }
+
         p:nth-child(2) {
             color: var(--grey2);
-            font-family: "Lexend";
-            font-style: normal;
             font-weight: 500;
-            font-size: 16px;
-            line-height: 20px;
             /* width: 100%; */
             /* white-space: nowrap; */
             /* background-color: red; */
@@ -85,7 +77,7 @@ export const CardStyle = styled.div`
 
         .divInfoSpan {
             display: flex;
-            gap: .5rem;
+            gap: 0.5rem;
             span {
                 border-radius: 4px;
                 padding: 0.5rem;
@@ -96,7 +88,6 @@ export const CardStyle = styled.div`
 
         span {
             color: var(--grey1);
-            font-family: "Lexend";
             font-weight: 500;
         }
     }

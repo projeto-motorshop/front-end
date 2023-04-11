@@ -16,12 +16,8 @@ export const BannerStyle = styled.div`
 
     .banner {
         position: absolute;
-        display: flex;
         z-index: 1;
-        width: 100%;
-        height: 100%;
-        align-items: flex-end;
-        justify-content: center;
+        bottom: 0;
         -webkit-mask-image: linear-gradient(black, transparent);
         mask-image: linear-gradient(black, transparent);
     }
@@ -31,7 +27,7 @@ export const BannerStyle = styled.div`
         z-index: 10;
         width: 100%;
         height: 100%;
-        justify-content: center;
+        justify-content: space-evenly;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -39,11 +35,8 @@ export const BannerStyle = styled.div`
         p,
         span {
             color: var(--grey10);
-            font-family: "Lexend";
-            font-style: normal;
             font-weight: 700;
             font-size: 44px;
-            line-height: 56px;
         }
     }
 `;
