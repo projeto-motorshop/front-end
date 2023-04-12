@@ -3,12 +3,16 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { GlobalStyle } from "./global";
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "./style/style";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <BrowserRouter>
-            <GlobalStyle />
-            <App />
+            <ChakraProvider theme={theme}>
+                <GlobalStyle />
+                <App />
+            </ChakraProvider>
         </BrowserRouter>
     </React.StrictMode>
 );

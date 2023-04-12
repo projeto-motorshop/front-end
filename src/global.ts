@@ -25,6 +25,7 @@ export const GlobalStyle = createGlobalStyle`
     --grey8: #F1F3F5;
     --grey9: #F8F9FA;
     --grey10: #FDFDFD;
+    --whiteFixed: #FFFFFF;
     --alert1: #CD2B31;
     --alert2: #FDD8D8;
     --alert3: #FFE5E5;
@@ -50,6 +51,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Lexend', sans-serif;
   }
 `;
