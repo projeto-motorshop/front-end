@@ -1,6 +1,5 @@
 import { Box, IconButton, Flex, Text, Link } from "@chakra-ui/react";
 import { ChevronUpIcon } from "@chakra-ui/icons";
-import React from "react";
 
 export function FooterHome() {
     return (
@@ -12,10 +11,10 @@ export function FooterHome() {
                 p={"3rem"}
                 justifyContent={"space-around"}
                 alignItems={"center"}
-                pos={"relative"}
+                pos={"absolute"}
                 mt={"2rem"}
                 scrollBehavior={"smooth"}
-                bottom={0}
+                bottom="0"
             >
                 <Box>
                     <Text display={"flex"} gap={2} alignItems={"baseline"}>
