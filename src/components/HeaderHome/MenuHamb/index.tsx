@@ -15,6 +15,7 @@ export function MenuHamb() {
                 as={IconButton}
                 aria-label="Options"
                 variant="outline"
+                icon={<HamburgerIcon />}
             />
             <MenuList>
                 <MenuItem command={(<FiLogIn color="cyan" />) as any}>

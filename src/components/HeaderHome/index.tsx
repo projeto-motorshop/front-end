@@ -14,7 +14,7 @@ export function HeaderHome() {
             >
                 <Box w="70%" display="flex" alignItems="center">
                     <Text
-                        bgGradient="linear(to-tr, grey.1, brand.1)"
+                        bgGradient="linear(to-r, grey.1 40%, brand.1 60%)"
                         bgClip="text"
                         fontSize="3xl"
                         fontWeight="extrabold"
