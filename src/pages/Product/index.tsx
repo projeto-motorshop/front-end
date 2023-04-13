@@ -14,16 +14,8 @@ export function Product() {
     const [isMobile] = useMediaQuery("(min-width: 800px)")
 
     return (
-        <Box>
+        <>
             <HeaderHome />
-            <Box
-                border="1px solid black"
-                w="100%"
-                h="45rem"
-                bg="#4529E6"
-                pos="absolute"
-                zIndex={1}
-            />
             <Flex
                 flexDir={isMobile ? "row" : "column"}
                 justifyContent={"center"}
@@ -103,6 +95,6 @@ export function Product() {
                 </Flex>
             </Flex>
             <FooterHome />
-        </Box>
+        </>
     )
 }

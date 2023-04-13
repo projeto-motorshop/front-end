@@ -1,6 +1,21 @@
-import { Box, Text, Flex, Button, Stack, Portal } from "@chakra-ui/react";
+import {
+    Box,
+    Text,
+    Flex,
+    Button,
+    Stack,
+    Portal,
+    useMediaQuery,
+} from "@chakra-ui/react";
+import { UserLogged } from "./UserLogged";
+import { BtnLogin } from "./BtnLogin";
+import { MenuHamb } from "./MenuHamb";
+import { useState } from "react";
+import { useUserContext } from "../../providers/UserContext";
 
 export function HeaderHome() {
+    const { isMobile, user } = useUserContext();
+
     return (
         <>
             <Flex
@@ -8,46 +23,30 @@ export function HeaderHome() {
                 w="100%"
                 h="20"
                 px={5}
-                color="white"
                 borderBottom="1px"
                 borderColor="grey.6"
+                align={"center"}
+                justify={"space-between"}
             >
                 <Box w="70%" display="flex" alignItems="center">
                     <Text
                         bgGradient="linear(to-r, grey.1 40%, brand.1 60%)"
                         bgClip="text"
-                        fontSize="3xl"
+                        fontSize={isMobile ? "2rem" : "1rem"}
                         fontWeight="extrabold"
                     >
                         Motors Shop
                     </Text>
                 </Box>
-
-                <Flex
-                    w={"30%"}
-                    h="100%"
-                    borderLeft="1px"
-                    borderColor="grey.6"
-                    align="center"
-                    justify="center"
-                >
-                    <Stack direction="row" spacing={4} align="center">
-                        <Button
-                            colorScheme="teal"
-                            variant="ghost"
-                            _hover={{ bg: "grey.1", color: "white" }}
-                        >
-                            Fazer Login
-                        </Button>
-                        <Button
-                            color={"grey.1"}
-                            variant="outline"
-                            _hover={{ bg: "grey.1", color: "white" }}
-                        >
-                            Cadastrar
-                        </Button>
-                    </Stack>
-                </Flex>
+                <Box>
+                    {user ? (
+                        <UserLogged />
+                    ) : isMobile ? (
+                        <BtnLogin />
+                    ) : (
+                        <MenuHamb />
+                    )}
+                </Box>
             </Flex>
         </>
     );
