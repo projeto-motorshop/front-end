@@ -7,12 +7,12 @@ export function CardComment () {
         <>
             <Flex
                 flexDir="column"
-                mb={40}
+                mb="2.5rem"
             >
                 <Flex
                     justifyContent="space-around"
                     w="19rem"
-                    mb={20}
+                    mb="1.5"
                 >
                     <Box>
                         <Image src=""alt="imagem"/>

@@ -7,16 +7,17 @@ export function ListComment() {
         <>
             <Flex
                 flexDir="column"
+                // pos="relative"
                 mt={20}
                 w="47rem"
                 h="35rem"
-                p={40}
+                p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
             >
                 <Text
                     fontSize={20}
-                    mb={40}
+                    mb="2.5"
                 >
                     Comentários
                 </Text>

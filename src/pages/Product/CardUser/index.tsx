@@ -8,7 +8,7 @@ export function CardUser() {
                 mt={20}
                 w="27rem"
                 h="27rem"
-                p="40"
+                p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
                 >

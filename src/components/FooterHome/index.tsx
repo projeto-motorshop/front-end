@@ -15,6 +15,8 @@ export function FooterHome() {
                 alignItems={"center"}
                 mt={"2rem"}
                 scrollBehavior={"smooth"}
+                pos="relative"
+                bottom="0"
                 flexDir={isMobile ? "row" : "column"}
                 gap={"3rem"}
             >
