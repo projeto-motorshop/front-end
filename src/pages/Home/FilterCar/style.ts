@@ -6,15 +6,27 @@ export const FilterStyle = styled.div`
     gap: 2rem;
     width: 30%;
 
-    p {
-        font-family: "Lexend";
-        font-weight: 600;
-        font-size: 28px;
-    }
+    .divFilter {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-    ul {
-        li {
-            cursor: pointer;
+        p {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            li {
+                cursor: pointer;
+                color: var(--grey3);
+                padding: 0 1rem;
+                font-weight: 500;
+            }
         }
     }
 `;
