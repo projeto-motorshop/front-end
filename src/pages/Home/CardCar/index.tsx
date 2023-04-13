@@ -1,52 +1,122 @@
 import {
     Avatar,
+    Badge,
     Box,
     Center,
-    Container,
     Flex,
     Image,
     Text,
-    Wrap,
-    WrapItem,
 } from "@chakra-ui/react";
-import cars from "../../../components-moks";
+import { MdAttachMoney } from "react-icons/md";
+import { useUserContext } from "../../../providers/UserContext";
 
-export function CardCar() {
-    const elem = {
-        brand: "Ford",
-        model: "Mustang",
-        year: 1969,
-        color: "red",
-        price: 10000,
-        fuel: "gasoline",
-        description:
-            "The Ford Mustang is an American car manufactured by Ford. It was originally based on the platform of the second generation North American Ford Falcon, a compact car. The original 1962 Ford Mustang I two-seater concept car had evolved into the 1963 Mustang II four-seater concept car which Ford used to pretest how the public would take interest in the first production Mustang. The 1963 Mustang II concept car was designed with a variation of the production model's front and rear ends with a roof that was 2.7 inches shorter. Introduced early on April 17, 1964, and thus dubbed as a 1964½ by Mustang fans, the 1965 Mustang was the automaker's most successful launch since the Model A.",
-        km: 10000,
-        Image: "https://garagem360.com.br/wp-content/uploads/2021/12/ferrari_roma_56.jpeg",
-        boaCompra: true,
-        user: {
-            name: "victor henrique",
-        },
-    };
+export function CardCar({ car }: any) {
+    const { isMobile } = useUserContext();
     return (
-        <Wrap spacing="16px" align="center" w={"100%"}>
-            <WrapItem>
-                <Box bg={"red"} w={"100%"} p={3}>
-                    <Image src={elem.Image} alt={elem.model} />
-                    <Box>
-                        <Text>{elem.model}</Text>
+        <>
+            <Flex
+                align="flex-start"
+                justifyContent={"flex-start"}
+                w={isMobile ? "30%" : "100%"}
+                flexDirection={"row"}
+            >
+                <Flex
+                    w={"100%"}
+                    p={3}
+                    flexDirection={"column"}
+                    gap={"2rem"}
+                    pos={"relative"}
+                >
+                    <Flex pos={"relative"}>
+                        {car.goodDeal ? (
+                            <Flex
+                                pos={"absolute"}
+                                right="4px"
+                                top={"5px"}
+                                zIndex={3}
+                                bg={"random.7"}
+                                h={"1.5rem"}
+                                alignItems={"center"}
+                                borderRadius={"2px"}
+                            >
+                                <Badge
+                                    bg={"random.7"}
+                                    color={"white"}
+                                    fontSize={"1rem"}
+                                    fontWeight={"500"}
+                                >
+                                    <MdAttachMoney />
+                                </Badge>
+                            </Flex>
+                        ) : (
+                            <></>
+                        )}
+
+                        <Image
+                            src={car.Image}
+                            alt={car.model}
+                            pos={"relative"}
+                        />
+                    </Flex>
+
+                    <Flex flexDirection={"column"} gap={"1rem"}>
+                        <Text>{car.model}</Text>
                         <Box
                             mt="1"
-                            fontWeight="semibold"
+                            fontWeight="400"
                             as="h4"
                             lineHeight="tight"
-                            noOfLines={2}
+                            noOfLines={3}
+                            fontFamily={"inter"}
                         >
-                            {elem.description}
+                            {car.description}
                         </Box>
-                    </Box>
-                </Box>
-            </WrapItem>
-        </Wrap>
+                    </Flex>
+                    <Flex>
+                        <Center gap={isMobile ? "1rem" : ".5rem"}>
+                            <Avatar name={car.user.name} src={car.user.img} />
+                            <Text
+                                fontWeight={"700"}
+                                fontSize={isMobile ? "14px" : "10px"}
+                            >
+                                {car.user.name}
+                            </Text>
+                        </Center>
+                    </Flex>
+                    <Flex justifyContent="space-between" gap={"1rem"}>
+                        <Flex gap={"1rem"}>
+                            <Text
+                                bg={"brand.4"}
+                                color={"brand.1"}
+                                p={".5rem"}
+                                borderRadius={"4px"}
+                                w={"100%"}
+                                fontSize={isMobile ? "14px" : "10px"}
+                                textAlign={"center"}
+                            >
+                                KM{car.km}
+                            </Text>
+                            <Text
+                                bg={"brand.4"}
+                                color={"brand.1"}
+                                p={".5rem"}
+                                fontSize={isMobile ? "14px" : "10px"}
+                                borderRadius={"4px"}
+                            >
+                                {car.year}
+                            </Text>
+                        </Flex>
+                        <Center>
+                            <Text
+                                fontWeight={"500"}
+                                fontSize={isMobile ? "14px" : "10px"}
+                            >
+                                R${car.price}
+                            </Text>
+                        </Center>
+                    </Flex>
+                </Flex>
+            </Flex>
+        </>
     );
 }
