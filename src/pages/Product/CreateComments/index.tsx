@@ -6,12 +6,14 @@ export function CreateComment() {
         <>
             <Flex
                 flexDir="column"
+                // pos="relative"
                 w="47rem"
                 h="18rem"
-                p={40}
-                mt={20}
+                p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
+                mt="1.5rem"
+                mb="2.5rem"
             >
                 <Flex
                     mb={20}
@@ -21,10 +23,13 @@ export function CreateComment() {
                     </Box>
                     <Text>Igor Ramon</Text>
                 </Flex>
-                <Box>
+                <Box pos="relative">
                     <Input
                         w="39rem"
                         h="8rem"
+                        pos="absolute"
+                        // top="0"
+                        // right="0"
                     />
                     <Button
                         w="7rem"
@@ -34,6 +39,9 @@ export function CreateComment() {
                         fontSize={16}
                         border="none"
                         borderRadius={4}
+                        pos="absolute"
+                        bottom="-7rem"
+                        right="4rem"
                     >
                         Comentar
                     </Button>

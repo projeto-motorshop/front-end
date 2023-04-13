@@ -6,11 +6,11 @@ export function CardPictures() {
         <>
             <Flex
                 flexDir="column"
-                mt={30}
+                mt="2rem"
                 w="27rem"
                 h="24rem"
-                p={40}
                 bg="#FDFDFD"
+                p="2.5rem"
                 borderRadius={4}
             >
                 <Text
@@ -44,7 +44,6 @@ export function CardPictures() {
                         bg="#E9ECEF"
                         mr={15}
                         mb={15}
-
                     >
                         <Image
                             src="../../../../public/card-image.svg"

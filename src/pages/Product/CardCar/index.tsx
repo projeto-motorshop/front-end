@@ -1,7 +1,7 @@
 import { Box, Button, Container, Flex, Image, Text } from "@chakra-ui/react";
 
 
-export function CardCar() {
+export function CardCar({ }) {
     return (
         <Flex
             flexDir="column"
@@ -14,7 +14,7 @@ export function CardCar() {
                 bg="#FDFDFD"
                 borderRadius={4}
             >
-                <Image src="../../../../public/card-image.svg" />
+                <Image src={"../../../../public/card-image.svg"} />
             </Flex>
 
             <Flex
@@ -23,7 +23,7 @@ export function CardCar() {
                 w="47rem"
                 h="15rem"
                 mt={20}
-                p={40}
+                p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
             >

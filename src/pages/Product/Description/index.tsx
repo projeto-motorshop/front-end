@@ -6,7 +6,8 @@ export function Description() {
         <>
             <Flex
                 flexDir="column"
-                p={40}
+                // pos="relative"
+                p="2.5rem"
                 w="47rem"
                 h="13rem"
                 mt={20}
