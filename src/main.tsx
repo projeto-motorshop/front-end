@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { GlobalStyle } from "./global";
+import { GlobalStyle } from "./style/global";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "./style/style";
 

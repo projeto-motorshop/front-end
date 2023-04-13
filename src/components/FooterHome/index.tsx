@@ -1,7 +1,9 @@
 import { Box, IconButton, Flex, Text, Link } from "@chakra-ui/react";
 import { ChevronUpIcon } from "@chakra-ui/icons";
+import { useUserContext } from "../../providers/UserContext";
 
 export function FooterHome() {
+    const { isMobile } = useUserContext();
     return (
         <>
             <Flex
@@ -11,10 +13,10 @@ export function FooterHome() {
                 p={"3rem"}
                 justifyContent={"space-around"}
                 alignItems={"center"}
-                pos={"absolute"}
                 mt={"2rem"}
                 scrollBehavior={"smooth"}
-                bottom="0"
+                flexDir={isMobile ? "row" : "column"}
+                gap={"3rem"}
             >
                 <Box>
                     <Text display={"flex"} gap={2} alignItems={"baseline"}>
@@ -23,7 +25,9 @@ export function FooterHome() {
                     </Text>
                 </Box>
                 <Box>
-                    <Text>© 2022 - Todos os direitos reservados.</Text>
+                    <Text fontSize={isMobile ? "1rem" : "12px"}>
+                        © 2022 - Todos os direitos reservados.
+                    </Text>
                 </Box>
                 <Box>
                     <Link href="#top" scrollBehavior={"smooth"}>

@@ -1,18 +1,18 @@
 import { Box, Center, Flex } from "@chakra-ui/react";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
 import { CardCar } from "./CardCar";
 import { CardPictures } from "./CardPictures";
 import { CardUser } from "./CardUser";
 import { CreateComment } from "./CreateComments";
 import { Description } from "./Description";
 import { ListComment } from "./ListComments";
+import { HeaderHome } from "../../components/HeaderHome";
+import { FooterHome } from "../../components/FooterHome";
 
 
 export function Product () {
     return (
         <>
-            <Header />
+            <HeaderHome />
             <Flex
                 justifyContent={"center"}
             >
@@ -32,7 +32,7 @@ export function Product () {
                     <CardUser />
                 </Flex>
             </Flex>
-            <Footer />
+            <FooterHome />
         </>
     )
 }

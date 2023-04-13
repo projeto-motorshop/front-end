@@ -1,24 +1,23 @@
-import banner from "../../../assets/bannerCar.svg";
+import banner from "../../../assets/carro_top2.png";
 import { Box, Center, Flex, Image, Text } from "@chakra-ui/react";
+import { BannerStyle } from "./style";
+import { useUserContext } from "../../../providers/UserContext";
 
 export function BannerHome() {
+    const { isMobile } = useUserContext();
     return (
         <>
             <Box
                 w={"100%"}
+                h={isMobile ? "33.25rem" : "27rem"}
                 bgGradient="linear(to-b, grey.11, grey.1)"
-                h={"33.25rem"}
                 pos={"relative"}
-                zIndex={"tooltip"}
+                zIndex={"0"}
                 mb={"2rem"}
             >
-                <Box pos={"absolute"} h={"100%"} w={"100%"} zIndex={"hide"}>
-                    <Image
-                        boxSize="100%"
-                        src={banner}
-                        alt="um carro qualquer"
-                    ></Image>
-                </Box>
+                <BannerStyle>
+                    <Image src={banner} alt="um carro qualquer"></Image>
+                </BannerStyle>
 
                 <Box
                     zIndex={3}
@@ -30,9 +29,21 @@ export function BannerHome() {
                     h={"100%"}
                     color={"white"}
                 >
-                    <Flex direction={"column"} alignItems={"center"}>
-                        <Center fontSize={"2.75rem"}>Motors Shop</Center>
-                        <Center fontSize={"2.75rem"}>
+                    <Flex
+                        direction={"column"}
+                        alignItems={"center"}
+                        h={isMobile ? "" : "100%"}
+                    >
+                        <Center
+                            fontSize={isMobile ? "2.75rem" : "1.5rem"}
+                            p={"1rem"}
+                        >
+                            Motors Shop
+                        </Center>
+                        <Center
+                            fontSize={isMobile ? "2.75rem" : "1.5rem"}
+                            p={"1rem"}
+                        >
                             A melhor plataforma de anúncios de carros do país
                         </Center>
                     </Flex>
