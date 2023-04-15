@@ -33,8 +33,7 @@ export interface IUserRequest {
     phone: string;
     cpf: string;
     description?: string | null;
-    salesman: boolean;
-    isAdm?: boolean;
+    // salesman: boolean;
     birthdate: Date;
     city: string;
     state: string;

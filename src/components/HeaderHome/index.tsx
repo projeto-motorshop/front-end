@@ -14,7 +14,8 @@ import { useState } from "react";
 import { useUserContext } from "../../providers/UserContext";
 
 export function HeaderHome() {
-    const { isMobile, user } = useUserContext();
+    const { isMobile } = useUserContext();
+    const [user, setUser] = useState("");
 
     return (
         <>
