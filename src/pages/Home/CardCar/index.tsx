@@ -12,13 +12,19 @@ import { useUserContext } from "../../../providers/UserContext";
 
 export function CardCar({ car }: any) {
     const { isMobile, isFullHd } = useUserContext();
+
+    const clicou = (id: any) => {
+        console.log(id);
+    };
+
     return (
         <>
             <Flex
                 align="flex-start"
                 justifyContent={"flex-start"}
-                w={isFullHd ? "14%" : isMobile ? "30%" : "100%"}
+                w={isMobile ? "30%" : "100%"}
                 flexDirection={"row"}
+                onClick={(e) => clicou(car.id)}
             >
                 <Flex
                     w={"100%"}

@@ -15,7 +15,6 @@ export function Product() {
 
     return (
         <>
-            <HeaderHome />
             <Flex
                 flexDir={isMobile ? "row" : "column"}
                 justifyContent={"center"}

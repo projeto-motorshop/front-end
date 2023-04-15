@@ -16,21 +16,17 @@ import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function Dashboard() {
-    const { isMobile } = useUserContext();
+    const { isMobile, isFullHd } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
-        <Flex>
+        <Flex w={isFullHd ? "65%" : "100%"}>
             {isMobile ? (
                 <>
                     <Box pr={"2rem"}>
                         <FilterCar close={""} />
                     </Box>
-                    <Wrap
-                        spacing={"1rem"}
-                        overflow={"hidden"}
-                        pb={"2rem"}
-                        justifyContent={"center"}
-                    >
+                    <Wrap spacing={"1rem"} overflow={"hidden"} pb={"2rem"}>
                         {cars.map((elem) => {
                             return <CardCar car={elem} />;
                         })}
@@ -44,7 +40,12 @@ export function Dashboard() {
                         flexDir={"column"}
                         pb={"2rem"}
                     >
-                        <Flex gap={"1.5rem"} overflow={"auto"} p={"2rem"}>
+                        <Flex
+                            gap={"1.5rem"}
+                            overflow={"auto"}
+                            p={"2rem"}
+                            justifyItems={"center"}
+                        >
                             {cars.map((elem) => {
                                 return <CardCar car={elem} />;
                             })}

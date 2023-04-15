@@ -24,10 +24,18 @@ export function FormRegister() {
     const options = ["Comprador", "Anunciante"];
     const { isMobile } = useUserContext();
 
+    const onSubmit = (data: any) => {
+        if (data == "Anunciante") {
+            console.log("verdade");
+        } else {
+            console.log("false");
+        }
+    };
+
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
         defaultValue: "react",
-        onChange: console.log,
+        onChange: onSubmit,
     });
 
     const group = getRootProps();
@@ -37,10 +45,6 @@ export function FormRegister() {
         handleSubmit,
         formState: { errors },
     } = useForm<IUserRequest>({ resolver: yupResolver(userSchema) });
-
-    const onSubmit = (data: any) => {
-        console.log(data);
-    };
 
     return (
         <>

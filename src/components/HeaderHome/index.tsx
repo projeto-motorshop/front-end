@@ -12,9 +12,11 @@ import { BtnLogin } from "./BtnLogin";
 import { MenuHamb } from "./MenuHamb";
 import { useState } from "react";
 import { useUserContext } from "../../providers/UserContext";
+import { Outlet } from "react-router-dom";
 
 export function HeaderHome() {
-    const { isMobile, user } = useUserContext();
+    const { isMobile, isFullHd } = useUserContext();
+    const [user, setUser] = useState("a");
 
     return (
         <>
@@ -26,9 +28,9 @@ export function HeaderHome() {
                 borderBottom="1px"
                 borderColor="grey.6"
                 align={"center"}
-                justify={"space-between"}
+                justify={isFullHd ? "space-evenly" : "space-between"}
             >
-                <Box w="70%" display="flex" alignItems="center">
+                <Box display="flex" alignItems="center">
                     <Text
                         bgGradient="linear(to-r, grey.1 40%, brand.1 60%)"
                         bgClip="text"
@@ -48,6 +50,7 @@ export function HeaderHome() {
                     )}
                 </Box>
             </Flex>
+            <Outlet />
         </>
     );
 }
