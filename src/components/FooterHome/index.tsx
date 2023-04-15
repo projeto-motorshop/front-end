@@ -13,7 +13,6 @@ export function FooterHome() {
                 p={"3rem"}
                 justifyContent={"space-around"}
                 alignItems={"center"}
-                mt={"2rem"}
                 scrollBehavior={"smooth"}
                 pos="relative"
                 bottom="0"
