@@ -22,8 +22,15 @@ export function Dashboard() {
         <Flex>
             {isMobile ? (
                 <>
-                    <FilterCar close={""} />
-                    <Wrap spacing={"1.5rem"} overflow={"hidden"}>
+                    <Box pr={"2rem"}>
+                        <FilterCar close={""} />
+                    </Box>
+                    <Wrap
+                        spacing={"1rem"}
+                        overflow={"hidden"}
+                        pb={"2rem"}
+                        justifyContent={"center"}
+                    >
                         {cars.map((elem) => {
                             return <CardCar car={elem} />;
                         })}
@@ -31,8 +38,13 @@ export function Dashboard() {
                 </>
             ) : (
                 <>
-                    <Flex overflow={"hidden"} gap={"2rem"} flexDir={"column"}>
-                        <Flex gap={"1.5rem"} overflow={"auto"} pl={"2rem"}>
+                    <Flex
+                        overflow={"hidden"}
+                        gap={"2rem"}
+                        flexDir={"column"}
+                        pb={"2rem"}
+                    >
+                        <Flex gap={"1.5rem"} overflow={"auto"} p={"2rem"}>
                             {cars.map((elem) => {
                                 return <CardCar car={elem} />;
                             })}
