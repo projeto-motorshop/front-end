@@ -1,1 +1,13 @@
-console.log('hello world')
+import { FooterHome } from "../../components/FooterHome";
+import { HeaderHome } from "../../components/HeaderHome";
+import { FormRegister } from "./FormRegister/RegisterForm";
+
+export function Register() {
+    return (
+        <>
+            <HeaderHome />
+            <FormRegister />
+            <FooterHome />
+        </>
+    );
+}
