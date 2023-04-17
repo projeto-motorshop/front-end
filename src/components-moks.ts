@@ -13,6 +13,7 @@ let cars = [
         goodDeal: true,
         Image: "https://garagem360.com.br/wp-content/uploads/2021/12/ferrari_roma_56.jpeg",
         user: {
+            salesman: true,
             name: "victor henrique",
             img: "https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/1610912652422-5DB14EV6QR7GBFBE9U2W/41.jpg",
         },

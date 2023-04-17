@@ -6,15 +6,18 @@ import {
     Flex,
     Image,
     Text,
+    border,
 } from "@chakra-ui/react";
 import { MdAttachMoney } from "react-icons/md";
 import { useUserContext } from "../../../providers/UserContext";
+import { useNavigate } from "react-router";
 
 export function CardCar({ car }: any) {
     const { isMobile, isFullHd } = useUserContext();
+    const navigate = useNavigate();
 
-    const clicou = (id: any) => {
-        console.log(id);
+    const navigateToCar = (id: any) => {
+        navigate(`/product/${id}`);
     };
 
     return (
@@ -24,7 +27,8 @@ export function CardCar({ car }: any) {
                 justifyContent={"flex-start"}
                 w={isMobile ? "30%" : "100%"}
                 flexDirection={"row"}
-                onClick={(e) => clicou(car.id)}
+                onClick={(e) => navigateToCar(car.id)}
+                cursor="pointer"
             >
                 <Flex
                     w={"100%"}
@@ -33,7 +37,11 @@ export function CardCar({ car }: any) {
                     gap={"2rem"}
                     pos={"relative"}
                 >
-                    <Flex pos={"relative"}>
+                    <Flex
+                        pos={"relative"}
+                        border={"2px solid transparent"}
+                        _hover={{ border: "2px solid" }}
+                    >
                         {car.goodDeal ? (
                             <Flex
                                 pos={"absolute"}

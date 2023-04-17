@@ -5,7 +5,6 @@ import { FormRegister } from "./FormRegister/RegisterForm";
 export function Register() {
     return (
         <>
-            <HeaderHome />
             <FormRegister />
             <FooterHome />
         </>

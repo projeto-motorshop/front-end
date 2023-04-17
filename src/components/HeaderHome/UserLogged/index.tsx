@@ -20,7 +20,7 @@ import {
     Text,
 } from "@chakra-ui/react";
 
-export function UserLogged() {
+export function UserLogged({ teste }: any) {
     return (
         <Menu>
             <Flex align={"center"} gap={"1rem"}>
@@ -36,7 +36,13 @@ export function UserLogged() {
             <MenuList>
                 <MenuItem>Editar Perdil</MenuItem>
                 <MenuItem>Editar endereço</MenuItem>
-                <MenuItem>Meus Anúncios</MenuItem>
+                {teste.salesman ? (
+                    <>
+                        <MenuItem>Meus Anúncios</MenuItem>
+                    </>
+                ) : (
+                    <></>
+                )}
                 <MenuItem>Sair</MenuItem>
             </MenuList>
         </Menu>
