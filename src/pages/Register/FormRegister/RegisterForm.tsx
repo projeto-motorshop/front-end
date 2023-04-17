@@ -23,30 +23,7 @@ import { userSchema } from "../../../schemas/user.schema";
 import { useState } from "react";
 
 export function FormRegister() {
-    const userSchema = yup.object().shape({
-        complement: yup.string().notRequired().nullable(),
-        number: yup.string().required("Número da casa Obrigatório"),
-        street: yup.string().required("Rua Obrigatória"),
-        cep: yup.string().required("CEP Obrigatório"),
-        state: yup.string().required("Estado Obrigatório"),
-        city: yup.string().required("Cidade Obrigatório"),
-        // salesman: yup.boolean().required(),
-        description: yup.string().notRequired().nullable(),
-        birthdate: yup.date().required("Data de aniversário Obrigatório"),
-        cpf: yup.string().required("CPF Obrigatório"),
-        phone: yup.string().required("Número de telefone Obrigatório"),
-        password: yup.string().required("Senha Obrigatório"),
-        passwordConfirm: yup
-            .string()
-            .oneOf(
-                [yup.ref("password")],
-                "Confirmação de senha deve ser igual a senha."
-            ),
-        email: yup.string().email().required("E-mail Obrigatório"),
-        name: yup.string().required("Nome Obrigatório"),
-    });
-
-    const { isMobile } = useUserContext();
+    const { isMobile, registerSubmit } = useUserContext();
     const options = ["Comprador", "Anunciante"];
     const [salesman, setSalesman] = useState({});
 
@@ -81,7 +58,8 @@ export function FormRegister() {
             ...data,
             ...variant,
         };
-        console.log("FUNCIONOU?", dataForm);
+
+        registerSubmit(dataForm);
     };
 
     return (
