@@ -8,6 +8,7 @@ export function CardComment () {
             <Flex
                 flexDir="column"
                 mb="2.5rem"
+                overflowX="hidden"
             >
                 <Flex
                     justifyContent="space-around"

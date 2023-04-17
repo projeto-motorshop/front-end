@@ -16,13 +16,17 @@ interface IUserContext {
     user: IUser | null;
     setUser: Dispatch<SetStateAction<IUser | null>>;
     isMobile: boolean;
+    isFullHd: boolean;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [user, setUser] = useState<IUser | null>(null);
-    const [isMobile] = useMediaQuery("(min-width: 770px)");
+    const [isMobile, isFullHd] = useMediaQuery([
+        "(min-width: 770px)",
+        "(min-width: 2000px)",
+    ]);
 
     const navigate = useNavigate();
 
@@ -100,6 +104,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 user,
                 setUser,
                 isMobile,
+                isFullHd,
             }}
         >
             {children}

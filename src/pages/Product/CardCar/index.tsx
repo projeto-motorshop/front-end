@@ -1,15 +1,16 @@
 import { Box, Button, Container, Flex, Image, Text } from "@chakra-ui/react";
 
 
-export function CardCar({ }) {
+export function CardCar() {
     return (
         <Flex
             flexDir="column"
             mt={30}
+            w="100%"
         >
             <Flex
                 justifyContent="center"
-                w="47rem"
+                w="100%"
                 h="22rem"
                 bg="#FDFDFD"
                 borderRadius={4}
@@ -20,7 +21,7 @@ export function CardCar({ }) {
             <Flex
                 flexDir={"column"}
                 justifyContent="space-around"
-                w="47rem"
+                w="100%"
                 h="15rem"
                 mt={20}
                 p="2.5rem"

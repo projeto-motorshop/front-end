@@ -6,8 +6,8 @@ import { Flex } from "@chakra-ui/react";
 
 export function Home() {
     return (
-        <Flex flexDirection={"column"} scrollBehavior={"smooth"}>
-            <HeaderHome />
+        <Flex flexDirection={"column"} alignItems={"center"}>
+            {/* <HeaderHome /> */}
             <BannerHome />
             <Dashboard />
             <FooterHome />

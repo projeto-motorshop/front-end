@@ -11,7 +11,12 @@ import { MdAttachMoney } from "react-icons/md";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function CardCar({ car }: any) {
-    const { isMobile } = useUserContext();
+    const { isMobile, isFullHd } = useUserContext();
+
+    const clicou = (id: any) => {
+        console.log(id);
+    };
+
     return (
         <>
             <Flex
@@ -19,6 +24,7 @@ export function CardCar({ car }: any) {
                 justifyContent={"flex-start"}
                 w={isMobile ? "30%" : "100%"}
                 flexDirection={"row"}
+                onClick={(e) => clicou(car.id)}
             >
                 <Flex
                     w={"100%"}
