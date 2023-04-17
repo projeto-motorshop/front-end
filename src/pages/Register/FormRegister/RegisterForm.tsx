@@ -20,46 +20,21 @@ import { IUserRequest } from "../../../interfaces/user";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InputMask from "react-input-mask";
 import { userSchema } from "../../../schemas/user.schema";
+import { useState } from "react";
 
 export function FormRegister() {
-    // const userSchema = yup.object().shape({
-    //     complement: yup.string().notRequired().nullable(),
-    //     number: yup.string().required("Número da casa Obrigatório"),
-    //     street: yup.string().required("Rua Obrigatória"),
-    //     cep: yup.string().required("CEP Obrigatório"),
-    //     state: yup.string().required("Estado Obrigatório"),
-    //     city: yup.string().required("Cidade Obrigatório"),
-    //     // salesman: yup.boolean().required(),
-    //     description: yup.string().notRequired().nullable(),
-    //     birthdate: yup.date().required("Data de aniversário Obrigatório"),
-    //     cpf: yup.string().required("CPF Obrigatório"),
-    //     phone: yup.string().required("Número de telefone Obrigatório"),
-    //     password: yup.string().required("Senha Obrigatório"),
-    //     passwordConfirm: yup
-    //         .string()
-    //         .oneOf(
-    //             [yup.ref("password")],
-    //             "Confirmação de senha deve ser igual a senha."
-    //         ),
-    //     email: yup.string().email().required("E-mail Obrigatório"),
-    //     name: yup.string().required("Nome Obrigatório"),
-    // });
-
-    const { isMobile } = useUserContext();
+    const { isMobile, registerSubmit } = useUserContext();
     const options = ["Comprador", "Anunciante"];
+    const [salesman, setSalesman] = useState({});
 
-    const onSubmit = (data: any) => {
-        if (data == "Anunciante") {
-            console.log("verdade");
-        } else {
-            console.log("false");
-        }
+    const valueRadio = (value: any) => {
+        setSalesman(value);
     };
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
         defaultValue: "react",
-        onChange: onSubmit,
+        onChange: valueRadio,
     });
 
     const group = getRootProps();
@@ -69,6 +44,23 @@ export function FormRegister() {
         handleSubmit,
         formState: { errors },
     } = useForm<IUserRequest>({ resolver: yupResolver(userSchema) });
+
+    const onSubmit = (data: any) => {
+        let variant = {};
+
+        if (salesman === "Comprador") {
+            variant = { salesman: true };
+        } else {
+            variant = { salesman: false };
+        }
+
+        const dataForm = {
+            ...data,
+            ...variant,
+        };
+
+        registerSubmit(dataForm);
+    };
 
     return (
         <>
@@ -99,6 +91,16 @@ export function FormRegister() {
                         gap={"1.5rem"}
                     >
                         <Text mt={"1.5rem"}>Informações Pessoais</Text>
+
+                        <Box>
+                            <FormLabel>Imagem de perfil</FormLabel>
+                            <Input
+                                placeholder="Ex: https://"
+                                {...register("urlImg")}
+                            />
+                            {errors.urlImg?.message}
+                        </Box>
+
                         <Box>
                             <FormLabel>Nome</FormLabel>
                             <Input
@@ -223,15 +225,6 @@ export function FormRegister() {
                             {errors.state?.message}
                         </Box>
 
-                        <Box>
-                            <FormLabel>Imagem de perfil</FormLabel>
-                            <Input
-                                placeholder="Ex: https://"
-                                {...register("urlImg")}
-                            />
-                            {errors.urlImg?.message}
-                        </Box>
-
                         <Flex gap={"1rem"}>
                             <Box>
                                 <FormLabel>Número</FormLabel>
@@ -250,7 +243,7 @@ export function FormRegister() {
                         </Flex>
 
                         <Text>Tipo de conta</Text>
-                        {/* <HStack
+                        <HStack
                             display={"flex"}
                             alignItems={"center"}
                             justifyContent={"space-around"}
@@ -260,16 +253,19 @@ export function FormRegister() {
                                 const radio = getRadioProps({ value });
 
                                 return (
-                                    <RadioCard
-                                        {...register("complement")}
-                                        key={value}
-                                        {...radio}
-                                    >
-                                        {value}
-                                    </RadioCard>
+                                    <>
+                                        {value == "Comprador"}
+                                        <Input
+                                            display={"none"}
+                                            value={"true"}
+                                        />
+                                        <RadioCard key={value} {...radio}>
+                                            {value}
+                                        </RadioCard>
+                                    </>
                                 );
                             })}
-                        </HStack> */}
+                        </HStack>
 
                         <Button type="submit" bg="brand.1">
                             Finalizar cadastro
