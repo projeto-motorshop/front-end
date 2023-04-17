@@ -12,15 +12,11 @@ const userSchema = yup.object().shape({
     cep: yup.string().required("CEP Obrigatório"),
     state: yup.string().required("Estado Obrigatório"),
     city: yup.string().required("Cidade Obrigatório"),
+    // salesman: yup.boolean().required(),
     description: yup.string().notRequired().nullable(),
     birthdate: yup.date().required("Data de aniversário Obrigatório"),
-    salesman: yup.boolean().required("Tipo de conta Obrigatório"),
-    isAdm: yup.boolean().notRequired(),
     cpf: yup.string().required("CPF Obrigatório"),
-    phone: yup
-        .string()
-        .required("Número de telefone Obrigatório")
-        .matches(regexPhone),
+    phone: yup.string().required("Número de telefone Obrigatório"),
     password: yup.string().required("Senha Obrigatório"),
     passwordConfirm: yup
         .string()

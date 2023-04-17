@@ -13,16 +13,40 @@ import {
     useRadioGroup,
 } from "@chakra-ui/react";
 import { RadioCard } from "../RadioCard";
+import * as yup from "yup";
 import { useUserContext } from "../../../providers/UserContext";
 import { useForm } from "react-hook-form";
 import { IUserRequest } from "../../../interfaces/user";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { userSchema } from "../../../schemas/user.schema";
 import InputMask from "react-input-mask";
+import { userSchema } from "../../../schemas/user.schema";
 
 export function FormRegister() {
-    const options = ["Comprador", "Anunciante"];
+    // const userSchema = yup.object().shape({
+    //     complement: yup.string().notRequired().nullable(),
+    //     number: yup.string().required("Número da casa Obrigatório"),
+    //     street: yup.string().required("Rua Obrigatória"),
+    //     cep: yup.string().required("CEP Obrigatório"),
+    //     state: yup.string().required("Estado Obrigatório"),
+    //     city: yup.string().required("Cidade Obrigatório"),
+    //     // salesman: yup.boolean().required(),
+    //     description: yup.string().notRequired().nullable(),
+    //     birthdate: yup.date().required("Data de aniversário Obrigatório"),
+    //     cpf: yup.string().required("CPF Obrigatório"),
+    //     phone: yup.string().required("Número de telefone Obrigatório"),
+    //     password: yup.string().required("Senha Obrigatório"),
+    //     passwordConfirm: yup
+    //         .string()
+    //         .oneOf(
+    //             [yup.ref("password")],
+    //             "Confirmação de senha deve ser igual a senha."
+    //         ),
+    //     email: yup.string().email().required("E-mail Obrigatório"),
+    //     name: yup.string().required("Nome Obrigatório"),
+    // });
+
     const { isMobile } = useUserContext();
+    const options = ["Comprador", "Anunciante"];
 
     const onSubmit = (data: any) => {
         if (data == "Anunciante") {
@@ -67,18 +91,13 @@ export function FormRegister() {
                         Cadastro
                     </Text>
 
-                    <form
+                    <FormControl
+                        as={"form"}
                         onSubmit={handleSubmit(onSubmit)}
-                        // as={"form"}
-                        // display={"flex"}
-                        // flexDirection={"column"}
-                        // gap={"1.5rem"}
-                        // isRequired
+                        display={"flex"}
+                        flexDirection={"column"}
+                        gap={"1.5rem"}
                     >
-                        <input
-                            placeholder="asdasdsa"
-                            {...register("name")}
-                        ></input>
                         <Text mt={"1.5rem"}>Informações Pessoais</Text>
                         <Box>
                             <FormLabel>Nome</FormLabel>
@@ -86,9 +105,7 @@ export function FormRegister() {
                                 placeholder="Ex: Tobias"
                                 {...register("name")}
                             />
-                            <FormErrorMessage>
-                                {errors.name?.message}
-                            </FormErrorMessage>
+                            {errors.name?.message}
                         </Box>
 
                         <Box>
@@ -97,6 +114,7 @@ export function FormRegister() {
                                 placeholder="Ex: victor@mail.com"
                                 {...register("email")}
                             />
+                            {errors.email?.message}
                         </Box>
 
                         <Box>
@@ -105,6 +123,7 @@ export function FormRegister() {
                                 placeholder="Ex: Digitar senha"
                                 {...register("password")}
                             />
+                            {errors.password?.message}
                         </Box>
 
                         <Box>
@@ -113,6 +132,7 @@ export function FormRegister() {
                                 placeholder="Ex: Confirmar senha"
                                 {...register("passwordConfirm")}
                             />
+                            {errors.passwordConfirm?.message}
                         </Box>
 
                         <Box>
@@ -124,6 +144,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("cpf")}
                             />
+                            {errors.cpf?.message}
                         </Box>
 
                         <Box>
@@ -135,6 +156,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("phone")}
                             />
+                            {errors.phone?.message}
                         </Box>
 
                         <Box>
@@ -146,6 +168,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("birthdate")}
                             />
+                            {errors.birthdate?.message}
                         </Box>
 
                         <Box>
@@ -155,6 +178,7 @@ export function FormRegister() {
                                 {...register("description")}
                                 resize={"none"}
                             />
+                            {errors.description?.message}
                         </Box>
 
                         <Text>Informações de endereço</Text>
@@ -168,6 +192,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("cep")}
                             />
+                            {errors.cep?.message}
                         </Box>
 
                         <Flex gap={"1rem"}>
@@ -177,6 +202,7 @@ export function FormRegister() {
                                     placeholder="Ex: São Paulo"
                                     {...register("state")}
                                 />
+                                {errors.state?.message}
                             </Box>
                             <Box>
                                 <FormLabel>Cidade</FormLabel>
@@ -184,6 +210,7 @@ export function FormRegister() {
                                     placeholder="Ex: Morumbi"
                                     {...register("city")}
                                 />
+                                {errors.city?.message}
                             </Box>
                         </Flex>
 
@@ -193,6 +220,16 @@ export function FormRegister() {
                                 placeholder="Ex: Rua do sol"
                                 {...register("street")}
                             />
+                            {errors.state?.message}
+                        </Box>
+
+                        <Box>
+                            <FormLabel>Imagem de perfil</FormLabel>
+                            <Input
+                                placeholder="Ex: https://"
+                                {...register("urlImg")}
+                            />
+                            {errors.urlImg?.message}
                         </Box>
 
                         <Flex gap={"1rem"}>
@@ -213,7 +250,7 @@ export function FormRegister() {
                         </Flex>
 
                         <Text>Tipo de conta</Text>
-                        <HStack
+                        {/* <HStack
                             display={"flex"}
                             alignItems={"center"}
                             justifyContent={"space-around"}
@@ -232,12 +269,12 @@ export function FormRegister() {
                                     </RadioCard>
                                 );
                             })}
-                        </HStack>
+                        </HStack> */}
 
                         <Button type="submit" bg="brand.1">
                             Finalizar cadastro
                         </Button>
-                    </form>
+                    </FormControl>
                 </Center>
             </Flex>
         </>
