@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 
 
 export function CardPictures() {
@@ -6,12 +6,13 @@ export function CardPictures() {
         <>
             <Flex
                 flexDir="column"
-                mt="2rem"
-                w="27rem"
+                mt={8}
+                w="100%"
                 h="24rem"
                 bg="#FDFDFD"
                 p="2.5rem"
                 borderRadius={4}
+                overflowX="hidden"
             >
                 <Text
                     fontSize={20}
@@ -22,9 +23,12 @@ export function CardPictures() {
                 <Flex
                     flexWrap="wrap"
                     justifyContent="center"
+
                 >
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -33,13 +37,15 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
 
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -48,13 +54,15 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
 
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -63,13 +71,15 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
 
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -78,13 +88,15 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
 
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -93,13 +105,15 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
 
-                    <Box
-                        w="6rem"
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        w="25%"
                         h="6rem"
                         bg="#E9ECEF"
                         mr={15}
@@ -108,10 +122,10 @@ export function CardPictures() {
                         <Image
                             src="../../../../public/card-image.svg"
                             alt=""
-                            w="6rem"
+                            w="90%"
                             h="4rem"
                         />
-                    </Box>
+                    </Flex>
                 </Flex>
             </Flex>
         </>
