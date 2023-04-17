@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text, Textarea } from "@chakra-ui/react";
 
 
 export function CreateComment() {
@@ -6,8 +6,7 @@ export function CreateComment() {
         <>
             <Flex
                 flexDir="column"
-                // pos="relative"
-                w="47rem"
+                w="100%"
                 h="18rem"
                 p="2.5rem"
                 bg="#FDFDFD"
@@ -16,20 +15,18 @@ export function CreateComment() {
                 mb="2.5rem"
             >
                 <Flex
-                    mb={20}
+                    mb="2%"
                 >
                     <Box>
-                        <Image src="" alt=""/>
+                        <Image src="" alt="" />
                     </Box>
                     <Text>Igor Ramon</Text>
                 </Flex>
                 <Box pos="relative">
-                    <Input
-                        w="39rem"
+                    <Textarea
+                        w="100%"
                         h="8rem"
                         pos="absolute"
-                        // top="0"
-                        // right="0"
                     />
                     <Button
                         w="7rem"
@@ -41,7 +38,7 @@ export function CreateComment() {
                         borderRadius={4}
                         pos="absolute"
                         bottom="-7rem"
-                        right="4rem"
+                        right="1rem"
                     >
                         Comentar
                     </Button>

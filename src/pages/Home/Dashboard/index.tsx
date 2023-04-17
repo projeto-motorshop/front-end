@@ -16,10 +16,11 @@ import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function Dashboard() {
-    const { isMobile } = useUserContext();
+    const { isMobile, isFullHd } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
-        <Flex>
+        <Flex w={isFullHd ? "65%" : "100%"}>
             {isMobile ? (
                 <>
                     <Flex pb={"3rem"}>
