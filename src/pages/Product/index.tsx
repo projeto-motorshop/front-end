@@ -15,9 +15,16 @@ export function Product() {
 
     return (
         <>
+            <HeaderHome />
+            <Box
+                w="100%"
+                height="38rem"
+                pos="absolute"
+                bg="var(--brand1)"
+            />
             <Flex
                 flexDir={isMobile ? "row" : "column"}
-                justifyContent={"center"}
+                justifyContent="center"
                 zIndex={10}
                 pos="relative"
                 left="0"
@@ -27,35 +34,48 @@ export function Product() {
                 margin="auto"
             >
                 <Flex
-                    flexDir={"column"}
+                    flexDir="column"
                 >
                     {
                         isMobile ?
                             (
                                 <Flex
                                     flexDir="column"
+                                    justifyContent="center"
+                                    alignItems="center"
                                 >
-                                    <Flex>
+                                    <Flex
+                                        justifyContent="center"
+                                    >
                                         <Center
-                                            flexDir={"column"}
+                                            flexDir="column"
                                             mr={30}
+                                            w="39%"
                                         >
                                             <CardCar />
                                             <Description />
                                         </Center>
+
                                         <Flex
-                                            // bg="red"
-                                            flexDir={"column"}
+                                            flexDir="column"
+                                            justifyContent="flex-start"
+                                            w="23%"
                                         >
                                             <CardPictures />
                                             <CardUser />
                                         </Flex>
                                     </Flex>
                                     <Flex
-                                        flexDir={"column"}
+                                        justifyContent="flex-start"
+                                        w="63%"
                                     >
-                                        <ListComment />
-                                        <CreateComment />
+                                        <Center
+                                            flexDir="column"
+                                            w="62%"
+                                        >
+                                            <ListComment />
+                                            <CreateComment />
+                                        </Center>
                                     </Flex>
                                 </Flex>
                             )
@@ -66,6 +86,8 @@ export function Product() {
                                 >
                                     <Flex
                                         flexDir="column"
+                                        ml="2%"
+                                        mr="2%"
                                     >
                                         <Center
                                             flexDir={"column"}
@@ -75,7 +97,6 @@ export function Product() {
                                             <Description />
                                         </Center>
                                         <Flex
-                                            // bg="red"
                                             flexDir={"column"}
                                         >
                                             <CardPictures />
@@ -84,6 +105,8 @@ export function Product() {
                                     </Flex>
                                     <Flex
                                         flexDir={"column"}
+                                        ml="2%"
+                                        mr="2%"
                                     >
                                         <ListComment />
                                         <CreateComment />

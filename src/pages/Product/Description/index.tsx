@@ -6,13 +6,13 @@ export function Description() {
         <>
             <Flex
                 flexDir="column"
-                // pos="relative"
                 p="2.5rem"
-                w="47rem"
-                h="13rem"
+                w="100%"
+                h="16rem"
                 mt={20}
                 bg="#FDFDFD"
                 borderRadius={4}
+                overflow="hidden"
             >
                 <Flex
                     flexDir="column"
@@ -20,7 +20,7 @@ export function Description() {
                 >
                     <Text
                         fontSize={20}
-                        mb={20}
+                        mb={10}
                     >
                         Descrição
                     </Text>
