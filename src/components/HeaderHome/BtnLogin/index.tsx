@@ -10,7 +10,7 @@ export function BtnLogin() {
             align="center"
             justify="center"
         >
-            <Stack direction="row" spacing={4} align="center">
+            <Stack direction="row" spacing={4} align="center" px={"1rem"}>
                 <Link to="/">
                     <Button
                         color={"grey.1"}

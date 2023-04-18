@@ -19,7 +19,7 @@ export function HeaderHome() {
     const [user, setUser] = useState("");
 
     // const user = {
-    //     salesman: false,
+    //     salesman: true,
     //     name: "victor henrique",
     //     img: "https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/1610912652422-5DB14EV6QR7GBFBE9U2W/41.jpg",
     // };
@@ -50,7 +50,7 @@ export function HeaderHome() {
                 </Box>
                 <Box>
                     {user ? (
-                        <UserLogged teste={user} />
+                        <UserLogged user={user} />
                     ) : isMobile ? (
                         <BtnLogin />
                     ) : (

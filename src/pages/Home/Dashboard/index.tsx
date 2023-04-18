@@ -14,10 +14,13 @@ import { CardCar } from "../CardCar";
 import { FilterCar } from "../FilterCar";
 import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
+import { useState } from "react";
 
 export function Dashboard() {
     const { isMobile, isFullHd } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const [filteredCars, setFilteredCars] = useState<any>(cars);
 
     return (
         <Flex w={isFullHd ? "65%" : "100%"}>
@@ -25,10 +28,14 @@ export function Dashboard() {
                 <>
                     <Flex pb={"3rem"}>
                         <Box>
-                            <FilterCar close={""} />
+                            <FilterCar
+                                close={""}
+                                filtered={filteredCars}
+                                setFilteredCars={setFilteredCars}
+                            />
                         </Box>
                         <Wrap spacing={"1.5rem"} overflow={"hidden"}>
-                            {cars.map((elem) => {
+                            {filteredCars.map((elem: any) => {
                                 return <CardCar car={elem} />;
                             })}
                         </Wrap>
@@ -43,7 +50,7 @@ export function Dashboard() {
                         py={"2rem"}
                     >
                         <Flex gap={"1.5rem"} overflow={"auto"} py={"2rem"}>
-                            {cars.map((elem) => {
+                            {filteredCars.map((elem: any) => {
                                 return <CardCar car={elem} />;
                             })}
                         </Flex>
@@ -62,7 +69,11 @@ export function Dashboard() {
                                 <ModalOverlay />
                                 <ModalContent>
                                     <ModalCloseButton />
-                                    <FilterCar close={onClose} />
+                                    <FilterCar
+                                        close={onClose}
+                                        filtered={filteredCars}
+                                        setFilteredCars={setFilteredCars}
+                                    />
                                 </ModalContent>
                             </Modal>
                         </Center>

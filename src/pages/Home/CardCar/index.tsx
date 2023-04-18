@@ -29,6 +29,7 @@ export function CardCar({ car }: any) {
                 flexDirection={"row"}
                 onClick={(e) => navigateToCar(car.id)}
                 cursor="pointer"
+                key={car.id}
             >
                 <Flex
                     w={"100%"}
