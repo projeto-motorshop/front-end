@@ -13,7 +13,12 @@ export function Product() {
 
     return (
         <>
-            <Box w="100%" height="38rem" pos="absolute" bg="var(--brand1)" />
+            <Box 
+                w="100%"
+                height="38rem"
+                pos="absolute"
+                bg="var(--brand1)"
+            />
             <Flex
                 flexDir={isMobile ? "row" : "column"}
                 justifyContent="center"
@@ -33,7 +38,10 @@ export function Product() {
                             alignItems="center"
                         >
                             <Flex justifyContent="center">
-                                <Center flexDir="column" mr={30} w="39%">
+                                <Center 
+                                    flexDir="column"
+                                    mr={30}
+                                    w="39%">
                                     <CardCar />
                                     <Description />
                                 </Center>
