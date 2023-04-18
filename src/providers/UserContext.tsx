@@ -3,10 +3,10 @@ import { useMediaQuery } from "@chakra-ui/react";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { IUser, IUserLogin, IUserRequest } from "../interfaces/user";
 import api from "../service/api";
-// import "react-toastify/dist/ReactToastify.css";
-// import { toast } from "react-toastify";
+//  import { toast } from "react-toastify";
 // import api from "../services/api";
 
 
@@ -20,6 +20,7 @@ interface IUserContext {
     isMobile: boolean;
     isFullHd: boolean;
     registerSubmit: (formRegister: IUserRequest) => void;
+    loginFunction: (formLogin: IUserLogin) => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -34,8 +35,10 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const navigate = useNavigate();
 
     const loginFunction = (formLogin: IUserLogin) => {
+        console.log(formLogin);
         api.post("/login", formLogin)
             .then((resp) => {
+
                 localStorage.setItem('formLogin@token', resp.data.token);
                 api.get("/users/profile", {
                     headers: {
@@ -106,6 +109,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 isMobile,
                 isFullHd,
                 registerSubmit,
+                loginFunction
             }}
         >
             {children}

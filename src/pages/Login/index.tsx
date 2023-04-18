@@ -1,15 +1,17 @@
 import { Box, Button, Center, Flex, FormControl, FormLabel, Input, Link, Text } from '@chakra-ui/react';
 import { useForm } from "react-hook-form";
 // import { Link } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FooterHome } from '../../components/FooterHome';
 import { useUserContext } from '../../providers/UserContext';
+import loginSchema from '../../schemas/login.schema';
 import { IUserLogin } from './../../interfaces/user';
 
 
 export const Login = () => {
-    const { isMobile } = useUserContext();
-    const { register, handleSubmit, formState: { errors } } = useForm<IUserLogin>({
-    })
+    const { isMobile, loginFunction } = useUserContext();
+    const { register, handleSubmit, formState: { errors } } = useForm<IUserLogin>(
+        { resolver: yupResolver(loginSchema) })
 
 
 
@@ -30,18 +32,18 @@ export const Login = () => {
                     bg={"grey.10"}
                     padding={"2rem"}
                     borderRadius={"8px"}
-                // h={isMobile ? '65vh' : '78vh'}
+                    h={isMobile ? '66vh' : '80vh'}
                 >
 
                     <FormControl
                         as={"form"}
-                        // onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={handleSubmit(loginFunction)}
                         display={"flex"}
                         flexDirection={"column"}
                         gap={"1.5rem"}
 
                     >
-                        <Text mt={"1.5rem"} fontSize={'35px'}>Login</Text>
+                        <Text mt={"1.5rem"} fontSize={'28px'}>Login</Text>
                         <Box>
                             <FormLabel>Email</FormLabel>
                             <Input
@@ -62,7 +64,7 @@ export const Login = () => {
 
                         <Text>Esqueceu sua senha?</Text>
 
-                        <Button type="submit" bg="brand.1" color={'#ffffff'}>
+                        <Button type="submit" bg="brand.1" color={'#ffffff'} >
                             Entrar
                         </Button>
 
