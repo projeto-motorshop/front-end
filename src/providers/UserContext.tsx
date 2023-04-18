@@ -1,8 +1,9 @@
+
 import { useMediaQuery } from "@chakra-ui/react";
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { IUser, IUserLogin } from "../interfaces/user";
+import { IUser, IUserLogin, IUserRequest } from "../interfaces/user";
 import api from "../service/api";
 // import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
@@ -18,6 +19,7 @@ interface IUserContext {
     setUser: Dispatch<SetStateAction<IUser | null>>;
     isMobile: boolean;
     isFullHd: boolean;
+    registerSubmit: (formRegister: IUserRequest) => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -81,17 +83,14 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     //     }
     // };
 
-    // const registerSubmit = (formRegister: IUserRegister) => {
-    //     try {
-    //         const newData = Object.fromEntries(
-    //             Object.entries(formRegister).filter(([_, v]) => v != "")
-    //         );
-    //         api.post("/users", newData);
-    //         toast.success("conta criada com sucesso!");
-    //     } catch (error) {
-    //         toast.error(`ops, algo de errado`);
-    //     }
-    // };
+    const registerSubmit = async (formRegister: IUserRequest) => {
+        try {
+            await api.post("/users", formRegister);
+            toast.success("conta criada com sucesso!");
+        } catch (error) {
+            toast.error(`ops, algo de errado`);
+        }
+    };
 
     // const logout = async (): Promise<void> => {
     //     setToken("");
@@ -106,7 +105,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 setUser,
                 isMobile,
                 isFullHd,
-
+                registerSubmit,
             }}
         >
             {children}

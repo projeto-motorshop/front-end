@@ -12,7 +12,7 @@ const userSchema = yup.object().shape({
     cep: yup.string().required("CEP Obrigatório"),
     state: yup.string().required("Estado Obrigatório"),
     city: yup.string().required("Cidade Obrigatório"),
-    // salesman: yup.boolean().required(),
+    // salesman: yup.string().required(),
     description: yup.string().notRequired().nullable(),
     birthdate: yup.date().required("Data de aniversário Obrigatório"),
     cpf: yup.string().required("CPF Obrigatório"),
