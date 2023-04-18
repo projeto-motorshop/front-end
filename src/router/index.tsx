@@ -1,12 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Login } from "../pages/Login";
-import { Home } from "../pages/Home";
-import { Product } from "../pages/Product";
-import { Register } from "../pages/Register";
-import { Profile } from "../pages/Profile";
 import { HeaderHome } from "../components/HeaderHome";
-import { FooterHome } from "../components/FooterHome";
+import { Home } from "../pages/Home";
+import { Login } from "../pages/Login";
+import { Product } from "../pages/Product";
+import { Profile } from "../pages/Profile";
+import { Register } from "../pages/Register";
 
 const Router: React.FC = () => {
     return (
@@ -18,7 +17,7 @@ const Router: React.FC = () => {
                 <Route path="/product">
                     <Route path=":carId" element={<Product />} />
                 </Route>
-                <Route path="/profile" element={<Profile />}/>
+                <Route path="/profile" element={<Profile />} />
             </Route>
         </Routes>
     );
