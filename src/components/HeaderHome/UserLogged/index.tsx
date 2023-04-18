@@ -1,26 +1,15 @@
 import {
-    AddIcon,
-    EditIcon,
-    ExternalLinkIcon,
-    HamburgerIcon,
-    RepeatIcon,
-} from "@chakra-ui/icons";
-import {
     Avatar,
-    Box,
-    Button,
     Flex,
     IconButton,
     Menu,
     MenuButton,
-    MenuDivider,
-    MenuGroup,
     MenuItem,
     MenuList,
     Text,
 } from "@chakra-ui/react";
 
-export function UserLogged({ teste }: any) {
+export function UserLogged({ user }: any) {
     return (
         <Menu>
             <Flex align={"center"} gap={"1rem"}>
@@ -36,7 +25,7 @@ export function UserLogged({ teste }: any) {
             <MenuList>
                 <MenuItem>Editar Perdil</MenuItem>
                 <MenuItem>Editar endereço</MenuItem>
-                {teste.salesman ? (
+                {user.salesman ? (
                     <>
                         <MenuItem>Meus Anúncios</MenuItem>
                     </>
