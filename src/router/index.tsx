@@ -1,11 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Login } from "../pages/Login";
+import { HeaderHome } from "../components/HeaderHome";
 import { Home } from "../pages/Home";
+import { Login } from "../pages/Login";
 import { Product } from "../pages/Product";
 import { Register } from "../pages/Register";
-import { HeaderHome } from "../components/HeaderHome";
-import { FooterHome } from "../components/FooterHome";
 
 const Router: React.FC = () => {
     return (

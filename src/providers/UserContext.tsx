@@ -1,12 +1,13 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ReactNode } from "react";
-import { useContext } from "react";
-import { IUser } from "../interfaces/user";
 import { useMediaQuery } from "@chakra-ui/react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { IUser, IUserLogin } from "../interfaces/user";
+import api from "../service/api";
 // import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
 // import api from "../services/api";
+
 
 export interface IUserProviderProps {
     children: ReactNode;
@@ -30,22 +31,22 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
 
     const navigate = useNavigate();
 
-    // const loginFunction = (formLogin: IUserLogin) => {
-    //     api.post("/auth", formLogin)
-    //         .then((resp) => {
-    //             setToken(resp.data.token);
-    //             api.get("/users/profile", {
-    //                 headers: {
-    //                     Authorization: `Bearer ${resp.data.token}`,
-    //                 },
-    //             }).then((resp) => {
-    //                 setUser(resp.data);
-    //                 navigate("/home", { replace: true });
-    //                 toast.success(`bem vindo ${resp.data.name}`);
-    //             });
-    //         })
-    //         .catch((err) => toast.error("email ou senha inválido"));
-    // };
+    const loginFunction = (formLogin: IUserLogin) => {
+        api.post("/login", formLogin)
+            .then((resp) => {
+                localStorage.setItem('formLogin@token', resp.data.token);
+                api.get("/users/profile", {
+                    headers: {
+                        Authorization: `Bearer ${resp.data.token}`,
+                    },
+                }).then((resp) => {
+                    setUser(resp.data);
+                    navigate("/home", { replace: true });
+                    toast.success(`bem vindo ${resp.data.name}`);
+                });
+            })
+            .catch((err) => toast.error("email ou senha inválido"));
+    };
 
     // const patchUser = async (formData: IUser) => {
     //     try {
@@ -105,6 +106,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 setUser,
                 isMobile,
                 isFullHd,
+
             }}
         >
             {children}
