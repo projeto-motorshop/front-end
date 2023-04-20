@@ -1,15 +1,11 @@
 import {
-    Box,
     Button,
-    Flex,
-    Modal,
-    ModalContent,
-    ModalOverlay,
+    Flex
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { EditUserModal } from "../../components/RenderModalContent/ModalEditUser";
-import { EditAddressModal } from "../../components/RenderModalContent/ModalEditAddress";
 import { CreateAdModal } from "../../components/RenderModalContent/ModalAd";
+import { EditAddressModal } from "../../components/RenderModalContent/ModalEditAddress";
+import { EditUserModal } from "../../components/RenderModalContent/ModalEditUser";
 
 export function TestePage() {
     const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
@@ -38,8 +34,10 @@ export function TestePage() {
             />
             <CreateAdModal
                 isOpen={isAdModalOpen}
+
                 onClose={() => setIsAdModalOpen(false)}
             />
+            <Button>teste</Button>
         </Flex>
     );
 }
