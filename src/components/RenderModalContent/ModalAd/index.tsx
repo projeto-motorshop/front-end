@@ -43,7 +43,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
             setPriceFipe(fipeData.data.value);
         };
         isGoodDeal(dados);
-    }, [dados, priceFipe]);
+    }, []);
 
 
 

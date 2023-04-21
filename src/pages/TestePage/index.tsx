@@ -4,6 +4,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { CreateAdModal } from "../../components/RenderModalContent/ModalAd";
+import { EditAdModal } from "../../components/RenderModalContent/ModalEditAd";
 import { EditAddressModal } from "../../components/RenderModalContent/ModalEditAddress";
 import { EditUserModal } from "../../components/RenderModalContent/ModalEditUser";
 
@@ -11,6 +12,7 @@ export function TestePage() {
     const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
     const [isEditAddressModalOpen, setIsEditAddressModalOpen] = useState(false);
     const [isAdModalOpen, setIsAdModalOpen] = useState(false);
+    const [isEditAdModalOpen, setIsEditAdModalOpen] = useState(false);
 
     return (
         <Flex gap={"2rem"}>
@@ -22,6 +24,9 @@ export function TestePage() {
             </Button>
             <Button bg={"red"} onClick={() => setIsAdModalOpen(true)}>
                 Criar Anuncio
+            </Button>
+            <Button bg={"red"} onClick={() => setIsEditAdModalOpen(true)}>
+                Editar Anuncio
             </Button>
 
             <EditUserModal
@@ -38,6 +43,10 @@ export function TestePage() {
                 onClose={() => setIsAdModalOpen(false)}
             />
             <Button>teste</Button>
-        </Flex>
+            <EditAdModal
+                isOpen={isEditAdModalOpen}
+                onClose={() => setIsEditAdModalOpen(false)}
+            />
+        </Flex >
     );
 }

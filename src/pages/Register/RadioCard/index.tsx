@@ -7,7 +7,7 @@ export function RadioCard(props: any) {
     const checkbox = getRadioProps();
 
     return (
-        <Box as="label">
+        <Box as="label" w={"50%"} textAlign={"center"}>
             <input {...input} />
             <Box
                 {...checkbox}
