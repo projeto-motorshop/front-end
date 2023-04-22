@@ -66,6 +66,49 @@ export function CardCar({ car }: any) {
                         ) : (
                             <></>
                         )}
+                        {car.isPublished ? (
+                            <Flex
+                                pos={"absolute"}
+                                left="4px"
+                                top={"5px"}
+                                zIndex={3}
+                                bg={"brand.1"}
+                                h={"1.5rem"}
+                                alignItems={"center"}
+                                borderRadius={"2px"}
+                            >
+                                <Badge
+                                    bg={"brand.1"}
+                                    color={"white"}
+                                    fontSize={"0.875rem"}
+                                    fontWeight={"500"}
+                                >
+                                    Ativo
+                                </Badge>
+                            </Flex>
+                        ) : (
+                            <>
+                                <Flex
+                                    pos={"absolute"}
+                                    left="4px"
+                                    top={"5px"}
+                                    zIndex={3}
+                                    bg={"grey.4"}
+                                    h={"1.5rem"}
+                                    alignItems={"center"}
+                                    borderRadius={"2px"}
+                                >
+                                    <Badge
+                                        bg={"grey.4"}
+                                        color={"white"}
+                                        fontSize={"0.875rem"}
+                                        fontWeight={"500"}
+                                    >
+                                        Inativo
+                                    </Badge>
+                                </Flex>
+                            </>
+                        )}
 
                         <Image
                             src={car.Image}

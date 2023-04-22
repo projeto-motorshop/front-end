@@ -1,11 +1,9 @@
 import {
-    Box,
     Button,
     Flex,
     FormControl,
     FormLabel,
     Input,
-    Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
@@ -14,6 +12,7 @@ import {
     ModalOverlay,
     Select,
     Textarea,
+    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { ICarsRequest } from "../../../interfaces/car";
@@ -21,7 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { reqCarSchema } from "../../../schemas/car.schema";
 import { useFieldArray } from "react-hook-form";
 
-export function CreateAdModal({ isOpen, onClose }: any) {
+export function CreateAdModal({ onClose }: UseDisclosureProps) {
     const formSubmit = (data: any) => {
         //TODO: conecta na api
         console.log(data);
@@ -46,7 +45,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
         name: "images",
     });
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Criar Anúncio</ModalHeader>
@@ -81,12 +80,9 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                                     placeholder="Tipo de Combustível"
                                     {...register("fuel")}
                                 >
-                                    <option value="gasoline">Gasolina</option>
-                                    <option value="ethanol">Etanol</option>
-                                    <option value="flex">Flex</option>
-                                    <option value="diesel">Diesel</option>
-                                    <option value="electric">Elétrico</option>
-                                    <option value="hybrid">Híbrido</option>
+                                    <option defaultValue="1">Flex</option>
+                                    <option defaultValue="2">Híbrido</option>
+                                    <option defaultValue="3">Elétrico</option>
                                 </Select>
                                 {errors.fuel?.message}
                             </Flex>
@@ -130,6 +126,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                         <FormLabel>Descrição</FormLabel>
                         <Textarea
                             placeholder="Descrição"
+                            resize={"none"}
                             {...register("description")}
                         />
                         {errors.description?.message}
@@ -201,6 +198,6 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                     </FormControl>
                 </ModalBody>
             </ModalContent>
-        </Modal>
+        </>
     );
 }

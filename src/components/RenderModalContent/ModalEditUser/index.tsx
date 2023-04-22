@@ -15,6 +15,7 @@ import {
     FormControl,
     Flex,
     Text,
+    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -22,7 +23,7 @@ import { IUserUpdate } from "../../../interfaces/user";
 import { updateUserSchema } from "../../../schemas/user.schema";
 import ReactInputMask from "react-input-mask";
 
-export function EditUserModal({ isOpen, onClose }: any) {
+export function EditUserModal({ onClose }: UseDisclosureProps) {
     const formSubmit = (data: any) => {
         //TODO: conecta na api
         console.log(data);
@@ -39,7 +40,7 @@ export function EditUserModal({ isOpen, onClose }: any) {
     });
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Editar perfil</ModalHeader>
@@ -131,6 +132,6 @@ export function EditUserModal({ isOpen, onClose }: any) {
                     </ModalFooter>
                 </FormControl>
             </ModalContent>
-        </Modal>
+        </>
     );
 }

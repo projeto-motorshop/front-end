@@ -16,7 +16,7 @@ export function BannerHome() {
                 mb={"2rem"}
             >
                 <BannerStyle>
-                    <Image src={banner} alt="um carro qualquer"></Image>
+                    <Image src={banner} alt="um carro qualquer"/>
                 </BannerStyle>
 
                 <Box

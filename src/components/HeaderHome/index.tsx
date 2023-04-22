@@ -10,26 +10,18 @@ import {
 import { UserLogged } from "./UserLogged";
 import { BtnLogin } from "./BtnLogin";
 import { MenuHamb } from "./MenuHamb";
-import { useState } from "react";
 import { useUserContext } from "../../providers/UserContext";
 import { Link, Outlet } from "react-router-dom";
 
 export function HeaderHome() {
-    const { isMobile, isFullHd } = useUserContext();
-    const [user, setUser] = useState("");
-
-    // const user = {
-    //     salesman: true,
-    //     name: "victor henrique",
-    //     img: "https://images.squarespace-cdn.com/content/v1/5fe4caeadae61a2f19719512/1610912652422-5DB14EV6QR7GBFBE9U2W/41.jpg",
-    // };
+    const { isMobile, isFullHd, user } = useUserContext();
 
     return (
         <>
             <Flex
                 bg="whiteFixed"
                 w="100%"
-                h="20"
+                h="5rem"
                 px={5}
                 borderBottom="1px"
                 borderColor="grey.6"
@@ -50,7 +42,7 @@ export function HeaderHome() {
                 </Box>
                 <Box>
                     {user ? (
-                        <UserLogged user={user} />
+                        <UserLogged />
                     ) : isMobile ? (
                         <BtnLogin />
                     ) : (
