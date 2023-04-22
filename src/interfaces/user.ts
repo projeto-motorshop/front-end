@@ -8,7 +8,7 @@ export interface IUser {
     description: string;
     cpf: string;
     salesman: boolean;
-    birthdate?: string;
+    birthdate?: Date;
 }
 
 export interface IUserResponse {
@@ -52,7 +52,7 @@ export interface IUserUpdate {
     cpf?: string;
     description?: string | null;
     salesman?: boolean;
-    birthdate?: Date;
+    birthdate?: string;
 }
 
 export interface IAddressRequest {
@@ -61,6 +61,14 @@ export interface IAddressRequest {
     cep: string;
     street: string;
     number: string;
+    complement?: string | null;
+}
+export interface IAddressUpdate {
+    city?: string;
+    state?: string;
+    cep?: string;
+    street?: string;
+    number?: string;
     complement?: string | null;
 }
 

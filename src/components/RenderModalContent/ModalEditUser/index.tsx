@@ -22,14 +22,10 @@ import { useForm } from "react-hook-form";
 import { IUserUpdate } from "../../../interfaces/user";
 import { updateUserSchema } from "../../../schemas/user.schema";
 import ReactInputMask from "react-input-mask";
+import { useUserContext } from "../../../providers/UserContext";
 
 export function EditUserModal({ onClose }: UseDisclosureProps) {
-    const formSubmit = (data: any) => {
-        //TODO: conecta na api
-        console.log(data);
-
-        // onClose();
-    };
+    const { patchUser } = useUserContext();
 
     const {
         register,
@@ -50,7 +46,7 @@ export function EditUserModal({ onClose }: UseDisclosureProps) {
                     flexDir={"column"}
                     gap={"1rem"}
                     as={"form"}
-                    onSubmit={handleSubmit(formSubmit)}
+                    onSubmit={handleSubmit(patchUser)}
                 >
                     <ModalBody>
                         <Flex flexDir={"column"} gap={"1rem"}>

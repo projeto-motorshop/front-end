@@ -9,15 +9,17 @@ import {
 } from "@chakra-ui/react";
 import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
+import { ICarsRequest } from "../../../interfaces/car";
+import { ReactNode } from "react";
 
-export function FilterCar({ close, filtered, setFilteredCars }: any) {
-    const { isMobile } = useUserContext();
+export function FilterCar({ filtered, setFilteredCars }: any) {
+    const { isMobile, onClose } = useUserContext();
 
-    let brands = [...new Set(filtered.map((car: any) => car.brand))];
-    let models = [...new Set(filtered.map((car: any) => car.model))];
-    let colors = [...new Set(filtered.map((car: any) => car.color))];
-    let fuels = [...new Set(filtered.map((car: any) => car.fuel))];
-    let years = [...new Set(filtered.map((car: any) => car.year))];
+    let brands = [...new Set(filtered.map((car: ICarsRequest) => car.brand))];
+    let models = [...new Set(filtered.map((car: ICarsRequest) => car.model))];
+    let colors = [...new Set(filtered.map((car: ICarsRequest) => car.color))];
+    let fuels = [...new Set(filtered.map((car: ICarsRequest) => car.fuel))];
+    let years = [...new Set(filtered.map((car: ICarsRequest) => car.year))];
 
     const filterCars = (value: any, type: string) => {
         //TODO:finge q chama a api
@@ -37,18 +39,19 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                     h={"11rem"}
                     w={"100%"}
                     p={"1rem"}
+                    key={"Marca"}
                 >
-                    {brands.map((elem: any) => {
+                    {brands.map((elem, index) => {
                         return (
                             <>
                                 <ListItem
                                     cursor={"pointer"}
-                                    key={elem}
-                                    onClick={(e) => {
+                                    key={index}
+                                    onClick={() => {
                                         filterCars(elem, "brand");
                                     }}
                                 >
-                                    {elem}
+                                    {elem as ReactNode}
                                 </ListItem>
                             </>
                         );
@@ -65,18 +68,19 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                     h={"11rem"}
                     w={"100%"}
                     p={"1rem"}
+                    key={"Modelo"}
                 >
-                    {models.map((elem: any) => {
+                    {models.map((elem, index) => {
                         return (
                             <>
                                 <ListItem
                                     cursor={"pointer"}
-                                    key={elem}
-                                    onClick={(e) => {
+                                    key={index}
+                                    onClick={() => {
                                         filterCars(elem, "model");
                                     }}
                                 >
-                                    {elem}
+                                    {elem as ReactNode}
                                 </ListItem>
                             </>
                         );
@@ -93,18 +97,19 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                     p={"1rem"}
                     overflow={"auto"}
                     h={"11rem"}
+                    key={"Cor"}
                 >
-                    {colors.map((elem: any) => {
+                    {colors.map((elem, index) => {
                         return (
                             <>
                                 <ListItem
                                     cursor={"pointer"}
-                                    key={elem}
-                                    onClick={(e) => {
+                                    key={index}
+                                    onClick={() => {
                                         filterCars(elem, "color");
                                     }}
                                 >
-                                    {elem}
+                                    {elem as ReactNode}
                                 </ListItem>
                             </>
                         );
@@ -121,18 +126,19 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                     h={"11rem"}
                     w={"100%"}
                     p={"1rem"}
+                    key={"Ano"}
                 >
-                    {years.map((elem: any) => {
+                    {years.map((elem, index) => {
                         return (
                             <>
                                 <ListItem
                                     cursor={"pointer"}
-                                    key={elem}
-                                    onClick={(e) => {
+                                    key={index}
+                                    onClick={() => {
                                         filterCars(elem, "year");
                                     }}
                                 >
-                                    {elem}
+                                    {elem as ReactNode}
                                 </ListItem>
                             </>
                         );
@@ -143,18 +149,24 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                 <Text fontWeight={"600"} fontSize={"28px"}>
                     Combustível
                 </Text>
-                <List spacing={3} overflow={"auto"} w={"100%"} p={"1rem"}>
-                    {fuels.map((elem: any) => {
+                <List
+                    spacing={3}
+                    overflow={"auto"}
+                    w={"100%"}
+                    p={"1rem"}
+                    key={"Combustivel"}
+                >
+                    {fuels.map((elem, index) => {
                         return (
                             <>
                                 <ListItem
                                     cursor={"pointer"}
-                                    key={elem}
-                                    onClick={(e) => {
+                                    key={index}
+                                    onClick={() => {
                                         filterCars(elem, "fuel");
                                     }}
                                 >
-                                    {elem}
+                                    {elem as ReactNode}
                                 </ListItem>
                             </>
                         );
@@ -220,7 +232,7 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                             borderRadius={"4px"}
                             mb={"1rem"}
                             _hover={{ bg: "brand.4", color: "brand.1" }}
-                            onClick={(e) => {
+                            onClick={() => {
                                 setFilteredCars(cars);
                             }}
                         >
@@ -237,7 +249,7 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                                 borderRadius={"4px"}
                                 mb={"1rem"}
                                 _hover={{ bg: "brand.4", color: "brand.1" }}
-                                onClick={(e) => {
+                                onClick={() => {
                                     setFilteredCars(cars);
                                 }}
                             >
@@ -250,7 +262,7 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
                                 borderRadius={"4px"}
                                 mb={"1rem"}
                                 _hover={{ bg: "brand.4", color: "brand.1" }}
-                                onClick={close}
+                                onClick={onClose}
                             >
                                 Ver Anuncios
                             </Button>

@@ -20,7 +20,7 @@ export function Dashboard() {
     const { isMobile, isFullHd } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [filteredCars, setFilteredCars] = useState<any>(cars);
+    const [filteredCars, setFilteredCars] = useState(cars);
 
     return (
         <Flex w={isFullHd ? "65%" : "100%"}>
@@ -29,14 +29,13 @@ export function Dashboard() {
                     <Flex pb={"3rem"}>
                         <Box>
                             <FilterCar
-                                close={""}
                                 filtered={filteredCars}
                                 setFilteredCars={setFilteredCars}
                             />
                         </Box>
                         <Wrap spacing={"1.5rem"} overflow={"hidden"}>
-                            {filteredCars.map((elem: any) => {
-                                return <CardCar car={elem} />;
+                            {filteredCars.map((car: any) => {
+                                return <CardCar car={car} />;
                             })}
                         </Wrap>
                     </Flex>
@@ -70,7 +69,6 @@ export function Dashboard() {
                                 <ModalContent>
                                     <ModalCloseButton />
                                     <FilterCar
-                                        close={onClose}
                                         filtered={filteredCars}
                                         setFilteredCars={setFilteredCars}
                                     />
