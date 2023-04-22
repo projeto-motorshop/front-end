@@ -1,17 +1,14 @@
 import {
-    Box,
     Button,
-    Flex,
     Modal,
-    ModalContent,
-    ModalOverlay,
     useDisclosure,
+    Flex
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { EditUserModal } from "../../components/RenderModalContent/ModalEditUser";
-import { EditAddressModal } from "../../components/RenderModalContent/ModalEditAddress";
 import { CreateAdModal } from "../../components/RenderModalContent/ModalAd";
 import { EditAdModal } from "../../components/RenderModalContent/ModalEditAd";
+import { EditAddressModal } from "../../components/RenderModalContent/ModalEditAddress";
+import { EditUserModal } from "../../components/RenderModalContent/ModalEditUser";
 
 export function TestePage() {
     const { isOpen, onOpen, onClose } = useDisclosure();

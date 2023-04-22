@@ -14,19 +14,65 @@ import {
     Textarea,
     UseDisclosureProps,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-import { ICarsRequest } from "../../../interfaces/car";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+import { ICarsRequest } from "../../../interfaces/car";
 import { reqCarSchema } from "../../../schemas/car.schema";
-import { useFieldArray } from "react-hook-form";
+import api from "../../../service/api";
+
+
+
 
 export function CreateAdModal({ onClose }: UseDisclosureProps) {
+    const [priceFipe, setPriceFipe] = useState(0);
+    const [dados, setDados] = useState({});
+
     const formSubmit = (data: any) => {
-        //TODO: conecta na api
-        console.log(data);
+        setDados(data);
 
         // onClose();
     };
+
+    useEffect(() => {
+        const isGoodDeal = async (data: any) => {
+            const fipeData = await api.get(
+                `https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`
+            );
+
+            setPriceFipe(fipeData.data.value);
+        };
+        isGoodDeal(dados);
+    }, []);
+
+
+
+
+
+
+
+
+
+    // const isGoodDeal = async (data: any) => {
+    //     useEffect(() => { }, [])
+    //     try {
+    //         const fipeData = await api.get(`https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`)
+    //         console.log(fipeData);
+    //         setPriceFipe(fipeData.data.value)
+    //         console.log(priceFipe);
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+
+    // const formSubmit = (data: any) => {
+    //     // console.log(data);
+    //     isGoodDeal(data);
+
+    //     // onClose();
+    // };
+
+
 
     const {
         register,
@@ -56,6 +102,7 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                         flexDir={"column"}
                         gap={"1rem"}
                         as={"form"}
+
                         onSubmit={handleSubmit(formSubmit)}
                     >
                         <FormLabel>Marca</FormLabel>
@@ -110,6 +157,7 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                                 <FormLabel>Preço tabela Fipe</FormLabel>
                                 <Input
                                     placeholder="Preço tabela FIPE"
+                                    value={priceFipe}
                                     {...register("priceFipe")}
                                 />
                                 {errors.priceFipe?.message}
@@ -191,6 +239,7 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                                 color={"white"}
                                 _hover={{ bg: "brand.2" }}
                                 type="submit"
+
                             >
                                 Criar anúncio
                             </Button>
@@ -201,3 +250,7 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
         </>
     );
 }
+function isGoodDeal(data: any) {
+    throw new Error("Function not implemented.");
+}
+
