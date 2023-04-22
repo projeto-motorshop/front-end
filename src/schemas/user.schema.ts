@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IAddressRequest, IUserUpdate } from "../interfaces/user";
+import { IAddressRequest, IAddressUpdate, IUserUpdate } from "../interfaces/user";
 
 const regexPhone =
     /^\s*(\d{2}|\d{0})|\(\d{2}|\d{0}\)?[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/;
@@ -38,9 +38,18 @@ const addressSchema: SchemaOf<IAddressRequest> = yup.object().shape({
     city: yup.string().required(),
 });
 
-const updateUserSchema: SchemaOf<IUserUpdate> = yup.object().shape({
+const updateAddressSchema: SchemaOf<IAddressUpdate> = yup.object().shape({
+    complement: yup.string().notRequired().nullable(),
+    number: yup.string().notRequired(),
+    street: yup.string().notRequired(),
+    cep: yup.string().notRequired(),
+    state: yup.string().notRequired(),
+    city: yup.string().notRequired(),
+});
+
+const updateUserSchema: yup.SchemaOf<IUserUpdate> = yup.object().shape({
     description: yup.string().notRequired().nullable(),
-    birthdate: yup.date().notRequired(),
+    birthdate: yup.string().notRequired(),
     salesman: yup.boolean().notRequired(),
     cpf: yup.string().notRequired(),
     phone: yup.string().notRequired(),
@@ -50,4 +59,4 @@ const updateUserSchema: SchemaOf<IUserUpdate> = yup.object().shape({
     urlImg: yup.string().notRequired().nullable(),
 });
 
-export { userSchema, updateUserSchema, addressSchema };
+export { userSchema, updateUserSchema, addressSchema, updateAddressSchema };

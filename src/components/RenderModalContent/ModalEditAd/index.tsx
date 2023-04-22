@@ -41,7 +41,7 @@ export const EditAdModal = ({ onClose }: UseDisclosureProps) => {
     });
 
     const group = getRootProps();
-    const formSubmit = (data: any) => {
+    const formSubmit = (data: ICarsUpdate) => {
         let variant = {};
 
         if (published === "Sim") {

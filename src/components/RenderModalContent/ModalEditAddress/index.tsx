@@ -18,24 +18,20 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ReactInputMask from "react-input-mask";
-import { IAddressRequest } from "../../../interfaces/user";
-import { addressSchema } from "../../../schemas/user.schema";
+import { IAddressUpdate } from "../../../interfaces/user";
+import { updateAddressSchema } from "../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
+import { useUserContext } from "../../../providers/UserContext";
 
 export function EditAddressModal({ onClose }: UseDisclosureProps) {
-    const formSubmit = (data: any) => {
-        //TODO: conecta na api
-        console.log(data);
-
-        // onClose();
-    };
+    const { patchUserAddress } = useUserContext();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<IAddressRequest>({
-        resolver: yupResolver(addressSchema),
+    } = useForm<IAddressUpdate>({
+        resolver: yupResolver(updateAddressSchema),
     });
 
     return (
@@ -49,7 +45,7 @@ export function EditAddressModal({ onClose }: UseDisclosureProps) {
                     flexDir={"column"}
                     gap={"1rem"}
                     as={"form"}
-                    onSubmit={handleSubmit(formSubmit)}
+                    onSubmit={handleSubmit(patchUserAddress)}
                 >
                     <ModalBody>
                         <Flex flexDir={"column"} gap={"1rem"}>

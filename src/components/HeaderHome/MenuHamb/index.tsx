@@ -20,14 +20,10 @@ export function MenuHamb() {
             />
             <MenuList>
                 <Link to="/">
-                    <MenuItem command={(<FiLogIn color="cyan" />) as any}>
-                        Fazer Login
-                    </MenuItem>
+                    <MenuItem>Fazer Login</MenuItem>
                 </Link>
                 <Link to="/register">
-                    <MenuItem command={(<FiLogIn color="cyan" />) as any}>
-                        Cadastro
-                    </MenuItem>
+                    <MenuItem>Cadastro</MenuItem>
                 </Link>
             </MenuList>
         </Menu>

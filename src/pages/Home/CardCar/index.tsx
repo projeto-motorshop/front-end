@@ -13,10 +13,10 @@ import { useUserContext } from "../../../providers/UserContext";
 import { useNavigate } from "react-router";
 
 export function CardCar({ car }: any) {
-    const { isMobile, isFullHd } = useUserContext();
+    const { isMobile } = useUserContext();
     const navigate = useNavigate();
 
-    const navigateToCar = (id: any) => {
+    const navigateToCar = (id: string) => {
         navigate(`/product/${id}`);
     };
 
