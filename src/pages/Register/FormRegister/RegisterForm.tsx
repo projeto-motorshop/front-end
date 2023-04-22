@@ -33,8 +33,8 @@ export function FormRegister() {
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
-        defaultValue: "react",
-        onChange: valueRadio,
+        defaultValue: "Anunciante",
+        onChange: console.log,
     });
 
     const group = getRootProps();
@@ -93,21 +93,12 @@ export function FormRegister() {
                         <Text mt={"1.5rem"}>Informações Pessoais</Text>
 
                         <Box>
-                            <FormLabel>Imagem de perfil</FormLabel>
-                            <Input
-                                placeholder="Ex: https://"
-                                {...register("urlImg")}
-                            />
-                            {errors.urlImg?.message}
-                        </Box>
-
-                        <Box>
                             <FormLabel>Nome</FormLabel>
                             <Input
                                 placeholder="Ex: Tobias"
                                 {...register("name")}
                             />
-                            {errors.name?.message}
+                            <Text color="red">{errors.name?.message}</Text>
                         </Box>
 
                         <Box>
@@ -116,7 +107,7 @@ export function FormRegister() {
                                 placeholder="Ex: victor@mail.com"
                                 {...register("email")}
                             />
-                            {errors.email?.message}
+                            <Text color="red">{errors.email?.message}</Text>
                         </Box>
 
                         <Box>
@@ -125,7 +116,7 @@ export function FormRegister() {
                                 placeholder="Ex: Digitar senha"
                                 {...register("password")}
                             />
-                            {errors.password?.message}
+                            <Text color="red">{errors.password?.message}</Text>
                         </Box>
 
                         <Box>
@@ -134,7 +125,9 @@ export function FormRegister() {
                                 placeholder="Ex: Confirmar senha"
                                 {...register("passwordConfirm")}
                             />
-                            {errors.passwordConfirm?.message}
+                            <Text color="red">
+                                {errors.passwordConfirm?.message}
+                            </Text>
                         </Box>
 
                         <Box>
@@ -146,7 +139,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("cpf")}
                             />
-                            {errors.cpf?.message}
+                            <Text color="red">{errors.cpf?.message}</Text>
                         </Box>
 
                         <Box>
@@ -158,7 +151,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("phone")}
                             />
-                            {errors.phone?.message}
+                            <Text color="red">{errors.phone?.message}</Text>
                         </Box>
 
                         <Box>
@@ -170,7 +163,15 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("birthdate")}
                             />
-                            {errors.birthdate?.message}
+                            <Text color="red">{errors.birthdate?.message}</Text>
+                        </Box>
+                        <Box>
+                            <FormLabel>Imagem de perfil</FormLabel>
+                            <Input
+                                placeholder="Ex: https://"
+                                {...register("urlImg")}
+                            />
+                            <Text color="red">{errors.urlImg?.message}</Text>
                         </Box>
 
                         <Box>
@@ -180,7 +181,9 @@ export function FormRegister() {
                                 {...register("description")}
                                 resize={"none"}
                             />
-                            {errors.description?.message}
+                            <Text color="red">
+                                {errors.description?.message}
+                            </Text>
                         </Box>
 
                         <Text>Informações de endereço</Text>
@@ -194,7 +197,7 @@ export function FormRegister() {
                                 maskChar={null}
                                 {...register("cep")}
                             />
-                            {errors.cep?.message}
+                            <Text color="red">{errors.cep?.message}</Text>
                         </Box>
 
                         <Flex gap={"1rem"}>
@@ -204,7 +207,7 @@ export function FormRegister() {
                                     placeholder="Ex: São Paulo"
                                     {...register("state")}
                                 />
-                                {errors.state?.message}
+                                <Text color="red">{errors.state?.message}</Text>
                             </Box>
                             <Box>
                                 <FormLabel>Cidade</FormLabel>
@@ -212,7 +215,7 @@ export function FormRegister() {
                                     placeholder="Ex: Morumbi"
                                     {...register("city")}
                                 />
-                                {errors.city?.message}
+                                <Text color="red">{errors.city?.message}</Text>
                             </Box>
                         </Flex>
 
@@ -222,7 +225,7 @@ export function FormRegister() {
                                 placeholder="Ex: Rua do sol"
                                 {...register("street")}
                             />
-                            {errors.state?.message}
+                            <Text color="red">{errors.state?.message}</Text>
                         </Box>
 
                         <Flex gap={"1rem"}>
@@ -232,6 +235,9 @@ export function FormRegister() {
                                     placeholder="Ex: 4321"
                                     {...register("number")}
                                 />
+                                <Text color="red">
+                                    {errors.number?.message}
+                                </Text>
                             </Box>
                             <Box>
                                 <FormLabel>Complemento</FormLabel>
@@ -254,7 +260,6 @@ export function FormRegister() {
 
                                 return (
                                     <>
-                                        {value == "Comprador"}
                                         <Input
                                             display={"none"}
                                             value={"true"}
@@ -267,7 +272,12 @@ export function FormRegister() {
                             })}
                         </HStack>
 
-                        <Button type="submit" bg="brand.1">
+                        <Button
+                            type="submit"
+                            bg="brand.1"
+                            color={"white"}
+                            _hover={{ bg: "brand.3" }}
+                        >
                             Finalizar cadastro
                         </Button>
                     </FormControl>

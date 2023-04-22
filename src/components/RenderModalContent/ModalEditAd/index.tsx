@@ -12,14 +12,12 @@ import {
     Input,
     Select,
     Textarea,
-    Checkbox,
-    Stack,
-    Image,
     Text,
     Flex,
     Box,
     useRadioGroup,
     HStack,
+    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -27,17 +25,18 @@ import { ICarsUpdate } from "../../../interfaces/car";
 import { updateCarSchema } from "../../../schemas/car.schema";
 import { RadioCard } from "../../../pages/Register/RadioCard";
 
-export const EditAdModal = ({ isOpen, onClose }: any) => {
+export const EditAdModal = ({ onClose }: UseDisclosureProps) => {
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
 
-    const valueRadio = (value: any) => {
+    const valueRadio = (value: string) => {
+        console.log(value);
         setPublished(value);
     };
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
-        defaultValue: "não",
+        defaultValue: "Não",
         onChange: valueRadio,
     });
 
@@ -77,7 +76,7 @@ export const EditAdModal = ({ isOpen, onClose }: any) => {
     });
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Editar Anúncio</ModalHeader>
@@ -120,11 +119,13 @@ export const EditAdModal = ({ isOpen, onClose }: any) => {
                                 <Box w={"50%"}>
                                     <FormLabel>Combustível</FormLabel>
                                     <Select>
-                                        <option value="flex">flex</option>
-                                        <option value="electric">
+                                        <option defaultValue="1">flex</option>
+                                        <option defaultValue="2">
+                                            Híbrido
+                                        </option>
+                                        <option defaultValue="3">
                                             Elétrico
                                         </option>
-                                        <option value="hybrid">Híbrido</option>
                                     </Select>
                                     {errors.fuel?.message}
                                 </Box>
@@ -186,11 +187,10 @@ export const EditAdModal = ({ isOpen, onClose }: any) => {
 
                                         return (
                                             <>
-                                                {value == "Sim"}
                                                 <Input
                                                     w={"50%"}
                                                     display={"none"}
-                                                    value={"true"}
+                                                    defaultValue={"true"}
                                                 />
                                                 <RadioCard
                                                     key={value}
@@ -275,6 +275,6 @@ export const EditAdModal = ({ isOpen, onClose }: any) => {
                     </ModalFooter>
                 </FormControl>
             </ModalContent>
-        </Modal>
+        </>
     );
 };

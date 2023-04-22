@@ -23,7 +23,6 @@ export function FilterCar({ close, filtered, setFilteredCars }: any) {
         //TODO:finge q chama a api
         const carsFilter = filtered.filter((car: any) => car[type] == value);
         setFilteredCars(carsFilter);
-        console.log(carsFilter);
     };
 
     return (

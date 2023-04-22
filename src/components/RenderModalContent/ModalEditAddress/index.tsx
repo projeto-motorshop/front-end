@@ -14,6 +14,7 @@ import {
     Flex,
     Box,
     FormControl,
+    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ReactInputMask from "react-input-mask";
@@ -21,7 +22,7 @@ import { IAddressRequest } from "../../../interfaces/user";
 import { addressSchema } from "../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 
-export function EditAddressModal({ isOpen, onClose }: any) {
+export function EditAddressModal({ onClose }: UseDisclosureProps) {
     const formSubmit = (data: any) => {
         //TODO: conecta na api
         console.log(data);
@@ -38,7 +39,7 @@ export function EditAddressModal({ isOpen, onClose }: any) {
     });
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Editar Endereço</ModalHeader>
@@ -129,6 +130,6 @@ export function EditAddressModal({ isOpen, onClose }: any) {
                     </ModalFooter>
                 </FormControl>
             </ModalContent>
-        </Modal>
+        </>
     );
 }

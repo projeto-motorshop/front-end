@@ -1,14 +1,24 @@
-
-import { useMediaQuery } from "@chakra-ui/react";
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import {
+    UseDisclosureProps,
+    useDisclosure,
+    useMediaQuery,
+} from "@chakra-ui/react";
+import {
+    createContext,
+    Dispatch,
+    ReactNode,
+    SetStateAction,
+    useContext,
+    useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IUser, IUserLogin, IUserRequest } from "../interfaces/user";
 import api from "../service/api";
+import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 //  import { toast } from "react-toastify";
 // import api from "../services/api";
-
 
 export interface IUserProviderProps {
     children: ReactNode;
@@ -21,11 +31,20 @@ interface IUserContext {
     isFullHd: boolean;
     registerSubmit: (formRegister: IUserRequest) => void;
     loginFunction: (formLogin: IUserLogin) => void;
+    logout: () => Promise<void>;
+    isOpen: boolean;
+    onOpen: () => void;
+    onClose: () => void;
+    overlay: React.ReactNode;
+    setOverlay: (overlay: React.ReactNode) => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
+    const [token, setToken] = useState("");
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [overlay, setOverlay] = useState<React.ReactNode>(<EditUserModal />);
     const [user, setUser] = useState<IUser | null>(null);
     const [isMobile, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
@@ -35,14 +54,13 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const navigate = useNavigate();
 
     const loginFunction = (formLogin: IUserLogin) => {
-        console.log(formLogin);
         api.post("/login", formLogin)
             .then((resp) => {
-
-                localStorage.setItem('formLogin@token', resp.data.token);
-                api.get("/users/profile", {
+                localStorage.setItem("formLogin@token", resp.data.tokenUser);
+                setToken(resp.data.tokenUser);
+                api.get(`/users/profile`, {
                     headers: {
-                        Authorization: `Bearer ${resp.data.token}`,
+                        Authorization: `Bearer ${resp.data.tokenUser}`,
                     },
                 }).then((resp) => {
                     setUser(resp.data);
@@ -90,16 +108,18 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         try {
             await api.post("/users", formRegister);
             toast.success("conta criada com sucesso!");
+            navigate("/login", { replace: true });
         } catch (error) {
             toast.error(`ops, algo de errado`);
         }
     };
 
-    // const logout = async (): Promise<void> => {
-    //     setToken("");
-    //     setUser(null);
-    //     navigate("/");
-    // };
+    const logout = async (): Promise<void> => {
+        setToken("");
+        localStorage.clear();
+        setUser(null);
+        navigate("/");
+    };
 
     return (
         <AuthContext.Provider
@@ -109,7 +129,13 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 isMobile,
                 isFullHd,
                 registerSubmit,
-                loginFunction
+                loginFunction,
+                logout,
+                isOpen,
+                onOpen,
+                onClose,
+                overlay,
+                setOverlay,
             }}
         >
             {children}

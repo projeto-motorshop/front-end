@@ -4,7 +4,6 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Modal,
     ModalBody,
     ModalCloseButton,
     ModalContent,
@@ -12,7 +11,8 @@ import {
     ModalHeader,
     ModalOverlay,
     Select,
-    Textarea
+    Textarea,
+    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
@@ -24,7 +24,7 @@ import api from "../../../service/api";
 
 
 
-export function CreateAdModal({ isOpen, onClose }: any) {
+export function CreateAdModal({ onClose }: UseDisclosureProps) {
     const [priceFipe, setPriceFipe] = useState(0);
     const [dados, setDados] = useState({});
 
@@ -91,7 +91,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
         name: "images",
     });
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Criar Anúncio</ModalHeader>
@@ -127,9 +127,9 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                                     placeholder="Tipo de Combustível"
                                     {...register("fuel")}
                                 >
-                                    <option value="1">Flex</option>
-                                    <option value="2">Híbrido</option>
-                                    <option value="3">Elétrico</option>
+                                    <option defaultValue="1">Flex</option>
+                                    <option defaultValue="2">Híbrido</option>
+                                    <option defaultValue="3">Elétrico</option>
                                 </Select>
                                 {errors.fuel?.message}
                             </Flex>
@@ -174,6 +174,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                         <FormLabel>Descrição</FormLabel>
                         <Textarea
                             placeholder="Descrição"
+                            resize={"none"}
                             {...register("description")}
                         />
                         {errors.description?.message}
@@ -246,7 +247,7 @@ export function CreateAdModal({ isOpen, onClose }: any) {
                     </FormControl>
                 </ModalBody>
             </ModalContent>
-        </Modal >
+        </>
     );
 }
 function isGoodDeal(data: any) {
