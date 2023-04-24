@@ -12,31 +12,33 @@ import {
 } from "@chakra-ui/react";
 import { CardCar } from "../CardCar";
 import { FilterCar } from "../FilterCar";
-import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
-import { useState } from "react";
+import { useCarContext } from "../../../providers/CarContext";
+import { useEffect } from "react";
 
 export function Dashboard() {
-    const { isMobile, isFullHd } = useUserContext();
+    const { isMobile, isFullHd, userLogged } = useUserContext();
+    const { loadCar } = useCarContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const [filteredCars, setFilteredCars] = useState(cars);
+    useEffect(() => {
+        loadCar();
+    }, []);
+
+    useEffect(() => {
+        userLogged();
+    }, []);
 
     return (
         <Flex w={isFullHd ? "65%" : "100%"}>
             {isMobile ? (
                 <>
-                    <Flex pb={"3rem"}>
+                    <Flex pb={"3rem"} w={"100%"}>
                         <Box>
-                            <FilterCar
-                                filtered={filteredCars}
-                                setFilteredCars={setFilteredCars}
-                            />
+                            <FilterCar />
                         </Box>
-                        <Wrap spacing={"1.5rem"} overflow={"hidden"}>
-                            {filteredCars.map((car: any) => {
-                                return <CardCar car={car} />;
-                            })}
+                        <Wrap spacing={"0.3rem"} overflow={"hidden"} w={"100%"}>
+                            <CardCar />
                         </Wrap>
                     </Flex>
                 </>
@@ -49,9 +51,7 @@ export function Dashboard() {
                         py={"2rem"}
                     >
                         <Flex gap={"1.5rem"} overflow={"auto"} py={"2rem"}>
-                            {filteredCars.map((elem: any) => {
-                                return <CardCar car={elem} />;
-                            })}
+                            <CardCar />;
                         </Flex>
                         <Center>
                             <Button
@@ -68,10 +68,7 @@ export function Dashboard() {
                                 <ModalOverlay />
                                 <ModalContent>
                                     <ModalCloseButton />
-                                    <FilterCar
-                                        filtered={filteredCars}
-                                        setFilteredCars={setFilteredCars}
-                                    />
+                                    <FilterCar />
                                 </ModalContent>
                             </Modal>
                         </Center>

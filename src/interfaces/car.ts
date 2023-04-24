@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export interface IImageRequest {
     urlImg: string;
 }
@@ -22,6 +24,7 @@ export interface ICarsResponse {
     frontImg: string;
     description: string;
     images: IImageResponse[];
+    user: IUser;
 }
 
 export interface ICarsRequest {

@@ -7,24 +7,24 @@ import {
     ListItem,
     Text,
 } from "@chakra-ui/react";
-import cars from "../../../components-moks";
 import { useUserContext } from "../../../providers/UserContext";
 import { ICarsRequest } from "../../../interfaces/car";
 import { ReactNode } from "react";
+import { useCarContext } from "../../../providers/CarContext";
 
-export function FilterCar({ filtered, setFilteredCars }: any) {
+export function FilterCar() {
     const { isMobile, onClose } = useUserContext();
+    const { recentCar, setRecentCar, loadCar } = useCarContext();
 
-    let brands = [...new Set(filtered.map((car: ICarsRequest) => car.brand))];
-    let models = [...new Set(filtered.map((car: ICarsRequest) => car.model))];
-    let colors = [...new Set(filtered.map((car: ICarsRequest) => car.color))];
-    let fuels = [...new Set(filtered.map((car: ICarsRequest) => car.fuel))];
-    let years = [...new Set(filtered.map((car: ICarsRequest) => car.year))];
+    let brands = [...new Set(recentCar.map((car: ICarsRequest) => car.brand))];
+    let models = [...new Set(recentCar.map((car: ICarsRequest) => car.model))];
+    let colors = [...new Set(recentCar.map((car: ICarsRequest) => car.color))];
+    let fuels = [...new Set(recentCar.map((car: ICarsRequest) => car.fuel))];
+    let years = [...new Set(recentCar.map((car: ICarsRequest) => car.year))];
 
-    const filterCars = (value: any, type: string) => {
-        //TODO:finge q chama a api
-        const carsFilter = filtered.filter((car: any) => car[type] == value);
-        setFilteredCars(carsFilter);
+    const filterCars = (value: unknown, type: string) => {
+        const carsFilter = recentCar.filter((car: any) => car[type] == value);
+        setRecentCar(carsFilter);
     };
 
     return (
@@ -233,7 +233,7 @@ export function FilterCar({ filtered, setFilteredCars }: any) {
                             mb={"1rem"}
                             _hover={{ bg: "brand.4", color: "brand.1" }}
                             onClick={() => {
-                                setFilteredCars(cars);
+                                loadCar();
                             }}
                         >
                             Limpar Filtros
@@ -250,7 +250,7 @@ export function FilterCar({ filtered, setFilteredCars }: any) {
                                 mb={"1rem"}
                                 _hover={{ bg: "brand.4", color: "brand.1" }}
                                 onClick={() => {
-                                    setFilteredCars(cars);
+                                    loadCar();
                                 }}
                             >
                                 Limpar Filtros

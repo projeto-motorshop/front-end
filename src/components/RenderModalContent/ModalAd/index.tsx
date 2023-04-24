@@ -21,9 +21,6 @@ import { ICarsRequest } from "../../../interfaces/car";
 import { reqCarSchema } from "../../../schemas/car.schema";
 import api from "../../../service/api";
 
-
-
-
 export function CreateAdModal({ onClose }: UseDisclosureProps) {
     const [priceFipe, setPriceFipe] = useState(0);
     const [dados, setDados] = useState({});
@@ -45,14 +42,6 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
         isGoodDeal(dados);
     }, []);
 
-
-
-
-
-
-
-
-
     // const isGoodDeal = async (data: any) => {
     //     useEffect(() => { }, [])
     //     try {
@@ -71,8 +60,6 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
 
     //     // onClose();
     // };
-
-
 
     const {
         register,
@@ -102,7 +89,6 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                         flexDir={"column"}
                         gap={"1rem"}
                         as={"form"}
-
                         onSubmit={handleSubmit(formSubmit)}
                     >
                         <FormLabel>Marca</FormLabel>
@@ -235,11 +221,10 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                                 Cancelar
                             </Button>
                             <Button
-                                bg={"brand.3"}
+                                bg={"brand.2"}
                                 color={"white"}
-                                _hover={{ bg: "brand.2" }}
+                                _hover={{ bg: "brand.3" }}
                                 type="submit"
-
                             >
                                 Criar anúncio
                             </Button>
@@ -253,4 +238,3 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
 function isGoodDeal(data: any) {
     throw new Error("Function not implemented.");
 }
-

@@ -4,7 +4,7 @@ export interface IUser {
     password: string;
     email: string;
     phone?: string;
-    imageProfile: string;
+    urlImg: string;
     description: string;
     cpf: string;
     salesman: boolean;

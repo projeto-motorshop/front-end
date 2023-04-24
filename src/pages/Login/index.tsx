@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Box,
     Button,
     Center,
     FormControl,
-    FormErrorMessage,
     FormLabel,
     Heading,
     Input,
@@ -21,7 +20,12 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    const { isMobile, loginFunction } = useUserContext();
+    const { loginFunction, userLogged } = useUserContext();
+
+    useEffect(() => {
+        userLogged();
+    }, []);
+
     const {
         register,
         handleSubmit,
