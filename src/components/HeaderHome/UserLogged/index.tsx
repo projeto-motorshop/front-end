@@ -24,7 +24,7 @@ export function UserLogged() {
                 <MenuButton
                     as={IconButton}
                     aria-label="Options"
-                    icon={<Avatar name={user?.name} />}
+                    icon={<Avatar src={user?.urlImg} name={user?.name} />}
                     bg={"transparent"}
                     _hover={{ bg: "" }}
                 />

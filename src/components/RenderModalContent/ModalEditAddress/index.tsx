@@ -116,9 +116,9 @@ export function EditAddressModal({ onClose }: UseDisclosureProps) {
                             Cancelar
                         </Button>
                         <Button
-                            bg={"brand.3"}
+                            bg={"brand.2"}
                             color={"white"}
-                            _hover={{ bg: "brand.2" }}
+                            _hover={{ bg: "brand.3" }}
                             type="submit"
                         >
                             Salvar alterações

@@ -99,6 +99,14 @@ export function EditUserModal({ onClose }: UseDisclosureProps) {
                                 {errors.birthdate?.message}
                             </Box>
                             <Box>
+                                <FormLabel>Imagem de Perfil</FormLabel>
+                                <Input
+                                    placeholder="https://image.com"
+                                    {...register("urlImg")}
+                                />
+                                {errors.urlImg?.message}
+                            </Box>
+                            <Box>
                                 <FormLabel>Descrição</FormLabel>
                                 <Textarea
                                     placeholder="Descrição"
@@ -118,9 +126,9 @@ export function EditUserModal({ onClose }: UseDisclosureProps) {
                             Cancelar
                         </Button>
                         <Button
-                            bg={"brand.3"}
+                            bg={"brand.2"}
                             color={"white"}
-                            _hover={{ bg: "brand.2" }}
+                            _hover={{ bg: "brand.3" }}
                             type="submit"
                         >
                             Salvar alterações

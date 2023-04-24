@@ -1,11 +1,11 @@
-import { UserContextProvider } from "./providers/UserContext";
+import Providers from "./providers/Providers";
 import Router from "./router";
 import { Container } from "./style/app";
 import { ToastContainer } from "react-toastify";
 
 function App() {
     return (
-        <UserContextProvider>
+        <Providers>
             <Container>
                 <ToastContainer
                     position="bottom-right"
@@ -18,7 +18,7 @@ function App() {
                 />
                 <Router />
             </Container>
-        </UserContextProvider>
+        </Providers>
     );
 }
 

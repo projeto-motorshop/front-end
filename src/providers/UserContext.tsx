@@ -46,6 +46,8 @@ interface IUserContext {
     setOverlay: (overlay: React.ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
+    token: string;
+    userLogged: () => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -79,8 +81,28 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
             })
             .catch((err) => toast.error("email ou senha inválido"));
     };
-    console.log(token);
-    console.log(user);
+
+    const userLogged = () => {
+        const token = localStorage.getItem("@token");
+
+        if (token) {
+            api.get(`/users/profile`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+                .then((res) => {
+                    setUser(res.data);
+                    navigate("/home");
+                })
+                .catch((err: Error) => {
+                    console.log(err);
+                    localStorage.clear();
+                });
+        } else {
+            navigate("/");
+        }
+    };
 
     const patchUser = async (formData: IUserUpdate) => {
         try {
@@ -140,7 +162,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         try {
             await api.post("/users", formRegister);
             toast.success("conta criada com sucesso!");
-            navigate("/login", { replace: true });
+            navigate("/", { replace: true });
         } catch (error) {
             toast.error(`ops, algo de errado`);
         }
@@ -170,6 +192,8 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 setOverlay,
                 patchUser,
                 patchUserAddress,
+                token,
+                userLogged,
             }}
         >
             {children}
