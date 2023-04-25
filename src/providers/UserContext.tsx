@@ -9,6 +9,7 @@ import {
     ReactNode,
     SetStateAction,
     useContext,
+    useEffect,
     useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
@@ -48,8 +49,9 @@ interface IUserContext {
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
     token: string;
-    userLogged: () => void;
+    autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
+    deleteUser: () => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -65,6 +67,10 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     ]);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        autoLogin();
+    }, []);
 
     const loginFunction = (formLogin: IUserLogin) => {
         api.post("/login", formLogin)
@@ -84,7 +90,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
             .catch((err) => toast.error("email ou senha inválido"));
     };
 
-    const userLogged = () => {
+    const autoLogin = () => {
         const token = localStorage.getItem("@token");
 
         if (token) {
@@ -141,21 +147,22 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         }
     };
 
-    // const deleteUser = (): void => {
-    //     try {
-    //         api.delete(`/users/profile`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`,
-    //             },
-    //         });
-    //         toast.success("Contato excluido com sucesso");
-    //         setToken("");
-    //         setUser(null);
-    //         navigate("/", { replace: true });
-    //     } catch (error) {
-    //         toast.error("algo deu errado");
-    //     }
-    // };
+    const deleteUser = (): void => {
+        try {
+            api.delete(`/users/${user?.id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            toast.success("Conta deletada");
+            setToken("");
+            localStorage.clear();
+            setUser(null);
+            navigate("/home");
+        } catch (error) {
+            toast.error("algo deu errado");
+        }
+    };
 
     const registerSubmit = async (formRegister: IUserRequest) => {
         try {
@@ -202,8 +209,9 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 patchUser,
                 patchUserAddress,
                 token,
-                userLogged,
+                autoLogin,
                 passwordRecoveryFunction,
+                deleteUser,
             }}
         >
             {children}
