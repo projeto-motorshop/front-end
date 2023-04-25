@@ -1,29 +1,27 @@
 import {
-    UseDisclosureProps,
     useDisclosure,
-    useMediaQuery,
+    useMediaQuery
 } from "@chakra-ui/react";
 import {
-    createContext,
     Dispatch,
     ReactNode,
     SetStateAction,
+    createContext,
     useContext,
     useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 import {
-    IAddressRequest,
     IAddressUpdate,
     IUser,
     IUserLogin,
     IUserRequest,
-    IUserUpdate,
+    IUserUpdate
 } from "../interfaces/user";
 import api from "../service/api";
-import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 //  import { toast } from "react-toastify";
 // import api from "../services/api";
 
@@ -93,14 +91,12 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
             })
                 .then((res) => {
                     setUser(res.data);
-                    navigate("/home");
+                    // navigate("/home");
                 })
                 .catch((err: Error) => {
                     console.log(err);
                     localStorage.clear();
                 });
-        } else {
-            navigate("/");
         }
     };
 

@@ -1,4 +1,4 @@
-import { Flex, Box, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 
 export function ListCars({ children }: any) {
@@ -19,11 +19,7 @@ export function ListCars({ children }: any) {
                         justifyContent="flex-start"
                         w="100%"
                     >
-                        <Text
-                            fontSize="1.5rem"
-                        >
-                            Anúncios
-                        </Text>
+
                     </Flex>
                     <Flex
                         flexWrap="wrap"

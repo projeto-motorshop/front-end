@@ -9,10 +9,10 @@ import {
     Modal,
     Text,
 } from "@chakra-ui/react";
-import { useUserContext } from "../../../providers/UserContext";
 import { Link } from "react-router-dom";
-import { EditUserModal } from "../../RenderModalContent/ModalEditUser";
+import { useUserContext } from "../../../providers/UserContext";
 import { EditAddressModal } from "../../RenderModalContent/ModalEditAddress";
+import { EditUserModal } from "../../RenderModalContent/ModalEditUser";
 
 export function UserLogged() {
     const { user, logout, overlay, setOverlay, isOpen, onClose, onOpen } =
@@ -49,7 +49,7 @@ export function UserLogged() {
                 </MenuItem>
                 {user?.salesman ? (
                     <>
-                        <MenuItem>Meus Anúncios</MenuItem>
+                        <MenuItem> <Link to={'userproducts'}>Meus Anúncios</Link> </MenuItem>
                     </>
                 ) : (
                     <></>

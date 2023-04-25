@@ -4,23 +4,21 @@ import {
     Center,
     Flex,
     FormControl,
-    FormErrorMessage,
     FormLabel,
     HStack,
     Input,
     Text,
     Textarea,
-    useRadioGroup,
+    useRadioGroup
 } from "@chakra-ui/react";
-import { RadioCard } from "../RadioCard";
-import * as yup from "yup";
-import { useUserContext } from "../../../providers/UserContext";
-import { useForm } from "react-hook-form";
-import { IUserRequest } from "../../../interfaces/user";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputMask from "react-input-mask";
-import { userSchema } from "../../../schemas/user.schema";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import InputMask from "react-input-mask";
+import { IUserRequest } from "../../../interfaces/user";
+import { useUserContext } from "../../../providers/UserContext";
+import { userSchema } from "../../../schemas/user.schema";
+import { RadioCard } from "../RadioCard";
 
 export function FormRegister() {
     const { isMobile, registerSubmit } = useUserContext();
@@ -33,8 +31,8 @@ export function FormRegister() {
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
-        defaultValue: "Anunciante",
-        onChange: console.log,
+        defaultValue: "Comprador",
+        onChange: valueRadio
     });
 
     const group = getRootProps();
@@ -48,7 +46,7 @@ export function FormRegister() {
     const onSubmit = (data: any) => {
         let variant = {};
 
-        if (salesman === "Comprador") {
+        if (salesman === "Anunciante") {
             variant = { salesman: true };
         } else {
             variant = { salesman: false };
