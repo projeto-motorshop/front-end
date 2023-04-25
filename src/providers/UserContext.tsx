@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 import {
     IAddressUpdate,
+    IPasswordRecovery,
     IUser,
     IUserLogin,
     IUserRequest,
@@ -46,6 +47,7 @@ interface IUserContext {
     patchUserAddress: (formData: IAddressUpdate) => void;
     token: string;
     userLogged: () => void;
+    passwordRecoveryFunction: (email: IPasswordRecovery) => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -91,7 +93,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
             })
                 .then((res) => {
                     setUser(res.data);
-                    // navigate("/home");
                 })
                 .catch((err: Error) => {
                     console.log(err);
@@ -164,6 +165,16 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         }
     };
 
+    const passwordRecoveryFunction = async (email: IPasswordRecovery) => {
+        try {
+            await api.post("/users/sendEmailPasswordRecovery", email);
+            toast.success("E-mail para recuperação de senha enviado!");
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao enviar E-mail");
+        }
+    };
+
     const logout = async (): Promise<void> => {
         setToken("");
         localStorage.clear();
@@ -190,6 +201,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 patchUserAddress,
                 token,
                 userLogged,
+                passwordRecoveryFunction,
             }}
         >
             {children}

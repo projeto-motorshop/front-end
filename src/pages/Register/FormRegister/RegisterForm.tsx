@@ -32,7 +32,7 @@ export function FormRegister() {
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
         defaultValue: "Comprador",
-        onChange: valueRadio
+        onChange: valueRadio,
     });
 
     const group = getRootProps();
