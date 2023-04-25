@@ -20,16 +20,15 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { ICarsRequest } from "../../../interfaces/car";
 import { reqCarSchema } from "../../../schemas/car.schema";
 import api from "../../../service/api";
+import { toast } from "react-toastify";
+import { useUserContext } from "../../../providers/UserContext";
+import { useCarContext } from "../../../providers/CarContext";
 
-export function CreateAdModal({ onClose }: UseDisclosureProps) {
+export function CreateAdModal() {
     const [priceFipe, setPriceFipe] = useState(0);
     const [dados, setDados] = useState({});
-
-    const formSubmit = (data: any) => {
-        setDados(data);
-
-        // onClose();
-    };
+    const { onClose } = useUserContext();
+    const { createCarFunc } = useCarContext();
 
     useEffect(() => {
         const isGoodDeal = async (data: any) => {
@@ -89,7 +88,7 @@ export function CreateAdModal({ onClose }: UseDisclosureProps) {
                         flexDir={"column"}
                         gap={"1rem"}
                         as={"form"}
-                        onSubmit={handleSubmit(formSubmit)}
+                        onSubmit={handleSubmit(createCarFunc)}
                     >
                         <FormLabel>Marca</FormLabel>
                         <Input placeholder="Marca" {...register("brand")} />

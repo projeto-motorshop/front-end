@@ -24,8 +24,8 @@ import { updateUserSchema } from "../../../schemas/user.schema";
 import ReactInputMask from "react-input-mask";
 import { useUserContext } from "../../../providers/UserContext";
 
-export function EditUserModal({ onClose }: UseDisclosureProps) {
-    const { patchUser } = useUserContext();
+export function EditUserModal() {
+    const { patchUser, onClose } = useUserContext();
 
     const {
         register,

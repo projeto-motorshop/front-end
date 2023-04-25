@@ -95,14 +95,11 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
             })
                 .then((res) => {
                     setUser(res.data);
-                    navigate("/home");
                 })
                 .catch((err: Error) => {
                     console.log(err);
                     localStorage.clear();
                 });
-        } else {
-            navigate("/");
         }
     };
 

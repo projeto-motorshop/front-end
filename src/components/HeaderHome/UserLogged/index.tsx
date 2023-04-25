@@ -33,7 +33,7 @@ export function UserLogged() {
             <MenuList>
                 <MenuItem
                     onClick={() => {
-                        setOverlay(<EditUserModal onClose={onClose} />);
+                        setOverlay(<EditUserModal />);
                         onOpen();
                     }}
                 >
@@ -41,7 +41,7 @@ export function UserLogged() {
                 </MenuItem>
                 <MenuItem
                     onClick={() => {
-                        setOverlay(<EditAddressModal onClose={onClose} />);
+                        setOverlay(<EditAddressModal />);
                         onOpen();
                     }}
                 >
