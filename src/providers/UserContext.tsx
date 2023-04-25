@@ -52,6 +52,7 @@ interface IUserContext {
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
     deleteUser: () => void;
+    resetPasswordFunction: (password: string, resetToken: string) => void;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -184,6 +185,19 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         }
     };
 
+    const resetPasswordFunction = async (
+        password: string,
+        resetToken: string
+    ) => {
+        try {
+            await api.patch(`/users/resetPassword/${resetToken}`, password);
+            toast.success("Senha alterada com sucesso!");
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao alterar senha!");
+        }
+    };
+
     const logout = async (): Promise<void> => {
         setToken("");
         localStorage.clear();
@@ -212,6 +226,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 autoLogin,
                 passwordRecoveryFunction,
                 deleteUser,
+                resetPasswordFunction,
             }}
         >
             {children}
