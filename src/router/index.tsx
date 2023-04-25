@@ -7,6 +7,7 @@ import { Profile } from "../pages/Profile";
 import { Register } from "../pages/Register";
 import { TestePage } from "../pages/TestePage";
 import Login from "../pages/Login";
+import { ResetPassword } from "../pages/ResetPassword";
 
 const Router: React.FC = () => {
     return (
@@ -20,6 +21,9 @@ const Router: React.FC = () => {
                     <Route path=":carId" element={<Product />} />
                 </Route>
                 <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route path="/users/resetPassword">
+                <Route path=":id" element={<ResetPassword />} />
             </Route>
         </Routes>
     );
