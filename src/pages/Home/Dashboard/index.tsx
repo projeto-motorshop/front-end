@@ -17,16 +17,12 @@ import { useCarContext } from "../../../providers/CarContext";
 import { useEffect } from "react";
 
 export function Dashboard() {
-    const { isMobile, isFullHd, userLogged } = useUserContext();
+    const { isMobile, isFullHd } = useUserContext();
     const { loadCar } = useCarContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     useEffect(() => {
         loadCar();
-    }, []);
-
-    useEffect(() => {
-        userLogged();
     }, []);
 
     return (

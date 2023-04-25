@@ -25,7 +25,7 @@ import ReactInputMask from "react-input-mask";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function EditUserModal() {
-    const { patchUser, onClose } = useUserContext();
+    const { patchUser, onClose, isMobile, deleteUser } = useUserContext();
 
     const {
         register,
@@ -117,13 +117,20 @@ export function EditUserModal() {
                             </Box>
                         </Flex>
                     </ModalBody>
-                    <ModalFooter>
-                        <Button
-                            _hover={{ bg: "grey.5" }}
-                            mr={3}
-                            onClick={onClose}
-                        >
+                    <ModalFooter
+                        flexDir={isMobile ? "row" : "column"}
+                        gap={"1rem"}
+                    >
+                        <Button _hover={{ bg: "grey.5" }} onClick={onClose}>
                             Cancelar
+                        </Button>
+                        <Button
+                            bg={"alert.2"}
+                            color={"alert.1"}
+                            _hover={{ bg: "brand.3" }}
+                            onClick={deleteUser}
+                        >
+                            Excluir Perfil
                         </Button>
                         <Button
                             bg={"brand.2"}

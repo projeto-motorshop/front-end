@@ -21,7 +21,7 @@ export function HeaderHome() {
             <Flex
                 bg="whiteFixed"
                 w="100%"
-                h="5rem"
+                h="10vh"
                 px={5}
                 borderBottom="1px"
                 borderColor="grey.6"
@@ -40,7 +40,14 @@ export function HeaderHome() {
                         </Text>
                     </Link>
                 </Box>
-                <Box>
+                <Flex
+                    h="100%"
+                    borderLeft="1px"
+                    borderColor="grey.6"
+                    align="center"
+                    justify="center"
+                    pl={"1rem"}
+                >
                     {user ? (
                         <UserLogged />
                     ) : isMobile ? (
@@ -48,7 +55,7 @@ export function HeaderHome() {
                     ) : (
                         <MenuHamb />
                     )}
-                </Box>
+                </Flex>
             </Flex>
             <Outlet />
         </>

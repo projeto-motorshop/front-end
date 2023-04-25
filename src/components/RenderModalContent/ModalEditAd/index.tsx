@@ -47,6 +47,7 @@ export const EditAdModal = () => {
     });
 
     const group = getRootProps();
+    
     const formSubmit = async (formData: ICarsUpdate) => {
         let variant = {};
 
