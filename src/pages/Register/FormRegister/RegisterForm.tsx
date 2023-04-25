@@ -33,8 +33,8 @@ export function FormRegister() {
 
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: "framework",
-        defaultValue: "Anunciante",
-        onChange: console.log,
+        defaultValue: "Comprador",
+        onChange: valueRadio,
     });
 
     const group = getRootProps();
@@ -48,7 +48,7 @@ export function FormRegister() {
     const onSubmit = (data: any) => {
         let variant = {};
 
-        if (salesman === "Comprador") {
+        if (salesman === "Anunciante") {
             variant = { salesman: true };
         } else {
             variant = { salesman: false };

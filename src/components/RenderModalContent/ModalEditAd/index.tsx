@@ -21,16 +21,22 @@ import {
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
-import { ICarsUpdate } from "../../../interfaces/car";
+import { ICarsResponse, ICarsUpdate } from "../../../interfaces/car";
 import { updateCarSchema } from "../../../schemas/car.schema";
 import { RadioCard } from "../../../pages/Register/RadioCard";
+import { useCarContext } from "../../../providers/CarContext";
+import api from "../../../service/api";
+import { useUserContext } from "../../../providers/UserContext";
 
-export const EditAdModal = ({ onClose }: UseDisclosureProps) => {
+export const EditAdModal = () => {
+    const { carId, setRecentCar, recentCar } = useCarContext();
+    const { onClose } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
 
+    const token = localStorage.getItem("@token");
+
     const valueRadio = (value: string) => {
-        console.log(value);
         setPublished(value);
     };
 
@@ -41,7 +47,7 @@ export const EditAdModal = ({ onClose }: UseDisclosureProps) => {
     });
 
     const group = getRootProps();
-    const formSubmit = (data: ICarsUpdate) => {
+    const formSubmit = async (formData: ICarsUpdate) => {
         let variant = {};
 
         if (published === "Sim") {
@@ -51,12 +57,21 @@ export const EditAdModal = ({ onClose }: UseDisclosureProps) => {
         }
 
         const dataForm = {
-            ...data,
+            ...formData,
             ...variant,
         };
-        console.log(dataForm);
 
-        // onClose();
+        const newData = Object.fromEntries(
+            Object.entries(dataForm).filter(([_, v]) => v != "")
+        );
+        const { data } = await api.patch(`/contact/${carId}`, newData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setRecentCar(recentCar?.map((e) => (e.id === data.id ? data : e)));
+
+        onClose();
     };
     const {
         register,

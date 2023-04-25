@@ -23,8 +23,8 @@ import { updateAddressSchema } from "../../../schemas/user.schema";
 import { useForm } from "react-hook-form";
 import { useUserContext } from "../../../providers/UserContext";
 
-export function EditAddressModal({ onClose }: UseDisclosureProps) {
-    const { patchUserAddress } = useUserContext();
+export function EditAddressModal() {
+    const { patchUserAddress, onClose } = useUserContext();
 
     const {
         register,
