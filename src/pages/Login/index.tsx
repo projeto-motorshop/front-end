@@ -7,8 +7,10 @@ import {
     FormLabel,
     Heading,
     Input,
+    Modal,
     Stack,
     Text,
+    useDisclosure,
 } from "@chakra-ui/react";
 import { HeaderHome } from "../../components/HeaderHome";
 import { FooterHome } from "../../components/FooterHome";
@@ -18,9 +20,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import loginSchema from "../../schemas/login.schema";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { PasswordRecoveryModal } from "../../components/RenderModalContent/ModalPasswordRecovery";
 
 const Login = () => {
     const { loginFunction, userLogged } = useUserContext();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [overlay, setOverlay] = useState(<PasswordRecoveryModal />);
 
     useEffect(() => {
         userLogged();
@@ -71,7 +76,20 @@ const Login = () => {
                                     {errors.password?.message}
                                 </Text>
                             </Box>
-                            <Text textAlign={"end"}>Esqueci minha senha</Text>
+                            <Button
+                                bg={"transparent"}
+                                _hover={{ bg: "transparent" }}
+                                onClick={() => {
+                                    setOverlay(
+                                        <PasswordRecoveryModal
+                                            onClose={onClose}
+                                        />
+                                    );
+                                    onOpen();
+                                }}
+                            >
+                                Esqueci minha senha
+                            </Button>
                             <Button
                                 bg={"brand.1"}
                                 color={"white"}
@@ -95,6 +113,9 @@ const Login = () => {
                 </Box>
             </Center>
             <FooterHome />
+            <Modal isOpen={isOpen} onClose={onClose}>
+                {overlay}
+            </Modal>
         </Box>
     );
 };

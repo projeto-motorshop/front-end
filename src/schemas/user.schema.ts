@@ -1,6 +1,11 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IAddressRequest, IAddressUpdate, IUserUpdate } from "../interfaces/user";
+import {
+    IAddressRequest,
+    IAddressUpdate,
+    IPasswordRecovery,
+    IUserUpdate,
+} from "../interfaces/user";
 
 const regexPhone =
     /^\s*(\d{2}|\d{0})|\(\d{2}|\d{0}\)?[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/;
@@ -59,4 +64,27 @@ const updateUserSchema: yup.SchemaOf<IUserUpdate> = yup.object().shape({
     urlImg: yup.string().notRequired().nullable(),
 });
 
-export { userSchema, updateUserSchema, addressSchema, updateAddressSchema };
+const passwordRecoverySchema: yup.SchemaOf<IPasswordRecovery> = yup
+    .object()
+    .shape({
+        email: yup.string().email().required(),
+    });
+
+const passwordResetSchema = yup.object().shape({
+    password: yup.string().required("Senha Obrigatória"),
+    passwordConfirm: yup
+        .string()
+        .oneOf(
+            [yup.ref("password")],
+            "Confirmação de senha deve ser igual a senha."
+        ),
+});
+
+export {
+    userSchema,
+    updateUserSchema,
+    addressSchema,
+    updateAddressSchema,
+    passwordRecoverySchema,
+    passwordResetSchema,
+};
