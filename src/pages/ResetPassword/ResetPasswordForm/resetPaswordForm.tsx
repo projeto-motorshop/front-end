@@ -16,11 +16,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { passwordResetSchema } from "../../../schemas/user.schema";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import React from "react";
+import { useParams } from "react-router-dom";
+import { string } from "yup";
 
 export const ResetPasswordForm = () => {
-    const { isMobile } = useUserContext();
+    const { isMobile, resetPasswordFunction } = useUserContext();
     const [show, setShow] = React.useState(false);
     const handleClick = () => setShow(!show);
+    const { id } = useParams();
 
     const {
         register,
@@ -29,7 +32,7 @@ export const ResetPasswordForm = () => {
     } = useForm({ resolver: yupResolver(passwordResetSchema) });
 
     const onSubmit = (data: any) => {
-        console.log(data);
+        resetPasswordFunction(data, id as string);
     };
 
     return (
