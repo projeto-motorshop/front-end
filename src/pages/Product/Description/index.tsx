@@ -1,7 +1,11 @@
-import { Container, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
+import { useCarContext } from "../../../providers/CarContext";
 
 
 export function Description() {
+
+    const { car } = useCarContext()
+
     return (
         <>
             <Flex
@@ -9,7 +13,7 @@ export function Description() {
                 p="2.5rem"
                 w="100%"
                 h="16rem"
-                mt={20}
+                mt={10}
                 bg="#FDFDFD"
                 borderRadius={4}
                 overflow="hidden"
@@ -25,7 +29,7 @@ export function Description() {
                         Descrição
                     </Text>
                     <Text>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        {car?.description}
                     </Text>
                 </Flex>
             </Flex>

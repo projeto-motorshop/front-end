@@ -1,7 +1,20 @@
-import { Box, Button, Container, Flex, Image, Text } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Flex,
+    Image,
+    Text
+} from "@chakra-ui/react"
+import { useCarContext } from "../../../providers/CarContext"
+import { Swiper, SwiperSlide } from "swiper/react"
+import { Navigation } from "swiper"
+import "./styles.css"
 
 
 export function CardCar() {
+
+    const { car } = useCarContext()
+
     return (
         <Flex
             flexDir="column"
@@ -15,15 +28,49 @@ export function CardCar() {
                 bg="#FDFDFD"
                 borderRadius={4}
             >
-                <Image src={"../../../../public/card-image.svg"} />
+                <Image
+                    src={car?.frontImg}
+                    objectFit="contain"
+                    borderRadius={4}
+                />
             </Flex>
+            {/* <Flex
+                w="100%"
+                h="22rem"
+            >
+                <Swiper
+                    navigation={true}
+                    slidesPerView={1}
+                    modules={[Navigation]}
+                    className="mySwiper"
+                >
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
+                        <img src="../../../../public/card-image.svg" alt="" />
+                    </SwiperSlide>
+                </Swiper>
+            </Flex> */}
 
             <Flex
                 flexDir={"column"}
                 justifyContent="space-around"
                 w="100%"
                 h="15rem"
-                mt={20}
+                mt={5}
                 p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
@@ -31,7 +78,7 @@ export function CardCar() {
                 <Text
                     fontSize={20}
                 >
-                    Mercedes Benz A 200 CGI ADVANCE SEDAN Mercedes Benz A 200
+                    {`${car?.brand} - ${car?.model}`}
                 </Text>
 
                 <Flex
@@ -44,7 +91,7 @@ export function CardCar() {
                         <Flex
                             justifyContent="center"
                             alignItems="center"
-                            w="3rem"
+                            p="0.5rem"
                             h="2rem"
                             bg="#EDEAFD"
                             borderRadius={4}
@@ -52,14 +99,14 @@ export function CardCar() {
                             <Text
                                 color="#4529E6"
                             >
-                                2013
+                                {car?.year}
                             </Text>
                         </Flex>
 
                         <Flex
                             justifyContent="center"
                             alignItems="center"
-                            w="3rem"
+                            p="0.5rem"
                             h="2rem"
                             bg="#EDEAFD"
                             borderRadius={4}
@@ -67,13 +114,13 @@ export function CardCar() {
                             <Text
                                 color="#4529E6"
                             >
-                                0 KM
+                                KM {car?.mileage}
                             </Text>
                         </Flex>
                     </Flex>
                     <Text
                     >
-                        R$ 00000000
+                        R$ {parseInt(car?.price || "0").toLocaleString("pt-BR")}
                     </Text>
                 </Flex>
                 <Box>

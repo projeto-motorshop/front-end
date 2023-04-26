@@ -1,131 +1,51 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
+import { useCarContext } from "../../../providers/CarContext";
 
 
 export function CardPictures() {
+
+    const { car } = useCarContext()
+
     return (
         <>
             <Flex
+                border="1px solid red"
                 flexDir="column"
                 mt={8}
-                w="100%"
                 h="24rem"
                 bg="#FDFDFD"
-                p="2.5rem"
+                p="1rem"
                 borderRadius={4}
                 overflowX="hidden"
             >
                 <Text
                     fontSize={20}
-                    mb={50}
+                    mb={5}
                 >
                     Fotos
                 </Text>
                 <Flex
                     flexWrap="wrap"
-                    justifyContent="center"
-
                 >
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
-
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
-
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
-
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
-
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
-
-                    <Flex
-                        justifyContent="center"
-                        alignItems="center"
-                        w="25%"
-                        h="6rem"
-                        bg="#E9ECEF"
-                        mr={15}
-                        mb={15}
-                    >
-                        <Image
-                            src="../../../../public/card-image.svg"
-                            alt=""
-                            w="90%"
-                            h="4rem"
-                        />
-                    </Flex>
+                    {car?.images.map((elem) => {
+                        return (
+                            <>
+                                <Flex
+                                    borderRadius={4}
+                                    mr={15}
+                                    mb={15}
+                                >
+                                    <Image
+                                        src={elem.urlImg}
+                                        alt={car.brand}
+                                        w="90%"
+                                        h="4rem"
+                                        objectFit="cover"
+                                    />
+                                </Flex>
+                            </>
+                        )
+                    })}
                 </Flex>
             </Flex>
         </>

@@ -7,7 +7,7 @@ export function ListComment() {
         <>
             <Flex
                 flexDir="column"
-                mt={20}
+                mt={5}
                 w="100%"
                 h="35rem"
                 p="2.5rem"

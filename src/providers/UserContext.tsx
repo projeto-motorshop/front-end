@@ -37,6 +37,7 @@ interface IUserContext {
     user: IUser | null;
     setUser: Dispatch<SetStateAction<IUser | null>>;
     isMobile: boolean;
+    isNotebook: boolean;
     isFullHd: boolean;
     registerSubmit: (formRegister: IUserRequest) => void;
     loginFunction: (formLogin: IUserLogin) => void;
@@ -62,8 +63,9 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [user, setUser] = useState<IUser | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<React.ReactNode>(<EditUserModal />);
-    const [isMobile, isFullHd] = useMediaQuery([
+    const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
+        "(min-width: 1439px)",
         "(min-width: 2000px)",
     ]);
 
@@ -211,6 +213,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 user,
                 setUser,
                 isMobile,
+                isNotebook,
                 isFullHd,
                 registerSubmit,
                 loginFunction,
