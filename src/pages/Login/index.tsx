@@ -23,13 +23,9 @@ import { Link } from "react-router-dom";
 import { PasswordRecoveryModal } from "../../components/RenderModalContent/ModalPasswordRecovery";
 
 const Login = () => {
-    const { loginFunction, userLogged } = useUserContext();
+    const { loginFunction } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState(<PasswordRecoveryModal />);
-
-    useEffect(() => {
-        userLogged();
-    }, []);
 
     const {
         register,

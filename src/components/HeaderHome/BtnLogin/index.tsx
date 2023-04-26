@@ -3,13 +3,7 @@ import { Link } from "react-router-dom";
 
 export function BtnLogin() {
     return (
-        <Flex
-            h="100%"
-            borderLeft="1px"
-            borderColor="grey.6"
-            align="center"
-            justify="center"
-        >
+        <Flex>
             <Stack direction="row" spacing={4} align="center" px={"1rem"}>
                 <Link to="/">
                     <Button

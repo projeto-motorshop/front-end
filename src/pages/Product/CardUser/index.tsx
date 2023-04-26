@@ -1,14 +1,24 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react";
+import { useCarContext } from "../../../providers/CarContext";
+import { useNavigate } from "react-router-dom";
 
 
 export function CardUser() {
+
+    const { car } = useCarContext()
+    const navigate = useNavigate()
+
+    const navigateToProfile = (id: string) => {
+        navigate(`/userproducts/${id}`)
+    }
+
     return (
         <>
             <Flex
-                mt={20}
+                justifyContent="center"
+                mt={5}
                 w="100%"
-                h="27rem"
-                p="2.5rem"
+                p="1rem"
                 bg="#FDFDFD"
                 borderRadius={4}
                 overflow="hidden"
@@ -18,21 +28,23 @@ export function CardUser() {
                     justifyContent="space-around"
                     alignItems="center"
                 >
-                    <Box
-                        border="1px solid black"
-                        borderRadius="50%"
-                        w="120px"
-                        h="120px"
-                        mb="10%"
-                    >
-                        <Image src="" alt="" />
-                    </Box>
+                    <Flex
+                        justifyContent="center"
+                        alignItems="center"
+                        >
+                        <Avatar
+                            src={car?.user.urlImg}
+                            name={car?.user.name}
+                            w="100%"
+                            h="70%"
+                        />
+                    </Flex>
                     <Box>
                         <Text
                             fontSize={20}
                             mb="10%"
                         >
-                            Igor Ramon
+                            {car?.user.name}
                         </Text>
                     </Box>
                     <Flex
@@ -40,21 +52,21 @@ export function CardUser() {
                     >
                         <Text
                         >
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            {car?.user.description}
                         </Text>
                     </Flex>
-
-                    <Button
-                        w="100%"
-                        h="20%"
-                        bg="#0B0D0D"
-                        color="#fff"
-                        border="none"
-                        borderRadius={4}
-                    >
-                        Ver todos os anuncios
-                    </Button>
-
+                    <Box>
+                        <Button
+                            onClick={() => navigateToProfile(car?.user.id || "")}
+                            w="100%"
+                            bg="#0B0D0D"
+                            color="#fff"
+                            border="none"
+                            borderRadius={4}
+                        >
+                            Ver todos os anuncios
+                        </Button>
+                    </Box>
                 </Flex>
             </Flex>
         </>

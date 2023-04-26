@@ -7,7 +7,7 @@ import {
     MenuItem,
     MenuList,
     Modal,
-    Text,
+    Text
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../providers/UserContext";
@@ -49,7 +49,9 @@ export function UserLogged() {
                 </MenuItem>
                 {user?.salesman ? (
                     <>
-                        <MenuItem> <Link to={'userproducts'}>Meus Anúncios</Link> </MenuItem>
+                        <MenuItem>
+                            <Link to={"/profile"}>Meus Anúncios</Link>{" "}
+                        </MenuItem>
                     </>
                 ) : (
                     <></>

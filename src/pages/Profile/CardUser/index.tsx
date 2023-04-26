@@ -1,56 +1,73 @@
-import { Flex, Avatar, Box, Text } from "@chakra-ui/react"
+import {
+    Flex,
+    Avatar,
+    Box,
+    Text,
+    Button,
+    Modal,
+    Icon,
+    Spacer,
+} from "@chakra-ui/react";
+import { useUserContext } from "../../../providers/UserContext";
+import { EditAdModal } from "../../../components/RenderModalContent/ModalEditAd";
+import { CreateAdModal } from "../../../components/RenderModalContent/ModalAd";
+import { FaPlus } from "react-icons/fa";
 
 export function CardUser() {
+    const { user, setOverlay, onOpen, isMobile } = useUserContext();
+
     return (
         <>
-            <Flex
-                justifyContent="center"
-                w="100%"
-                mt="9%"
-                pos="relative"
-            >
+            <Flex justifyContent="center" w="100%" mt="9%" pos="relative">
                 <Flex
                     flexDir="column"
                     borderRadius={4}
                     w="80%"
-                    h="21rem"
-                    p="3rem"
-                    bg="var(--whiteFixed)"
+                    p="1.5rem"
+                    bg="white"
                 >
-                    <Box
-                        mb="1%"
-                    >
+                    <Box mb="1%">
                         <Avatar
-                            name="Igor Ramon"
-                            src=""
-                            size='xl'
-                            mb="1%"
+                            name={user?.name}
+                            src={user?.urlImg}
+                            size="xl"
+                            mb="1rem"
                         />
-                        <Flex
-                            alignItems="center"
-                            mb="3%"
-                        >
-                            <Text
-                                mr="0.5rem"
-                            >
-                                Igor Ramon
-                            </Text>
+                        <Flex alignItems="center" mb="1rem">
+                            <Text mr="0.5rem">{user?.name}</Text>
                             <Box
-                                bg="var(--brand4)"
-                                p="0.5rem"
+                                bg="brand.4"
+                                p="0.3rem"
+                                color={"brand.1"}
                                 borderRadius={4}
                             >
-                                Anunciante
+                                {user?.salesman ? "Anunciante" : "Comprador"}
                             </Box>
                         </Flex>
                     </Box>
-                    <Text
-                        overflowX="hidden"
+                    <Box
+                        p={"0.5rem"}
+                        overflow={isMobile ? "" : "auto"}
+                        h={isMobile ? "" : "5rem"}
                     >
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-                    </Text>
+                        <Text>{user?.description}</Text>
+                    </Box>
+                    <Box mt={"1rem"}>
+                        <Button
+                            variant="outline"
+                            color={"brand.1"}
+                            border={"1px solid"}
+                            _hover={{ bg: "brand.2", color: "white" }}
+                            onClick={() => {
+                                setOverlay(<CreateAdModal />);
+                                onOpen();
+                            }}
+                        >
+                            Criar anuncio
+                        </Button>
+                    </Box>
                 </Flex>
             </Flex>
         </>
-    )
+    );
 }

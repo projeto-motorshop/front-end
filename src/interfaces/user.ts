@@ -1,3 +1,5 @@
+import { ICarsResponse } from "./car";
+
 export interface IUser {
     id: string;
     name: string;
@@ -9,6 +11,17 @@ export interface IUser {
     cpf: string;
     salesman: boolean;
     birthdate?: Date;
+    cars: ICarsResponse[];
+}
+
+export interface IUserCar {
+    description: string;
+    email: string;
+    id: string;
+    name: string;
+    phone: string; 
+    salesman: boolean;
+    urlImg: string;
 }
 
 export interface IUserResponse {

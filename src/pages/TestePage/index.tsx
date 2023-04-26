@@ -9,11 +9,8 @@ import { useUserContext } from "../../providers/UserContext";
 export function TestePage() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState(<EditUserModal />);
-    const { userLogged } = useUserContext();
 
-    useEffect(() => {
-        userLogged();
-    }, []);
+
 
     return (
         <Flex gap={"2rem"}>

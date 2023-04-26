@@ -1,7 +1,11 @@
 import { Box, Button, Flex, Image, Text, Textarea } from "@chakra-ui/react";
+import { useCarContext } from "../../../providers/CarContext";
 
 
 export function CreateComment() {
+
+    const { car } = useCarContext()
+
     return (
         <>
             <Flex
@@ -20,13 +24,14 @@ export function CreateComment() {
                     <Box>
                         <Image src="" alt="" />
                     </Box>
-                    <Text>Igor Ramon</Text>
+                    <Text>{car?.user.name}</Text>
                 </Flex>
                 <Box pos="relative">
                     <Textarea
                         w="100%"
                         h="8rem"
                         pos="absolute"
+                        resize="none"
                     />
                     <Button
                         w="7rem"

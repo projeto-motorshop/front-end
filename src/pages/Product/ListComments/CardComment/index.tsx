@@ -1,8 +1,12 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { useCarContext } from "../../../../providers/CarContext";
 
 
 
 export function CardComment () {
+
+    const { car } = useCarContext()
+
     return (
         <>
             <Flex
