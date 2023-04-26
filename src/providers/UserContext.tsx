@@ -49,25 +49,29 @@ interface IUserContext {
     setOverlay: (overlay: ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
-    token: string;
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
     deleteUser: () => void;
+    loadUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
+    userCar: any;
+    setUserCar: Dispatch<any>;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
-    const [token, setToken] = useState("");
     const [user, setUser] = useState<IUser | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
+    const [userCar, setUserCar] = useState<any>();
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
         "(min-width: 1439px)",
         "(min-width: 2000px)",
     ]);
+
+    const token = localStorage.getItem("@token");
 
     const navigate = useNavigate();
 
@@ -79,7 +83,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         api.post("/login", formLogin)
             .then((resp) => {
                 localStorage.setItem("@token", resp.data.tokenUser);
-                setToken(resp.data.tokenUser);
                 api.get(`/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${resp.data.tokenUser}`,
@@ -91,6 +94,19 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 });
             })
             .catch((err) => toast.error("email ou senha inválido"));
+    };
+
+    const loadUser = async () => {
+        try {
+            const { data } = await api.get("/users/profile", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUserCar(data.cars);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const autoLogin = () => {
@@ -158,7 +174,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 },
             });
             toast.success("Conta deletada");
-            setToken("");
             localStorage.clear();
             setUser(null);
             navigate("/home");
@@ -201,7 +216,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     };
 
     const logout = async (): Promise<void> => {
-        setToken("");
         localStorage.clear();
         setUser(null);
         navigate("/");
@@ -225,11 +239,13 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 setOverlay,
                 patchUser,
                 patchUserAddress,
-                token,
                 autoLogin,
                 passwordRecoveryFunction,
                 deleteUser,
                 resetPasswordFunction,
+                loadUser,
+                userCar,
+                setUserCar,
             }}
         >
             {children}

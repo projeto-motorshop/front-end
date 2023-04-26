@@ -13,12 +13,12 @@ import { EditAdModal } from "../../../components/RenderModalContent/ModalEditAd"
 import { useCarContext } from "../../../providers/CarContext";
 
 export function CardCarProfile() {
-    const { isMobile, isFullHd, user, setOverlay, onOpen } = useUserContext();
+    const { isMobile, isFullHd, setOverlay, onOpen, userCar } =
+        useUserContext();
     const { setCarId } = useCarContext();
-
     return (
         <>
-            {user?.cars.map((elem: ICarsResponse) => {
+            {userCar?.map((elem: ICarsResponse) => {
                 return (
                     <>
                         <Flex

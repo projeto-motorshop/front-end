@@ -3,17 +3,17 @@ import { FooterHome } from "../../components/FooterHome";
 import { CardUser } from "./CardUser";
 import { CardCarProfile } from "./CardCarProfile";
 import { useUserContext } from "../../providers/UserContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCarContext } from "../../providers/CarContext";
+import api from "../../service/api";
 
 export function Profile() {
-    const { isMobile, isFullHd, user } = useUserContext();
-    const { loadCar } = useCarContext();
+    const { isMobile, isFullHd, user, loadUser } = useUserContext();
 
     useEffect(() => {
-        loadCar();
+        loadUser();
     }, []);
-    
+
     return (
         <>
             <Flex flexDir="column">

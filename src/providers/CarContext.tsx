@@ -25,7 +25,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [car, setCar] = useState<ICarProduct | undefined>();
     const [carId, setCarId] = useState("");
-    const { onClose } = useUserContext();
+    const { onClose, loadUser } = useUserContext();
 
     const token = localStorage.getItem("@token");
 
@@ -40,18 +40,18 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const createCarFunc = async (formData: ICarsRequest) => {
         try {
-            await api.post("/cars", formData, {
+            const { data } = await api.post("/cars", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            loadUser();
             toast.success("Carro Cadastrado com Sucesso");
             onClose();
         } catch (error) {
             toast.error("ops, ocorreu um erro ;-;");
         }
     };
-
     return (
         <CarContext.Provider
             value={{

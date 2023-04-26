@@ -28,11 +28,10 @@ import api from "../../../service/api";
 import { useUserContext } from "../../../providers/UserContext";
 
 export const EditAdModal = () => {
-    const { setRecentCar, recentCar, carId } = useCarContext();
-    const { onClose } = useUserContext();
+    const { carId } = useCarContext();
+    const { onClose, setUserCar, userCar } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
-
 
     const token = localStorage.getItem("@token");
 
@@ -70,8 +69,8 @@ export const EditAdModal = () => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        console.log(data);
-        setRecentCar(recentCar?.map((e) => (e.id === data.id ? data : e)));
+
+        setUserCar(userCar.map((e: any) => (e.id === data.id ? data : e)));
 
         onClose();
     };
