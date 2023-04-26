@@ -1,7 +1,12 @@
 import { Dispatch, createContext, useContext, useState } from "react";
 import { IUserProviderProps, useUserContext } from "./UserContext";
 import api from "../service/api";
-import { ICarProduct, ICarsRequest, ICarsResponse, ICarsUpdate } from "../interfaces/car";
+import {
+    ICarProduct,
+    ICarsRequest,
+    ICarsResponse,
+    ICarsUpdate,
+} from "../interfaces/car";
 import { toast } from "react-toastify";
 
 interface ICarContext {
@@ -11,13 +16,16 @@ interface ICarContext {
     createCarFunc: (formData: ICarsRequest) => void;
     car: ICarProduct | undefined;
     setCar: Dispatch<ICarProduct>;
+    carId: string;
+    setCarId: Dispatch<string>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
 export const CarProvider = ({ children }: IUserProviderProps) => {
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [car, setCar] = useState<ICarProduct | undefined>();
-    const { onClose } = useUserContext();
+    const [carId, setCarId] = useState("");
+    const { onClose, loadUser } = useUserContext();
 
     const token = localStorage.getItem("@token");
 
@@ -32,18 +40,18 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const createCarFunc = async (formData: ICarsRequest) => {
         try {
-            await api.post("/cars", formData, {
+            const { data } = await api.post("/cars", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            loadUser();
             toast.success("Carro Cadastrado com Sucesso");
             onClose();
         } catch (error) {
             toast.error("ops, ocorreu um erro ;-;");
         }
     };
-
     return (
         <CarContext.Provider
             value={{
@@ -53,6 +61,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 createCarFunc,
                 car,
                 setCar,
+                carId,
+                setCarId,
             }}
         >
             {children}
