@@ -13,14 +13,13 @@ import { useCarContext } from "../../providers/CarContext";
 import { useUserContext } from "../../providers/UserContext";
 
 export function Product() {
-    // const [isMobile] = useMediaQuery("(min-width: 800px)");
 
     const { carId } = useParams();
     const { setCar } = useCarContext()
     const { isMobile, isNotebook } = useUserContext()
 
-    useEffect(() => {
-        (async () => {
+    useEffect(() => {(
+        async () => {
             try {
                 const { data } = await api.get(`/cars/${carId}`);
                 setCar(data);
@@ -52,49 +51,43 @@ export function Product() {
                 <Flex flexDir="column">
                     {isMobile ? (
                         <Flex
-                            border="1px solid red"
-                            flexDir="column"
-                            justifyContent="center"
-                            alignItems="center"
-                            ml={5}
+                            justifyContent="space-between"
+                            margin="auto"
+                            w="80%"
                         >
                             <Flex
-                                border="1px solid green"
-                                justifyContent="flex-start"
-
+                                flexDir="column"
+                                w="70%"
                             >
                                 <Center
                                     flexDir="column"
                                     mr={30}
-                                // w="55%"
+                                    w="100%"
                                 >
                                     <CardCar />
                                     <Description />
                                 </Center>
-
                                 <Flex
-                                    flexDir="column"
+                                    w="100%"
                                     justifyContent="flex-start"
-                                    w="29%"
                                 >
-                                    <CardPictures />
-                                    <CardUser />
+                                    <Center
+                                        flexDir="column"
+                                        w="100%"
+                                    >
+                                        <ListComment />
+                                        <CreateComment />
+                                    </Center>
                                 </Flex>
+
                             </Flex>
                             <Flex
-                                border="1px solid black"
-                                // w="78.5%"
-                                w={isNotebook ? "78.5%" : "100%"}
+                                flexDir="column"
                                 justifyContent="flex-start"
-                                >
-                                <Center
-                                    bg={isNotebook ? "red" : isMobile ? "green" : "blue"}
-                                    flexDir="column"
-                                    w={isNotebook ? "53%" : isMobile ? "59%" : "100%"}
-                                >
-                                    <ListComment />
-                                    <CreateComment />
-                                </Center>
+                                w="29%"
+                            >
+                                <CardPictures />
+                                <CardUser />
                             </Flex>
                         </Flex>
                     ) : (
