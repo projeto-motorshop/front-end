@@ -46,7 +46,7 @@ interface IUserContext {
     onOpen: () => void;
     onClose: () => void;
     overlay: React.ReactNode;
-    setOverlay: (overlay: React.ReactNode) => void;
+    setOverlay: (overlay: ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
     token: string;
@@ -62,7 +62,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [token, setToken] = useState("");
     const [user, setUser] = useState<IUser | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [overlay, setOverlay] = useState<React.ReactNode>(<EditUserModal />);
+    const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
         "(min-width: 1439px)",

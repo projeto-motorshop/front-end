@@ -1,7 +1,12 @@
 import { Dispatch, createContext, useContext, useState } from "react";
 import { IUserProviderProps, useUserContext } from "./UserContext";
 import api from "../service/api";
-import { ICarProduct, ICarsRequest, ICarsResponse, ICarsUpdate } from "../interfaces/car";
+import {
+    ICarProduct,
+    ICarsRequest,
+    ICarsResponse,
+    ICarsUpdate,
+} from "../interfaces/car";
 import { toast } from "react-toastify";
 
 interface ICarContext {
@@ -11,12 +16,15 @@ interface ICarContext {
     createCarFunc: (formData: ICarsRequest) => void;
     car: ICarProduct | undefined;
     setCar: Dispatch<ICarProduct>;
+    carId: string;
+    setCarId: Dispatch<string>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
 export const CarProvider = ({ children }: IUserProviderProps) => {
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [car, setCar] = useState<ICarProduct | undefined>();
+    const [carId, setCarId] = useState("");
     const { onClose } = useUserContext();
 
     const token = localStorage.getItem("@token");
@@ -53,6 +61,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 createCarFunc,
                 car,
                 setCar,
+                carId,
+                setCarId,
             }}
         >
             {children}

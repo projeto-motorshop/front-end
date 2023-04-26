@@ -9,11 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { useUserContext } from "../../../providers/UserContext";
 import { ICarsResponse } from "../../../interfaces/car";
-import { useNavigate } from "react-router-dom";
 import { EditAdModal } from "../../../components/RenderModalContent/ModalEditAd";
+import { useCarContext } from "../../../providers/CarContext";
 
 export function CardCarProfile() {
     const { isMobile, isFullHd, user, setOverlay, onOpen } = useUserContext();
+    const { setCarId } = useCarContext();
 
     return (
         <>
@@ -33,6 +34,9 @@ export function CardCarProfile() {
                             minW={isMobile ? "" : "312px"}
                             flexDirection={"row"}
                             key={elem.id}
+                            onClick={() => {
+                                setCarId(elem.id);
+                            }}
                         >
                             <Flex
                                 w={"100%"}
