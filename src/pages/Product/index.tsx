@@ -5,19 +5,38 @@ import { CardUser } from "./CardUser";
 import { CreateComment } from "./CreateComments";
 import { Description } from "./Description";
 import { ListComment } from "./ListComments";
-import { HeaderHome } from "../../components/HeaderHome";
 import { FooterHome } from "../../components/FooterHome";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import api from "../../service/api";
+import { useCarContext } from "../../providers/CarContext";
+import { useUserContext } from "../../providers/UserContext";
 
 export function Product() {
-    const [isMobile] = useMediaQuery("(min-width: 800px)");
+    // const [isMobile] = useMediaQuery("(min-width: 800px)");
+
+    const { carId } = useParams();
+    const { setCar } = useCarContext()
+    const { isMobile, isNotebook } = useUserContext()
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const { data } = await api.get(`/cars/${carId}`);
+                setCar(data);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    }, []);
 
     return (
         <>
-            <Box 
+            <Box
                 w="100%"
                 height="38rem"
                 pos="absolute"
-                bg="var(--brand1)"
+                bg="brand.1"
             />
             <Flex
                 flexDir={isMobile ? "row" : "column"}
@@ -33,15 +52,22 @@ export function Product() {
                 <Flex flexDir="column">
                     {isMobile ? (
                         <Flex
+                            border="1px solid red"
                             flexDir="column"
                             justifyContent="center"
                             alignItems="center"
+                            ml={5}
                         >
-                            <Flex justifyContent="center">
-                                <Center 
+                            <Flex
+                                border="1px solid green"
+                                justifyContent="flex-start"
+
+                            >
+                                <Center
                                     flexDir="column"
                                     mr={30}
-                                    w="39%">
+                                // w="55%"
+                                >
                                     <CardCar />
                                     <Description />
                                 </Center>
@@ -49,32 +75,55 @@ export function Product() {
                                 <Flex
                                     flexDir="column"
                                     justifyContent="flex-start"
-                                    w="23%"
+                                    w="29%"
                                 >
                                     <CardPictures />
                                     <CardUser />
                                 </Flex>
                             </Flex>
-                            <Flex justifyContent="flex-start" w="63%">
-                                <Center flexDir="column" w="62%">
+                            <Flex
+                                border="1px solid black"
+                                // w="78.5%"
+                                w={isNotebook ? "78.5%" : "100%"}
+                                justifyContent="flex-start"
+                                >
+                                <Center
+                                    bg={isNotebook ? "red" : isMobile ? "green" : "blue"}
+                                    flexDir="column"
+                                    w={isNotebook ? "53%" : isMobile ? "59%" : "100%"}
+                                >
                                     <ListComment />
                                     <CreateComment />
                                 </Center>
                             </Flex>
                         </Flex>
                     ) : (
-                        <Flex flexDir="column">
-                            <Flex flexDir="column" ml="2%" mr="2%">
-                                <Center flexDir={"column"} mb="10rem">
+                        <Flex
+                            flexDir="column"
+                        >
+                            <Flex
+                                flexDir="column"
+                                ml="2%"
+                                mr="2%"
+                            >
+                                <Center
+                                    flexDir="column"
+                                >
                                     <CardCar />
                                     <Description />
                                 </Center>
-                                <Flex flexDir={"column"}>
+                                <Flex
+                                    flexDir="column"
+                                >
                                     <CardPictures />
                                     <CardUser />
                                 </Flex>
                             </Flex>
-                            <Flex flexDir={"column"} ml="2%" mr="2%">
+                            <Flex
+                                flexDir="column"
+                                ml="2%"
+                                mr="2%"
+                            >
                                 <ListComment />
                                 <CreateComment />
                             </Flex>

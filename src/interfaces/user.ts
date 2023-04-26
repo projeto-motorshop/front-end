@@ -14,6 +14,16 @@ export interface IUser {
     cars: ICarsResponse[];
 }
 
+export interface IUserCar {
+    description: string;
+    email: string;
+    id: string;
+    name: string;
+    phone: string; 
+    salesman: boolean;
+    urlImg: string;
+}
+
 export interface IUserResponse {
     id: string;
     name: string;

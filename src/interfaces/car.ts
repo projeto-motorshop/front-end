@@ -1,4 +1,4 @@
-import { IUser } from "./user";
+import { IUser, IUserCar } from "./user";
 
 export interface IImageRequest {
     urlImg: string;
@@ -25,6 +25,24 @@ export interface ICarsResponse {
     description: string;
     images: IImageResponse[];
     user: IUser;
+}
+
+export interface ICarProduct {
+    id: string;
+    brand: string;
+    color: string;
+    goodDeal: boolean;
+    isPublished: boolean;
+    model: string;
+    year: string;
+    fuel: string;
+    mileage: string;
+    price: string;
+    priceFipe: string;
+    frontImg: string;
+    description: string;
+    images: IImageResponse[];
+    user: IUserCar
 }
 
 export interface ICarsRequest {
