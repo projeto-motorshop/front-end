@@ -1,17 +1,12 @@
 import {
-    Flex,
     Avatar,
     Box,
-    Text,
     Button,
-    Modal,
-    Icon,
-    Spacer,
+    Flex,
+    Text
 } from "@chakra-ui/react";
-import { useUserContext } from "../../../providers/UserContext";
-import { EditAdModal } from "../../../components/RenderModalContent/ModalEditAd";
 import { CreateAdModal } from "../../../components/RenderModalContent/ModalAd";
-import { FaPlus } from "react-icons/fa";
+import { useUserContext } from "../../../providers/UserContext";
 
 export function CardUser() {
     const { user, setOverlay, onOpen, isMobile } = useUserContext();
@@ -60,6 +55,7 @@ export function CardUser() {
                             _hover={{ bg: "brand.2", color: "white" }}
                             onClick={() => {
                                 setOverlay(<CreateAdModal />);
+
                                 onOpen();
                             }}
                         >

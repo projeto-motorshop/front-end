@@ -1,42 +1,49 @@
 import { useNavigate } from "react-router";
-import { useParams } from "react-router-dom";
-import { useUserContext } from "../../../providers/UserContext";
-import api from "../../../service/api";
 
-export function UserProductsCard() {
-    const { isMobile, isFullHd, } = useUserContext();
-    const { userId } = useParams()
-    const loadUser = async () => await api.get(`/users/${userId}`).then((res) => console.log(res))
+import { Avatar, Badge, Box, Center, Flex, Image, Text } from "@chakra-ui/react";
+import { MdAttachMoney } from "react-icons/md";
+import { useUserContext } from "../../../providers/UserContext";
+
+export function UserProductsCard(): any {
+    const { isMobile, isFullHd, userData } = useUserContext();
     const navigate = useNavigate();
 
+
     const navigateToProduct = (id: string) => {
-        navigate(`/products/${id}`);
+        navigate(`/product/${id}`);
     };
 
-    return (
-        <>
-            {/* {loadUser.map((elem: ICarsResponse) => {
+    return (<>
+        {
+            userData?.cars?.map((elem: any) => {
                 return (
                     <>
+
                         <Flex
+                            border={'1px red solid'}
                             align="flex-start"
                             justifyContent={"flex-start"}
-                            w={isFullHd ? "30%" : isMobile ? "32%" : "100%"}
+                            w={isFullHd ? "70%" : isMobile ? "80%" : "100%"}
                             flexDirection={"row"}
-                            onClick={() => { navigateToProduct(elem.user.id) }}
+                            margin={'0 auto'}
+                            mt={'7rem'}
+                            mb={'18px'}
+                            onClick={() => { navigateToProduct(elem.id) }}
                             cursor="pointer"
                             key={elem.id}
                         >
                             <Flex
-                                w={"100%"}
+                                w={"90%"}
                                 p={3}
                                 flexDirection={"column"}
-                                gap={"2rem"}
+                                gap={"30px"}
+                                height={'30rem'}
                                 pos={"relative"}
                             >
                                 <Flex
                                     pos={"relative"}
-                                    h={isMobile ? "17rem" : "8rem"}
+                                    h={isMobile ? "14rem" : "14rem"}
+                                    w={'110%'}
                                     border={"2px solid transparent"}
                                     _hover={{ border: "2px solid #4529E6" }}
                                 >
@@ -87,6 +94,7 @@ export function UserProductsCard() {
                                         <>
                                             <Flex
                                                 pos={"absolute"}
+                                                w={'100%'}
                                                 left="4px"
                                                 top={"5px"}
                                                 zIndex={3}
@@ -112,11 +120,13 @@ export function UserProductsCard() {
                                         alt={elem.model}
                                         pos={"relative"}
                                         objectFit={"cover"}
+                                        w={'100%'}
+                                        h={'200px'}
                                     />
                                 </Flex>
 
                                 <Flex flexDirection={"column"} gap={"1rem"}>
-                                    <Text fontWeight={"800"}>
+                                    <Text fontWeight={"800"} h={'47px'}>
                                         {elem.brand} - {elem.model}
                                     </Text>
                                     <Box
@@ -133,8 +143,8 @@ export function UserProductsCard() {
                                 <Flex>
                                     <Center gap={isMobile ? "1rem" : ".5rem"}>
                                         <Avatar
-                                            name={elem.user.name}
-                                            src={elem.user.urlImg}
+                                            name={elem.brand}
+                                            src={elem.frontImg}
                                         />
                                         <Text
                                             fontWeight={"700"}
@@ -142,7 +152,7 @@ export function UserProductsCard() {
                                                 isMobile ? "14px" : "10px"
                                             }
                                         >
-                                            {elem.user.name}
+                                            {elem.brand}
                                         </Text>
                                     </Center>
                                 </Flex>
@@ -194,7 +204,9 @@ export function UserProductsCard() {
                         </Flex>
                     </>
                 );
-            })} */}
-        </>
-    );
+            })
+        }
+
+    </>)
+
 }

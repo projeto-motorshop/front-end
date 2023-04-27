@@ -48,10 +48,12 @@ interface IUserContext {
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
     token: string;
+    setUserData: Dispatch<SetStateAction<any>>,
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
     deleteUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
+    userData: any
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -59,6 +61,8 @@ export const AuthContext = createContext<IUserContext>({} as IUserContext);
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [token, setToken] = useState("");
     const [user, setUser] = useState<IUser | null>(null);
+
+    const [userData, setUserData] = useState({} as IUser)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<React.ReactNode>(<EditUserModal />);
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
@@ -198,6 +202,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         }
     };
 
+
     const logout = async (): Promise<void> => {
         setToken("");
         localStorage.clear();
@@ -214,7 +219,9 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 isNotebook,
                 isFullHd,
                 registerSubmit,
+                userData,
                 loginFunction,
+                setUserData,
                 logout,
                 isOpen,
                 onOpen,
