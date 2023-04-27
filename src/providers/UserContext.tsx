@@ -26,6 +26,8 @@ import {
 } from "../interfaces/user";
 import api from "../service/api";
 import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
+import { boolean } from "yup";
+import { ICarsResponse } from "../interfaces/car";
 //  import { toast } from "react-toastify";
 // import api from "../services/api";
 
@@ -54,8 +56,10 @@ interface IUserContext {
     deleteUser: () => void;
     loadUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
-    userCar: any;
-    setUserCar: Dispatch<any>;
+    userCar: ICarsResponse[] | undefined;
+    setUserCar: Dispatch<ICarsResponse[]>;
+    loading: boolean;
+    setLoading: Dispatch<boolean>;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
@@ -64,12 +68,13 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [user, setUser] = useState<IUser | null>(null);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
-    const [userCar, setUserCar] = useState<any>();
+    const [userCar, setUserCar] = useState<ICarsResponse[] | undefined>([]);
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
         "(min-width: 1439px)",
         "(min-width: 2000px)",
     ]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const token = localStorage.getItem("@token");
 
@@ -193,9 +198,11 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     };
 
     const passwordRecoveryFunction = async (email: IPasswordRecovery) => {
+        setLoading(true);
         try {
             await api.post("/users/sendEmailPasswordRecovery", email);
             toast.success("E-mail para recuperação de senha enviado!");
+            setLoading(false);
         } catch (error) {
             console.log(error);
             toast.error("Erro ao enviar E-mail");
@@ -246,6 +253,8 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 loadUser,
                 userCar,
                 setUserCar,
+                loading,
+                setLoading,
             }}
         >
             {children}
