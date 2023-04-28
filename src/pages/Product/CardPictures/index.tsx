@@ -1,15 +1,16 @@
 import { Flex, Image, Text } from "@chakra-ui/react";
 import { useCarContext } from "../../../providers/CarContext";
+import { useUserContext } from "../../../providers/UserContext";
 
 
 export function CardPictures() {
 
     const { car } = useCarContext()
+    const { isFullHd, isNotebook, isMobile } = useUserContext()
 
     return (
         <>
             <Flex
-                border="1px solid red"
                 flexDir="column"
                 mt={8}
                 h="24rem"
@@ -26,7 +27,8 @@ export function CardPictures() {
                 </Text>
                 <Flex
                     flexWrap="wrap"
-                >
+                    justifyContent="center"
+                    >
                     {car?.images.map((elem) => {
                         return (
                             <>
@@ -34,12 +36,12 @@ export function CardPictures() {
                                     borderRadius={4}
                                     mr={15}
                                     mb={15}
-                                >
+                                    bg={isFullHd ? "green" : isMobile ? "red" : "blue"}
+                                    >
                                     <Image
                                         src={elem.urlImg}
                                         alt={car.brand}
-                                        w="90%"
-                                        h="4rem"
+                                        w={isFullHd ? "30%" : isNotebook ? "120px": isMobile ? "80px" : "190px"}
                                         objectFit="cover"
                                     />
                                 </Flex>

@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-    Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
@@ -17,11 +16,11 @@ import {
     Box,
     useRadioGroup,
     HStack,
-    UseDisclosureProps,
+    ModalCloseButton,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
-import { ICarsResponse, ICarsUpdate } from "../../../interfaces/car";
+import { ICarsUpdate } from "../../../interfaces/car";
 import { updateCarSchema } from "../../../schemas/car.schema";
 import { RadioCard } from "../../../pages/Register/RadioCard";
 import { useCarContext } from "../../../providers/CarContext";
@@ -29,8 +28,8 @@ import api from "../../../service/api";
 import { useUserContext } from "../../../providers/UserContext";
 
 export const EditAdModal = () => {
-    const { carId, setRecentCar, recentCar } = useCarContext();
-    const { onClose } = useUserContext();
+    const { carId } = useCarContext();
+    const { onClose, setUserCar, userCar } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
 
@@ -47,7 +46,7 @@ export const EditAdModal = () => {
     });
 
     const group = getRootProps();
-    
+
     const formSubmit = async (formData: ICarsUpdate) => {
         let variant = {};
 
@@ -65,12 +64,13 @@ export const EditAdModal = () => {
         const newData = Object.fromEntries(
             Object.entries(dataForm).filter(([_, v]) => v != "")
         );
-        const { data } = await api.patch(`/contact/${carId}`, newData, {
+        const { data } = await api.patch(`/cars/${carId}`, newData, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
-        setRecentCar(recentCar?.map((e) => (e.id === data.id ? data : e)));
+
+        setUserCar(userCar.map((e: any) => (e.id === data.id ? data : e)));
 
         onClose();
     };
@@ -96,6 +96,7 @@ export const EditAdModal = () => {
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Editar Anúncio</ModalHeader>
+                <ModalCloseButton />
                 <FormControl
                     display={"flex"}
                     flexDir={"column"}

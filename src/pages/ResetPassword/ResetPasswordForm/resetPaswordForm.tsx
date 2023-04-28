@@ -17,7 +17,6 @@ import { passwordResetSchema } from "../../../schemas/user.schema";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import React from "react";
 import { useParams } from "react-router-dom";
-import { string } from "yup";
 
 export const ResetPasswordForm = () => {
     const { isMobile, resetPasswordFunction } = useUserContext();
