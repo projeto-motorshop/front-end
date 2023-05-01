@@ -7,13 +7,12 @@ import {
     MenuItem,
     MenuList,
     Modal,
-    Stack,
-    Text,
+    Text
 } from "@chakra-ui/react";
-import { useUserContext } from "../../../providers/UserContext";
 import { Link } from "react-router-dom";
-import { EditUserModal } from "../../RenderModalContent/ModalEditUser";
+import { useUserContext } from "../../../providers/UserContext";
 import { EditAddressModal } from "../../RenderModalContent/ModalEditAddress";
+import { EditUserModal } from "../../RenderModalContent/ModalEditUser";
 
 export function UserLogged() {
     const { user, logout, overlay, setOverlay, isOpen, onClose, onOpen } =

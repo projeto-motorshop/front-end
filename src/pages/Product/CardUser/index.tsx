@@ -1,16 +1,20 @@
 import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react";
-import { useCarContext } from "../../../providers/CarContext";
 import { useNavigate } from "react-router-dom";
+import { useCarContext } from "../../../providers/CarContext";
+import { useUserContext } from "../../../providers/UserContext";
 
 
 export function CardUser() {
 
     const { car } = useCarContext()
+    const { setUserData } = useUserContext()
+
     const navigate = useNavigate()
 
     const navigateToProfile = (id: string) => {
         navigate(`/userproducts/${id}`)
     }
+
 
     return (
         <>
@@ -31,7 +35,7 @@ export function CardUser() {
                     <Flex
                         justifyContent="center"
                         alignItems="center"
-                        >
+                    >
                         <Avatar
                             src={car?.user.urlImg}
                             name={car?.user.name}
@@ -57,7 +61,7 @@ export function CardUser() {
                     </Flex>
                     <Box>
                         <Button
-                            onClick={() => navigateToProfile(car?.user.id || "")}
+                            onClick={() => { navigateToProfile(car?.user.id || "") }}
                             w="100%"
                             bg="#0B0D0D"
                             color="#fff"

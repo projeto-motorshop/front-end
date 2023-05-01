@@ -1,13 +1,12 @@
 import {
-    UseDisclosureProps,
     useDisclosure,
-    useMediaQuery,
+    useMediaQuery
 } from "@chakra-ui/react";
 import {
-    createContext,
     Dispatch,
     ReactNode,
     SetStateAction,
+    createContext,
     useContext,
     useEffect,
     useState,
@@ -15,14 +14,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 import {
-    IAddressRequest,
     IAddressUpdate,
     IPasswordRecovery,
     IUser,
     IUserLogin,
     IUserRequest,
-    IUserUpdate,
+    IUserUpdate
 } from "../interfaces/user";
 import api from "../service/api";
 import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
@@ -51,11 +50,13 @@ interface IUserContext {
     setOverlay: (overlay: ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
+    setUserData: Dispatch<SetStateAction<any>>,
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
     deleteUser: () => void;
     loadUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
+    userData: any
     userCar: ICarsResponse[] | undefined;
     setUserCar: Dispatch<ICarsResponse[]>;
     loading: boolean;
@@ -66,6 +67,8 @@ export const AuthContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [user, setUser] = useState<IUser | null>(null);
+
+    const [userData, setUserData] = useState({} as IUser)
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
     const [userCar, setUserCar] = useState<ICarsResponse[] | undefined>([]);
@@ -222,6 +225,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         }
     };
 
+
     const logout = async (): Promise<void> => {
         localStorage.clear();
         setUser(null);
@@ -237,7 +241,9 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 isNotebook,
                 isFullHd,
                 registerSubmit,
+                userData,
                 loginFunction,
+                setUserData,
                 logout,
                 isOpen,
                 onOpen,
