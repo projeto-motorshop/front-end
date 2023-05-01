@@ -29,17 +29,18 @@ export function CreateAdModal() {
     const [dados, setDados] = useState({});
     const { onClose } = useUserContext();
     const { createCarFunc } = useCarContext();
+    const [options, setOptions] = useState([]);
 
-    useEffect(() => {
-        const isGoodDeal = async (data: any) => {
-            const fipeData = await api.get(
-                `https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`
-            );
+    // useEffect(() => {
+    //     const isGoodDeal = async (data: any) => {
+    //         const fipeData = await api.get(
+    //             `https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`
+    //         );
 
-            setPriceFipe(fipeData.data.value);
-        };
-        isGoodDeal(dados);
-    }, []);
+    //         setPriceFipe(fipeData.data.value);
+    //     };
+    //     isGoodDeal(dados);
+    // }, []);
 
     // const isGoodDeal = async (data: any) => {
     //     useEffect(() => { }, [])
@@ -59,6 +60,12 @@ export function CreateAdModal() {
 
     //     // onClose();
     // };
+
+    useEffect(() => {
+        fetch("https://kenzie-kars.herokuapp.com/cars")
+            .then((response) => response.json())
+            .then((data) => setOptions(data));
+    }, []);
 
     const {
         register,
@@ -92,6 +99,9 @@ export function CreateAdModal() {
                     >
                         <FormLabel>Marca</FormLabel>
                         <Input placeholder="Marca" {...register("brand")} />
+                        <Select>
+                            <option></option>
+                        </Select>
                         {errors.brand?.message}
                         <FormLabel>Modelo</FormLabel>
                         <Input placeholder="Modelo" {...register("model")} />

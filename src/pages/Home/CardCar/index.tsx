@@ -15,7 +15,7 @@ import { useCarContext } from "../../../providers/CarContext";
 
 export function CardCar() {
     const { isMobile, isFullHd } = useUserContext();
-    const { recentCar } = useCarContext();
+    const { filteredCars } = useCarContext();
     const navigate = useNavigate();
 
     const navigateToCar = (id: string) => {
@@ -24,7 +24,7 @@ export function CardCar() {
 
     return (
         <>
-            {recentCar.map((elem: ICarsResponse) => {
+            {filteredCars.map((elem: ICarsResponse) => {
                 return (
                     <>
                         <Flex
@@ -71,49 +71,6 @@ export function CardCar() {
                                         </Flex>
                                     ) : (
                                         <></>
-                                    )}
-                                    {elem.isPublished ? (
-                                        <Flex
-                                            pos={"absolute"}
-                                            left="4px"
-                                            top={"5px"}
-                                            zIndex={3}
-                                            bg={"brand.1"}
-                                            h={"1.5rem"}
-                                            alignItems={"center"}
-                                            borderRadius={"2px"}
-                                        >
-                                            <Badge
-                                                bg={"brand.1"}
-                                                color={"white"}
-                                                fontSize={"0.875rem"}
-                                                fontWeight={"500"}
-                                            >
-                                                Ativo
-                                            </Badge>
-                                        </Flex>
-                                    ) : (
-                                        <>
-                                            <Flex
-                                                pos={"absolute"}
-                                                left="4px"
-                                                top={"5px"}
-                                                zIndex={3}
-                                                bg={"grey.4"}
-                                                h={"1.5rem"}
-                                                alignItems={"center"}
-                                                borderRadius={"2px"}
-                                            >
-                                                <Badge
-                                                    bg={"grey.4"}
-                                                    color={"white"}
-                                                    fontSize={"0.875rem"}
-                                                    fontWeight={"500"}
-                                                >
-                                                    Inativo
-                                                </Badge>
-                                            </Flex>
-                                        </>
                                     )}
 
                                     <Image

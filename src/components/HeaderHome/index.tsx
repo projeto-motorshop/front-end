@@ -27,6 +27,9 @@ export function HeaderHome() {
                 borderColor="grey.6"
                 align={"center"}
                 justify={isFullHd ? "space-evenly" : "space-between"}
+                pos={"relative"}
+                zIndex={"1000"}
+                top={"0"}
             >
                 <Box display="flex" alignItems="center">
                     <Link to="/home">
