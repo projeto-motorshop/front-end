@@ -3,9 +3,17 @@ import { FooterHome } from "../../components/FooterHome";
 import { CardUser } from "./CardUser";
 import { CardCarProfile } from "./CardCarProfile";
 import { useUserContext } from "../../providers/UserContext";
+import { useEffect, useState } from "react";
+import { useCarContext } from "../../providers/CarContext";
+import api from "../../service/api";
 
 export function Profile() {
-    const { isMobile, isFullHd, user } = useUserContext();
+    const { isMobile, isFullHd, user, loadUser } = useUserContext();
+
+    useEffect(() => {
+        loadUser();
+    }, []);
+
     return (
         <>
             <Flex flexDir="column">
@@ -29,11 +37,7 @@ export function Profile() {
                             </Text>
                         </Flex>
                     ) : isMobile ? (
-                        <Wrap
-                            overflow={"hidden"}
-                            w={"80%"}
-                            p={"1rem"}
-                        >
+                        <Wrap overflow={"hidden"} w={"80%"} p={"1rem"}>
                             <CardCarProfile />
                         </Wrap>
                     ) : (

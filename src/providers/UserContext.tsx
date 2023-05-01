@@ -24,6 +24,9 @@ import {
     IUserUpdate
 } from "../interfaces/user";
 import api from "../service/api";
+import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
+import { boolean } from "yup";
+import { ICarsResponse } from "../interfaces/car";
 //  import { toast } from "react-toastify";
 // import api from "../services/api";
 
@@ -44,32 +47,39 @@ interface IUserContext {
     onOpen: () => void;
     onClose: () => void;
     overlay: React.ReactNode;
-    setOverlay: (overlay: React.ReactNode) => void;
+    setOverlay: (overlay: ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
-    token: string;
     setUserData: Dispatch<SetStateAction<any>>,
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
     deleteUser: () => void;
+    loadUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
     userData: any
+    userCar: ICarsResponse[] | undefined;
+    setUserCar: Dispatch<ICarsResponse[]>;
+    loading: boolean;
+    setLoading: Dispatch<boolean>;
 }
 
 export const AuthContext = createContext<IUserContext>({} as IUserContext);
 
 export const UserContextProvider = ({ children }: IUserProviderProps) => {
-    const [token, setToken] = useState("");
     const [user, setUser] = useState<IUser | null>(null);
 
     const [userData, setUserData] = useState({} as IUser)
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [overlay, setOverlay] = useState<React.ReactNode>(<EditUserModal />);
+    const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
+    const [userCar, setUserCar] = useState<ICarsResponse[] | undefined>([]);
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
         "(min-width: 1439px)",
         "(min-width: 2000px)",
     ]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const token = localStorage.getItem("@token");
 
     const navigate = useNavigate();
 
@@ -81,7 +91,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
         api.post("/login", formLogin)
             .then((resp) => {
                 localStorage.setItem("@token", resp.data.tokenUser);
-                setToken(resp.data.tokenUser);
                 api.get(`/users/profile`, {
                     headers: {
                         Authorization: `Bearer ${resp.data.tokenUser}`,
@@ -93,6 +102,19 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 });
             })
             .catch((err) => toast.error("email ou senha inválido"));
+    };
+
+    const loadUser = async () => {
+        try {
+            const { data } = await api.get("/users/profile", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            setUserCar(data.cars);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const autoLogin = () => {
@@ -160,7 +182,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 },
             });
             toast.success("Conta deletada");
-            setToken("");
             localStorage.clear();
             setUser(null);
             navigate("/home");
@@ -180,9 +201,11 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     };
 
     const passwordRecoveryFunction = async (email: IPasswordRecovery) => {
+        setLoading(true);
         try {
             await api.post("/users/sendEmailPasswordRecovery", email);
             toast.success("E-mail para recuperação de senha enviado!");
+            setLoading(false);
         } catch (error) {
             console.log(error);
             toast.error("Erro ao enviar E-mail");
@@ -204,7 +227,6 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
 
 
     const logout = async (): Promise<void> => {
-        setToken("");
         localStorage.clear();
         setUser(null);
         navigate("/");
@@ -230,11 +252,15 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 setOverlay,
                 patchUser,
                 patchUserAddress,
-                token,
                 autoLogin,
                 passwordRecoveryFunction,
                 deleteUser,
                 resetPasswordFunction,
+                loadUser,
+                userCar,
+                setUserCar,
+                loading,
+                setLoading,
             }}
         >
             {children}

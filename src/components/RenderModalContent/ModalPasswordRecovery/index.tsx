@@ -20,7 +20,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function PasswordRecoveryModal({ onClose }: UseDisclosureProps) {
-    const { passwordRecoveryFunction } = useUserContext();
+    const { passwordRecoveryFunction, loading } = useUserContext();
 
     const {
         register,
@@ -51,7 +51,13 @@ export function PasswordRecoveryModal({ onClose }: UseDisclosureProps) {
                         {errors.email?.message}
 
                         <ModalFooter>
-                            <Button type="submit" colorScheme="blue" mr={3}>
+                            <Button
+                                type="submit"
+                                colorScheme="blue"
+                                mr={3}
+                                isLoading={loading}
+                                loadingText="Enviando"
+                            >
                                 Enviar
                             </Button>
                             <Button onClick={onClose}>Cancel</Button>
