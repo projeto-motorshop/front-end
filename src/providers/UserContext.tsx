@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
 import { ICarsResponse } from "../interfaces/car";
 import {
@@ -48,7 +49,6 @@ interface IUserContext {
     setOverlay: (overlay: ReactNode) => void;
     patchUser: (formData: IUserUpdate) => void;
     patchUserAddress: (formData: IAddressUpdate) => void;
-
     setUserData: Dispatch<SetStateAction<any>>,
     autoLogin: () => void;
     passwordRecoveryFunction: (email: IPasswordRecovery) => void;
