@@ -35,8 +35,10 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            setRecentCar(data.allCars);
-            setFilteredCars(data.allCars);
+            console.log(data);
+
+            setRecentCar(data);
+            setFilteredCars(data);
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +46,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const createCarFunc = async (formData: ICarsRequest) => {
         try {
-            const { data } = await api.post("/cars", formData, {
+            await api.post("/cars", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -68,7 +70,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 carId,
                 setCarId,
                 filteredCars,
-                setFilteredCars
+                setFilteredCars,
             }}
         >
             {children}

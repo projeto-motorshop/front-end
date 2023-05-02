@@ -15,7 +15,7 @@ import { useCarContext } from "../../../providers/CarContext";
 
 export function CardCar() {
     const { isMobile, isFullHd } = useUserContext();
-    const { filteredCars } = useCarContext();
+    const { filteredCars, recentCar } = useCarContext();
     const navigate = useNavigate();
 
     const navigateToCar = (id: string) => {
@@ -24,7 +24,7 @@ export function CardCar() {
 
     return (
         <>
-            {filteredCars.map((elem: ICarsResponse) => {
+            {recentCar?.map((elem: ICarsResponse) => {
                 return (
                     <>
                         <Flex
@@ -150,9 +150,7 @@ export function CardCar() {
                                             }
                                         >
                                             R$
-                                            {parseInt(
-                                                elem.price
-                                            ).toLocaleString("pt-BR")}
+                                            {elem.price.toLocaleString("pt-BR")}
                                         </Text>
                                     </Center>
                                 </Flex>

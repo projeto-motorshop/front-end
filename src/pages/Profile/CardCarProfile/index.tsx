@@ -63,7 +63,7 @@ export function CardCarProfile() {
                                 </Flex>
 
                                 <Flex flexDirection={"column"} gap={"1rem"}>
-                                    <Text fontWeight={"800"}>
+                                    <Text fontWeight={"800"} noOfLines={1}>
                                         {elem.brand} - {elem.model}
                                     </Text>
                                     <Text
@@ -114,9 +114,7 @@ export function CardCarProfile() {
                                             }
                                         >
                                             R$
-                                            {parseInt(
-                                                elem.price
-                                            ).toLocaleString("pt-BR")}
+                                            {elem.price.toLocaleString("pt-BR")}
                                         </Text>
                                     </Center>
                                 </Flex>

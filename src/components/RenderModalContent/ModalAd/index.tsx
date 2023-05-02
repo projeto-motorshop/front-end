@@ -12,7 +12,6 @@ import {
     ModalOverlay,
     Select,
     Textarea,
-    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
@@ -20,52 +19,75 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { ICarsRequest } from "../../../interfaces/car";
 import { reqCarSchema } from "../../../schemas/car.schema";
 import api from "../../../service/api";
-import { toast } from "react-toastify";
 import { useUserContext } from "../../../providers/UserContext";
 import { useCarContext } from "../../../providers/CarContext";
 
 export function CreateAdModal() {
-    const [priceFipe, setPriceFipe] = useState(0);
-    const [dados, setDados] = useState({});
+    const [priceFipe, setPriceFipe] = useState<number>(0);
     const { onClose } = useUserContext();
     const { createCarFunc } = useCarContext();
-    const [options, setOptions] = useState([]);
+    const [optionsCarsFiltered, setOptionsCarsFiltered] = useState([]);
+    const [optionsBrand, setOptionsBrand] = useState("");
+    const [optionsModel, setOptionsModel] = useState("");
+    const [optionsYear, setOptionsYear] = useState("");
+    const [optionsFuel, setOptionsFuel] = useState("");
 
-    // useEffect(() => {
-    //     const isGoodDeal = async (data: any) => {
-    //         const fipeData = await api.get(
-    //             `https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`
-    //         );
-
-    //         setPriceFipe(fipeData.data.value);
-    //     };
-    //     isGoodDeal(dados);
-    // }, []);
-
-    // const isGoodDeal = async (data: any) => {
-    //     useEffect(() => { }, [])
-    //     try {
-    //         const fipeData = await api.get(`https://kenzie-kars.herokuapp.com/cars/unique?brand=${data.brand}&name=${data.model}&year=${data.year}&fuel=${data.fuel}`)
-    //         console.log(fipeData);
-    //         setPriceFipe(fipeData.data.value)
-    //         console.log(priceFipe);
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
-
-    // const formSubmit = (data: any) => {
-    //     // console.log(data);
-    //     isGoodDeal(data);
-
-    //     // onClose();
-    // };
+    console.log(priceFipe);
 
     useEffect(() => {
-        fetch("https://kenzie-kars.herokuapp.com/cars")
-            .then((response) => response.json())
-            .then((data) => setOptions(data));
-    }, []);
+        async function fetchData() {
+            try {
+                const { data } = await api.get(
+                    `https://kenzie-kars.herokuapp.com/cars?brand=${optionsBrand}`
+                );
+                setOptionsCarsFiltered(data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        fetchData();
+    }, [optionsBrand]);
+
+    useEffect(() => {
+        const priceFipeFunc = async () => {
+            const fipeData = await api.get(
+                `https://kenzie-kars.herokuapp.com/cars/unique?brand=${optionsBrand}&name=${encodeURIComponent(
+                    optionsModel
+                )}&year=${optionsYear}&fuel=${optionsFuel}`
+            );
+            setPriceFipe(fipeData.data.value);
+        };
+        priceFipeFunc();
+    }, [optionsFuel, optionsModel, optionsYear]);
+
+    const names = Array.isArray(optionsCarsFiltered) && [
+        ...new Set(optionsCarsFiltered?.map((car: any) => car.name)),
+    ];
+
+    const filteredCars =
+        Array.isArray(optionsCarsFiltered) &&
+        optionsCarsFiltered &&
+        optionsCarsFiltered?.filter((car: any) => car.name === optionsModel);
+
+    const years = Array.isArray(filteredCars) && [
+        ...new Set(filteredCars?.map((car: any) => car.year)),
+    ];
+    const fuels = Array.isArray(filteredCars) && [
+        ...new Set(filteredCars?.map((car: any) => car.fuel)),
+    ];
+
+    const typesFuel = (elem: number) => {
+        if (elem === 1) {
+            return "Flex";
+        }
+        if (elem === 2) {
+            return "Híbrido";
+        }
+        if (elem === 3) {
+            return "Elétrico";
+        }
+    };
 
     const {
         register,
@@ -98,35 +120,103 @@ export function CreateAdModal() {
                         onSubmit={handleSubmit(createCarFunc)}
                     >
                         <FormLabel>Marca</FormLabel>
-                        <Input placeholder="Marca" {...register("brand")} />
-                        <Select>
-                            <option></option>
+                        <Select
+                            {...register("brand")}
+                            onChange={(e) => setOptionsBrand(e.target.value)}
+                        >
+                            <option value="" selected disabled hidden>
+                                Marca
+                            </option>
+                            <option defaultValue="chevrolet">chevrolet</option>
+                            <option defaultValue="citroën">citroën</option>
+                            <option defaultValue="fiat">fiat</option>
+                            <option defaultValue="ford">ford</option>
+                            <option defaultValue="honda">honda</option>
+                            <option defaultValue="hyundai">hyundai</option>
+                            <option defaultValue="nissan">nissan</option>
+                            <option defaultValue="peugeot">peugeot</option>
+                            <option defaultValue="renault">renault</option>
+                            <option defaultValue="toyota">toyota</option>
+                            <option defaultValue="volkswagen">
+                                volkswagen
+                            </option>
                         </Select>
-                        {errors.brand?.message}
                         <FormLabel>Modelo</FormLabel>
-                        <Input placeholder="Modelo" {...register("model")} />
-                        {errors.model?.message}
+                        <Select
+                            {...register("model")}
+                            onChange={(e) => setOptionsModel(e.target.value)}
+                            disabled={!optionsBrand}
+                        >
+                            <option value="" selected disabled hidden>
+                                Modelo
+                            </option>
+                            {names &&
+                                names?.map((elem) => {
+                                    return (
+                                        <>
+                                            <option key={elem} value={elem}>
+                                                {elem}
+                                            </option>
+                                        </>
+                                    );
+                                })}
+                        </Select>
                         <Flex gap={"2rem"}>
-                            <Flex flexDir={"column"}>
+                            <Flex flexDir={"column"} w={"50%"}>
                                 <FormLabel>Ano</FormLabel>
-                                <Input
-                                    type="number"
-                                    placeholder="Ano"
+                                <Select
                                     {...register("year")}
-                                />
-                                {errors.year?.message}
+                                    onChange={(e) =>
+                                        setOptionsYear(e.target.value)
+                                    }
+                                    disabled={!optionsModel}
+                                >
+                                    <option value="" selected>
+                                        Ano
+                                    </option>
+                                    {years &&
+                                        years?.map((elem) => {
+                                            return (
+                                                <>
+                                                    <option
+                                                        key={elem}
+                                                        value={elem}
+                                                    >
+                                                        {elem}
+                                                    </option>
+                                                </>
+                                            );
+                                        })}
+                                </Select>
                             </Flex>
-                            <Flex flexDir={"column"}>
+                            <Flex flexDir={"column"} w={"50%"}>
                                 <FormLabel>Combustível</FormLabel>
                                 <Select
-                                    placeholder="Tipo de Combustível"
                                     {...register("fuel")}
+                                    onChange={(e) =>
+                                        setOptionsFuel(
+                                            e.target.selectedOptions[0].value
+                                        )
+                                    }
+                                    disabled={!optionsYear}
                                 >
-                                    <option defaultValue="1">Flex</option>
-                                    <option defaultValue="2">Híbrido</option>
-                                    <option defaultValue="3">Elétrico</option>
+                                    <option value="" selected>
+                                        Combustível
+                                    </option>
+                                    {fuels &&
+                                        fuels?.map((elem) => {
+                                            return (
+                                                <>
+                                                    <option
+                                                        key={elem}
+                                                        value={elem}
+                                                    >
+                                                        {typesFuel(elem)}
+                                                    </option>
+                                                </>
+                                            );
+                                        })}
                                 </Select>
-                                {errors.fuel?.message}
                             </Flex>
                         </Flex>
                         <Flex gap={"2rem"}>
@@ -151,7 +241,6 @@ export function CreateAdModal() {
                             <Flex flexDir={"column"}>
                                 <FormLabel>Preço tabela Fipe</FormLabel>
                                 <Input
-                                    placeholder="Preço tabela FIPE"
                                     value={priceFipe}
                                     {...register("priceFipe")}
                                 />

@@ -12,43 +12,43 @@ import { ICarsRequest } from "../../../interfaces/car";
 import { ReactNode, useEffect, useState } from "react";
 import { useCarContext } from "../../../providers/CarContext";
 
-const minMax = (recentCar: any, attributes: any) => {
-    let ans = Object.fromEntries(
-        attributes.map((attr: any) => [attr, { min: null, max: null }])
-    );
+// const minMax = (recentCar: any, attributes: any) => {
+//     let ans = Object.fromEntries(
+//         attributes.map((attr: any) => [attr, { min: null, max: null }])
+//     );
 
-    recentCar.forEach((car: any) => {
-        attributes.forEach((attribute: any) => {
-            if (ans[attribute]["min"] == null)
-                ans[attribute]["min"] = car[attribute];
-            if (ans[attribute]["max"] == null)
-                ans[attribute]["max"] = car[attribute];
+//     recentCar.forEach((car: any) => {
+//         attributes.forEach((attribute: any) => {
+//             if (ans[attribute]["min"] == null)
+//                 ans[attribute]["min"] = car[attribute];
+//             if (ans[attribute]["max"] == null)
+//                 ans[attribute]["max"] = car[attribute];
 
-            if (car[attribute] < ans[attribute]["min"])
-                ans[attribute]["min"] = car[attribute];
-            if (car[attribute] > ans[attribute]["max"])
-                ans[attribute]["max"] = car[attribute];
-        });
-    });
-    return ans;
-};
+//             if (car[attribute] < ans[attribute]["min"])
+//                 ans[attribute]["min"] = car[attribute];
+//             if (car[attribute] > ans[attribute]["max"])
+//                 ans[attribute]["max"] = car[attribute];
+//         });
+//     });
+//     return ans;
+// };
 
 export function FilterCar() {
-    const rangedAttributes = ["mileage", "price"];
-    const cleanFilters = {
-        brand: [],
-        model: [],
-        color: [],
-        fuel: [],
-        year: [],
-        price: { min: null, max: null },
-        mileage: { min: null, max: null },
-    };
+    // const rangedAttributes = ["mileage", "price"];
+    // const cleanFilters = {
+    //     brand: [],
+    //     model: [],
+    //     color: [],
+    //     fuel: [],
+    //     year: [],
+    //     price: { min: null, max: null },
+    //     mileage: { min: null, max: null },
+    // };
 
     const { isMobile, onClose } = useUserContext();
     const { recentCar, setRecentCar, loadCar, filteredCars, setFilteredCars } =
         useCarContext();
-    const minMaxAttributes = minMax(recentCar, rangedAttributes);
+    // const minMaxAttributes = minMax(recentCar, rangedAttributes);
 
     let brands = [
         ...new Set(filteredCars.map((car: ICarsRequest) => car.brand)),
@@ -62,7 +62,7 @@ export function FilterCar() {
     let fuels = [...new Set(filteredCars.map((car: ICarsRequest) => car.fuel))];
     let years = [...new Set(filteredCars.map((car: ICarsRequest) => car.year))];
 
-    const [filters, setFilters] = useState(cleanFilters);
+    // const [filters, setFilters] = useState(cleanFilters);
 
     // useEffect(() => {
     //     console.log(filters);
@@ -96,11 +96,11 @@ export function FilterCar() {
     //     });
     //     setFilteredCars(carsFilter);
     // }, [filters]);
-    const [minValueKm, setMinValueKm] = useState(1000);
-    const [maxValueKm, setMaxValueKm] = useState(1500000);
-    const [minValuePrice, setMinValuePrice] = useState(1000);
-    const [maxValuePrice, setMaxValuePrice] = useState(1500000);
-    const [precosFiltrados, setPrecosFiltrados] = useState([]);
+    // const [minValueKm, setMinValueKm] = useState(1000);
+    // const [maxValueKm, setMaxValueKm] = useState(1500000);
+    // const [minValuePrice, setMinValuePrice] = useState(1000);
+    // const [maxValuePrice, setMaxValuePrice] = useState(1500000);
+    // const [precosFiltrados, setPrecosFiltrados] = useState([]);
 
     // function valorMinimo(valor, precos) {
     //     return precos.filter((p) => p <= valor);
