@@ -1,7 +1,7 @@
 import { IUser, IUserCar } from "./user";
 
 export interface IImageRequest {
-    urlImg: string;
+    urlImg: string | null | undefined;
 }
 export interface IImageResponse {
     id: string;
@@ -18,9 +18,9 @@ export interface ICarsResponse {
     model: string;
     year: string;
     fuel: string;
-    mileage: string;
-    price: string;
-    priceFipe: string;
+    mileage: number;
+    price: number;
+    priceFipe: number;
     frontImg: string;
     description: string;
     images: IImageResponse[];
@@ -36,13 +36,13 @@ export interface ICarProduct {
     model: string;
     year: string;
     fuel: string;
-    mileage: string;
-    price: string;
-    priceFipe: string;
+    mileage: number;
+    price: number;
+    priceFipe: number;
     frontImg: string;
     description: string;
     images: IImageResponse[];
-    user: IUserCar
+    user: IUserCar;
 }
 
 export interface ICarsRequest {
@@ -51,10 +51,10 @@ export interface ICarsRequest {
     model: string;
     year: string;
     fuel: string;
-    mileage: string;
+    mileage: number;
     images: IImageRequest[];
-    price: string;
-    priceFipe: string;
+    price: number;
+    priceFipe: number;
     frontImg: string;
     description: string;
 }
@@ -66,9 +66,9 @@ export interface ICarsUpdate {
     model?: string;
     year?: string;
     fuel?: string;
-    mileage?: string;
-    price?: string;
-    priceFipe?: string;
+    mileage?: number;
+    price?: number;
+    priceFipe?: number;
     frontImg?: string;
     description?: string;
     images?: IImageRequest[];

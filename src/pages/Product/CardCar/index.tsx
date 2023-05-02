@@ -1,26 +1,14 @@
-import {
-    Box,
-    Button,
-    Flex,
-    Image,
-    Text
-} from "@chakra-ui/react"
-import { useCarContext } from "../../../providers/CarContext"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation } from "swiper"
-import "./styles.css"
-
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { useCarContext } from "../../../providers/CarContext";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper";
+import "./styles.css";
 
 export function CardCar() {
-
-    const { car } = useCarContext()
+    const { car } = useCarContext();
 
     return (
-        <Flex
-            flexDir="column"
-            mt={30}
-            w="100%"
-        >
+        <Flex flexDir="column" mt={30} w="100%">
             <Flex
                 justifyContent="center"
                 w="100%"
@@ -75,19 +63,10 @@ export function CardCar() {
                 bg="#FDFDFD"
                 borderRadius={4}
             >
-                <Text
-                    fontSize={20}
-                >
-                    {`${car?.brand} - ${car?.model}`}
-                </Text>
+                <Text fontSize={20}>{`${car?.brand} - ${car?.model}`}</Text>
 
-                <Flex
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Flex
-                        gap={15}
-                    >
+                <Flex justifyContent="space-between" alignItems="center">
+                    <Flex gap={15}>
                         <Flex
                             justifyContent="center"
                             alignItems="center"
@@ -96,11 +75,7 @@ export function CardCar() {
                             bg="#EDEAFD"
                             borderRadius={4}
                         >
-                            <Text
-                                color="#4529E6"
-                            >
-                                {car?.year}
-                            </Text>
+                            <Text color="#4529E6">{car?.year}</Text>
                         </Flex>
 
                         <Flex
@@ -111,17 +86,10 @@ export function CardCar() {
                             bg="#EDEAFD"
                             borderRadius={4}
                         >
-                            <Text
-                                color="#4529E6"
-                            >
-                                KM {car?.mileage}
-                            </Text>
+                            <Text color="#4529E6">KM {car?.mileage}</Text>
                         </Flex>
                     </Flex>
-                    <Text
-                    >
-                        R$ {parseInt(car?.price || "0").toLocaleString("pt-BR")}
-                    </Text>
+                    <Text>R$ {car?.price.toLocaleString("pt-BR")}</Text>
                 </Flex>
                 <Box>
                     <Button
@@ -138,5 +106,5 @@ export function CardCar() {
                 </Box>
             </Flex>
         </Flex>
-    )
+    );
 }
