@@ -23,16 +23,14 @@ import { useUserContext } from "../../../providers/UserContext";
 import { useCarContext } from "../../../providers/CarContext";
 
 export function CreateAdModal() {
-    const [priceFipe, setPriceFipe] = useState<number>(0);
     const { onClose } = useUserContext();
-    const { createCarFunc } = useCarContext();
+    const { createCarFunc, priceFipe, setPriceFipe, typesFuel } =
+        useCarContext();
     const [optionsCarsFiltered, setOptionsCarsFiltered] = useState([]);
     const [optionsBrand, setOptionsBrand] = useState("");
     const [optionsModel, setOptionsModel] = useState("");
     const [optionsYear, setOptionsYear] = useState("");
     const [optionsFuel, setOptionsFuel] = useState("");
-
-    console.log(priceFipe);
 
     useEffect(() => {
         async function fetchData() {
@@ -76,18 +74,6 @@ export function CreateAdModal() {
     const fuels = Array.isArray(filteredCars) && [
         ...new Set(filteredCars?.map((car: any) => car.fuel)),
     ];
-
-    const typesFuel = (elem: number) => {
-        if (elem === 1) {
-            return "Flex";
-        }
-        if (elem === 2) {
-            return "Híbrido";
-        }
-        if (elem === 3) {
-            return "Elétrico";
-        }
-    };
 
     const {
         register,

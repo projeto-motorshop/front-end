@@ -1,4 +1,10 @@
-import { Dispatch, createContext, useContext, useState } from "react";
+import {
+    Dispatch,
+    ReactNode,
+    createContext,
+    useContext,
+    useState,
+} from "react";
 import { IUserProviderProps, useUserContext } from "./UserContext";
 import api from "../service/api";
 import {
@@ -20,11 +26,16 @@ interface ICarContext {
     setCarId: Dispatch<string>;
     filteredCars: ICarsResponse[];
     setFilteredCars: Dispatch<ICarsResponse[]>;
+    deleteCar: () => void;
+    priceFipe: string;
+    setPriceFipe: Dispatch<string>;
+    typesFuel: (elem: any) => ReactNode;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
 export const CarProvider = ({ children }: IUserProviderProps) => {
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
+    const [priceFipe, setPriceFipe] = useState("0");
     const [car, setCar] = useState<ICarProduct | undefined>();
     const [carId, setCarId] = useState("");
     const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
@@ -32,11 +43,21 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const token = localStorage.getItem("@token");
 
+    const typesFuel = (elem: string | number) => {
+        if (elem == 1) {
+            return "Flex";
+        }
+        if (elem == 2) {
+            return "Híbrido";
+        }
+        if (elem == 3) {
+            return "Elétrico";
+        }
+    };
+
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            console.log(data);
-
             setRecentCar(data);
             setFilteredCars(data);
         } catch (error) {
@@ -46,6 +67,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const createCarFunc = async (formData: ICarsRequest) => {
         try {
+            formData.priceFipe = priceFipe;
             await api.post("/cars", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -55,9 +77,25 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
             toast.success("Carro Cadastrado com Sucesso");
             onClose();
         } catch (error) {
-            toast.error("ops, ocorreu um erro ;-;");
+            toast.error("ops, ocorreu um erro ");
         }
     };
+
+    const deleteCar = (): void => {
+        try {
+            api.delete(`/cars/${carId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            loadUser();
+            toast.success("Anuncio deletado");
+            onClose();
+        } catch (error) {
+            toast.error("algo deu errado");
+        }
+    };
+
     return (
         <CarContext.Provider
             value={{
@@ -71,6 +109,10 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setCarId,
                 filteredCars,
                 setFilteredCars,
+                deleteCar,
+                priceFipe,
+                setPriceFipe,
+                typesFuel,
             }}
         >
             {children}

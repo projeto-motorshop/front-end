@@ -28,10 +28,20 @@ import api from "../../../service/api";
 import { useUserContext } from "../../../providers/UserContext";
 
 export const EditAdModal = () => {
-    const { carId } = useCarContext();
+    const { carId, deleteCar } = useCarContext();
     const { onClose, setUserCar, userCar } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
+    const [carCard, setCarCard] = useState<any>();
+
+    useEffect(() => {
+        const funcTeste = async () => {
+            const { data } = await api.get(`/cars/${carId}`);
+            setCarCard(data);
+        };
+
+        funcTeste();
+    }, []);
 
     const token = localStorage.getItem("@token");
 
@@ -64,6 +74,7 @@ export const EditAdModal = () => {
         const newData = Object.fromEntries(
             Object.entries(dataForm).filter(([_, v]) => v != "")
         );
+
         const { data } = await api.patch(`/cars/${carId}`, newData, {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -74,6 +85,7 @@ export const EditAdModal = () => {
 
         onClose();
     };
+
     const {
         register,
         control,
@@ -152,6 +164,7 @@ export const EditAdModal = () => {
                                     <FormLabel>Quilometragem</FormLabel>
                                     <Input
                                         placeholder="30.000"
+                                        defaultValue={carCard?.mileage}
                                         {...register("mileage")}
                                     />
                                     {errors.mileage?.message}
@@ -166,7 +179,7 @@ export const EditAdModal = () => {
                                 </Box>
                             </Flex>
                             <Flex gap={"2rem"}>
-                                <Box>
+                                <Box w={"50%"}>
                                     <FormLabel>Preço Tabela Fipe</FormLabel>
                                     <Input
                                         placeholder="R$ 48.000,00"
@@ -174,10 +187,11 @@ export const EditAdModal = () => {
                                     />
                                     {errors.priceFipe?.message}
                                 </Box>
-                                <Box>
+                                <Box w={"50%"}>
                                     <FormLabel>Preço</FormLabel>
                                     <Input
                                         placeholder="R$ 50.000,00"
+                                        defaultValue={carCard?.price}
                                         {...register("price")}
                                     />
                                     {errors.price?.message}
@@ -277,7 +291,7 @@ export const EditAdModal = () => {
                         <Button
                             _hover={{ bg: "grey.5" }}
                             mr={3}
-                            onClick={onClose}
+                            onClick={deleteCar}
                         >
                             Excluir anúncio
                         </Button>

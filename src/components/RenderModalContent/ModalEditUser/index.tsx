@@ -25,7 +25,7 @@ import ReactInputMask from "react-input-mask";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function EditUserModal() {
-    const { patchUser, onClose, isMobile, deleteUser } = useUserContext();
+    const { patchUser, onClose, isMobile, deleteUser, user } = useUserContext();
 
     const {
         register,
@@ -54,6 +54,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>Nome</FormLabel>
                                 <Input
+                                    defaultValue={user?.name}
                                     placeholder="Nome"
                                     {...register("name")}
                                 />
@@ -62,6 +63,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>E-mail</FormLabel>
                                 <Input
+                                    defaultValue={user?.email}
                                     placeholder="E-mail"
                                     {...register("email")}
                                 />
@@ -70,6 +72,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>CPF</FormLabel>
                                 <Input
+                                    defaultValue={user?.cpf}
                                     placeholder="CPF"
                                     as={ReactInputMask}
                                     mask="999.999.999-99"
@@ -81,6 +84,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>Celular</FormLabel>
                                 <Input
+                                    defaultValue={user?.phone}
                                     placeholder="Celular"
                                     as={ReactInputMask}
                                     mask="(99)9 9999-9999"
@@ -101,6 +105,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>Imagem de Perfil</FormLabel>
                                 <Input
+                                    defaultValue={user?.urlImg}
                                     placeholder="https://image.com"
                                     {...register("urlImg")}
                                 />
@@ -109,6 +114,7 @@ export function EditUserModal() {
                             <Box>
                                 <FormLabel>Descrição</FormLabel>
                                 <Textarea
+                                    defaultValue={user?.description}
                                     placeholder="Descrição"
                                     resize={"none"}
                                     {...register("description")}

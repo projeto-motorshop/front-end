@@ -12,6 +12,7 @@ export interface IUser {
     salesman: boolean;
     birthdate?: Date;
     cars: ICarsResponse[];
+    address: IAddressRequest;
 }
 
 export interface IUserCar {
@@ -19,7 +20,7 @@ export interface IUserCar {
     email: string;
     id: string;
     name: string;
-    phone: string; 
+    phone: string;
     salesman: boolean;
     urlImg: string;
 }
