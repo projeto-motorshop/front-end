@@ -6,14 +6,16 @@ O site é um mercado online de carros que permite aos usuários comprar e vender
 
 ## <strong> ER Diagram: </strong>
 
+![Diagrama sem nome drawio](https://user-images.githubusercontent.com/103224186/235952279-ec96e94b-3b99-45a6-a062-86f9816740aa.png)
+
 Principais tecnologias usadas:
 
--JavaScript
--TypeScript
--React
--Node
--Express
--Styled Chakra
+-   JavaScript
+-   TypeScript
+-   React
+-   Node
+-   Express
+-   Styled Chakra
 
 ## **2. Como iniciar o projeto:**
 
@@ -29,15 +31,19 @@ Principais tecnologias usadas:
 
 <strong>Preencha as informações sensíveis no arquivo ENV para se conectar ao BANCO DE DADOS que você criou:</strong>
 
-Nas segintes chaves preencha dessa forma:
+Nas segintes chaves preencha dessa forma:</br>
 SMTP_USER="motorsportgrupo27@gmail.com"
 SMTP_PASS="dvbrwwzuppuxlptb"
 
-<strong>Digite este comando no terminal para instalar as dependências usadas na aplicação:</strong> yarn
+### Digite os comandos no terminal
 
-<strong>Digite este comando no terminal para persistir as migrações no BANCO DE DADOS:</strong> yarn typeorm migration:run -d src/data-source
+<strong>Instalar as dependências usadas na aplicação:</strong> yarn
 
-<strong>Digite este comando no terminal para iniciar a aplicão:</strong> yarn dev
+<strong>Persistir as migrações no BANCO DE DADOS:</strong> yarn typeorm migration:run -d src/data-source
+
+<strong>Iniciar a aplicão:</strong> yarn dev
+
+<p>------------------------------------------------------------------------------------------------------</p>
 
 **URL local: http://localhost:3000**
 
@@ -50,4 +56,4 @@ http://localhost:3000/docs
 > -   [Victor Novakoski ](https://www.linkedin.com/in/victor-novakoski-6b0163240/)
 > -   [Igor Ramon](https://www.linkedin.com/in/igor-ramon-rio-tinto/)
 > -   [Gabriel Melo](https://www.linkedin.com/in/gabrielmelo98dev/)
-> -   [Jeferson Veiga](https://www.linkedin.com/in/viniciusgrp/)
+> -   [Jeferson Veiga](https://www.linkedin.com/in/jveiiga/)
