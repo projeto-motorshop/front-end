@@ -20,7 +20,7 @@ export function UserProductsCard(): any {
                     <>
 
                         <Flex
-                            border={'1px red solid'}
+
                             align="flex-start"
                             justifyContent={"flex-start"}
                             w={isFullHd ? "70%" : isMobile ? "80%" : "100%"}
