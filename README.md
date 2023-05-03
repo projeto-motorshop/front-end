@@ -32,7 +32,7 @@ Principais tecnologias usadas:
 <strong>Preencha as informações sensíveis no arquivo ENV para se conectar ao BANCO DE DADOS que você criou:</strong>
 
 Nas segintes chaves preencha dessa forma:</br>
-SMTP_USER="motorsportgrupo27@gmail.com"
+SMTP_USER="motorsportgrupo27@gmail.com"</br>
 SMTP_PASS="dvbrwwzuppuxlptb"
 
 ### Digite os comandos no terminal
