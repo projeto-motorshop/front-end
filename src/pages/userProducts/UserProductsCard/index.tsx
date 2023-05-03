@@ -1,6 +1,14 @@
 import { useNavigate } from "react-router";
 
-import { Avatar, Badge, Box, Center, Flex, Image, Text } from "@chakra-ui/react";
+import {
+    Avatar,
+    Badge,
+    Box,
+    Center,
+    Flex,
+    Image,
+    Text,
+} from "@chakra-ui/react";
 import { MdAttachMoney } from "react-icons/md";
 import { useUserContext } from "../../../providers/UserContext";
 
@@ -8,27 +16,27 @@ export function UserProductsCard(): any {
     const { isMobile, isFullHd, userData } = useUserContext();
     const navigate = useNavigate();
 
-
     const navigateToProduct = (id: string) => {
         navigate(`/product/${id}`);
     };
 
-    return (<>
-        {
-            userData?.cars?.map((elem: any) => {
+    return (
+        <>
+            {userData?.cars?.map((elem: any) => {
                 return (
                     <>
-
                         <Flex
-
+                            border={'1px red solid'}
                             align="flex-start"
                             justifyContent={"flex-start"}
                             w={isFullHd ? "70%" : isMobile ? "80%" : "100%"}
                             flexDirection={"row"}
-                            margin={'0 auto'}
-                            mt={'7rem'}
-                            mb={'18px'}
-                            onClick={() => { navigateToProduct(elem.id) }}
+                            margin={"0 auto"}
+                            mt={"7rem"}
+                            mb={"18px"}
+                            onClick={() => {
+                                navigateToProduct(elem.id);
+                            }}
                             cursor="pointer"
                             key={elem.id}
                         >
@@ -37,13 +45,13 @@ export function UserProductsCard(): any {
                                 p={3}
                                 flexDirection={"column"}
                                 gap={"30px"}
-                                height={'30rem'}
+                                height={"30rem"}
                                 pos={"relative"}
                             >
                                 <Flex
                                     pos={"relative"}
                                     h={isMobile ? "14rem" : "14rem"}
-                                    w={'110%'}
+                                    w={"110%"}
                                     border={"2px solid transparent"}
                                     _hover={{ border: "2px solid #4529E6" }}
                                 >
@@ -94,7 +102,7 @@ export function UserProductsCard(): any {
                                         <>
                                             <Flex
                                                 pos={"absolute"}
-                                                w={'100%'}
+                                                w={"100%"}
                                                 left="4px"
                                                 top={"5px"}
                                                 zIndex={3}
@@ -120,13 +128,13 @@ export function UserProductsCard(): any {
                                         alt={elem.model}
                                         pos={"relative"}
                                         objectFit={"cover"}
-                                        w={'100%'}
-                                        h={'200px'}
+                                        w={"100%"}
+                                        h={"200px"}
                                     />
                                 </Flex>
 
                                 <Flex flexDirection={"column"} gap={"1rem"}>
-                                    <Text fontWeight={"800"} h={'47px'}>
+                                    <Text fontWeight={"800"} h={"47px"}>
                                         {elem.brand} - {elem.model}
                                     </Text>
                                     <Box
@@ -194,9 +202,7 @@ export function UserProductsCard(): any {
                                             }
                                         >
                                             R$
-                                            {parseInt(
-                                                elem.price
-                                            ).toLocaleString("pt-BR")}
+                                            {elem.price.toLocaleString("pt-BR")}
                                         </Text>
                                     </Center>
                                 </Flex>
@@ -204,9 +210,7 @@ export function UserProductsCard(): any {
                         </Flex>
                     </>
                 );
-            })
-        }
-
-    </>)
-
+            })}
+        </>
+    );
 }

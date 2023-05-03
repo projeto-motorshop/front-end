@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 function App() {
     return (
         <Providers>
-            <Container>
+            {/* <Container> */}
                 <ToastContainer
                     position="bottom-right"
                     autoClose={1500}
@@ -17,7 +17,7 @@ function App() {
                     toastStyle={{ backgroundColor: "black", color: "white" }}
                 />
                 <Router />
-            </Container>
+            {/* </Container> */}
         </Providers>
     );
 }

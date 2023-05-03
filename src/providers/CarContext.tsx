@@ -18,6 +18,8 @@ interface ICarContext {
     setCar: Dispatch<ICarProduct>;
     carId: string;
     setCarId: Dispatch<string>;
+    filteredCars: ICarsResponse[];
+    setFilteredCars: Dispatch<ICarsResponse[]>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
@@ -25,6 +27,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [car, setCar] = useState<ICarProduct | undefined>();
     const [carId, setCarId] = useState("");
+    const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
     const { onClose, loadUser } = useUserContext();
 
     const token = localStorage.getItem("@token");
@@ -32,7 +35,10 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            setRecentCar(data.allCars);
+            console.log(data);
+
+            setRecentCar(data);
+            setFilteredCars(data);
         } catch (error) {
             console.log(error);
         }
@@ -40,7 +46,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const createCarFunc = async (formData: ICarsRequest) => {
         try {
-            const { data } = await api.post("/cars", formData, {
+            await api.post("/cars", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -63,6 +69,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setCar,
                 carId,
                 setCarId,
+                filteredCars,
+                setFilteredCars,
             }}
         >
             {children}
