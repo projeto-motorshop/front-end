@@ -11,7 +11,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import { EditUserModal } from "../components/RenderModalContent/ModalEditUser";
+import { ICarsResponse } from "../interfaces/car";
 import {
     IAddressUpdate,
     IPasswordRecovery,
@@ -21,8 +23,6 @@ import {
     IUserUpdate,
 } from "../interfaces/user";
 import api from "../service/api";
-import { boolean } from "yup";
-import { ICarsResponse } from "../interfaces/car";
 //  import { toast } from "react-toastify";
 // import api from "../services/api";
 
