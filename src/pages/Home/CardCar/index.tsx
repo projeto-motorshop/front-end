@@ -24,7 +24,7 @@ export function CardCar() {
 
     return (
         <>
-            {recentCar?.map((elem: ICarsResponse) => {
+            {filteredCars?.map((elem: ICarsResponse) => {
                 return (
                     <>
                         <Flex

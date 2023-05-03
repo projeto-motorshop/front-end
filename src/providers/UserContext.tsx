@@ -53,7 +53,7 @@ interface IUserContext {
     loadUser: () => void;
     resetPasswordFunction: (password: string, resetToken: string) => void;
     userData: any;
-    userCar: ICarsResponse[] | undefined;
+    userCar: ICarsResponse[];
     setUserCar: Dispatch<ICarsResponse[]>;
     loading: boolean;
     setLoading: Dispatch<boolean>;
@@ -67,7 +67,7 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
     const [userData, setUserData] = useState({} as IUser);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState<ReactNode>(<EditUserModal />);
-    const [userCar, setUserCar] = useState<ICarsResponse[] | undefined>([]);
+    const [userCar, setUserCar] = useState<ICarsResponse[]>([]);
     const [isMobile, isNotebook, isFullHd] = useMediaQuery([
         "(min-width: 770px)",
         "(min-width: 1439px)",
@@ -125,8 +125,8 @@ export const UserContextProvider = ({ children }: IUserProviderProps) => {
                 .then((res) => {
                     setUser(res.data);
                 })
-                .catch((err: Error) => {
-                    console.log(err);
+                .catch((error: Error) => {
+                    console.log(error);
                     localStorage.clear();
                 });
         }

@@ -1,12 +1,10 @@
 import {
     Button,
-    Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
     ModalFooter,
     ModalBody,
-    useDisclosure,
     ModalCloseButton,
     Input,
     Text,
@@ -14,7 +12,6 @@ import {
     Flex,
     Box,
     FormControl,
-    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ReactInputMask from "react-input-mask";
@@ -24,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function EditAddressModal() {
-    const { patchUserAddress, onClose } = useUserContext();
+    const { patchUserAddress, onClose, user } = useUserContext();
 
     const {
         register,
@@ -53,6 +50,7 @@ export function EditAddressModal() {
                             <Box>
                                 <FormLabel>CEP</FormLabel>
                                 <Input
+                                    defaultValue={user?.address.cep}
                                     placeholder="CEP"
                                     as={ReactInputMask}
                                     mask="99999-999"
@@ -65,6 +63,7 @@ export function EditAddressModal() {
                                 <Flex flexDir={"column"}>
                                     <FormLabel>Estado</FormLabel>
                                     <Input
+                                        defaultValue={user?.address.state}
                                         placeholder="Estado"
                                         {...register("state")}
                                     />
@@ -73,6 +72,7 @@ export function EditAddressModal() {
                                 <Flex flexDir={"column"}>
                                     <FormLabel>Cidade</FormLabel>
                                     <Input
+                                        defaultValue={user?.address.city}
                                         placeholder="Cidade"
                                         {...register("city")}
                                     />
@@ -82,6 +82,7 @@ export function EditAddressModal() {
                             <Box>
                                 <FormLabel>Rua</FormLabel>
                                 <Input
+                                    defaultValue={user?.address.street}
                                     placeholder="Rua"
                                     {...register("street")}
                                 />
@@ -91,6 +92,7 @@ export function EditAddressModal() {
                                 <Flex flexDir={"column"}>
                                     <FormLabel>Número</FormLabel>
                                     <Input
+                                        defaultValue={user?.address.number}
                                         placeholder="Número"
                                         {...register("number")}
                                     />
