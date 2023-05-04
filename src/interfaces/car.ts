@@ -1,3 +1,4 @@
+import { IComment, ICommentRequest } from "./comment";
 import { IUser, IUserCar } from "./user";
 
 export interface IImageRequest {
@@ -43,6 +44,7 @@ export interface ICarProduct {
     description: string;
     images: IImageResponse[];
     user: IUserCar;
+    comments: IComment[];
 }
 
 export interface ICarsRequest {
@@ -72,4 +74,15 @@ export interface ICarsUpdate {
     frontImg?: string;
     description?: string;
     images?: IImageRequest[];
+}
+export interface IFilter {
+    brand: string;
+    model: string;
+    color: string;
+    year: string;
+    fuel: string;
+    minKm: string;
+    maxKm: string;
+    minPrice: string;
+    maxPrice: string;
 }

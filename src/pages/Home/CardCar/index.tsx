@@ -15,7 +15,7 @@ import { useCarContext } from "../../../providers/CarContext";
 
 export function CardCar() {
     const { isMobile, isFullHd } = useUserContext();
-    const { filteredCars, recentCar } = useCarContext();
+    const { filteredCars, filter, recentCar } = useCarContext();
     const navigate = useNavigate();
 
     const navigateToCar = (id: string) => {
@@ -24,7 +24,10 @@ export function CardCar() {
 
     return (
         <>
-            {filteredCars?.map((elem: ICarsResponse) => {
+            {(!!Object.values(filter).every(f => f === "")
+                ? filteredCars
+                : recentCar
+            )?.map((elem: ICarsResponse) => {
                 return (
                     <>
                         <Flex

@@ -12,6 +12,7 @@ import {
     ICarsRequest,
     ICarsResponse,
     ICarsUpdate,
+    IFilter,
 } from "../interfaces/car";
 import { toast } from "react-toastify";
 
@@ -30,6 +31,10 @@ interface ICarContext {
     priceFipe: string;
     setPriceFipe: Dispatch<string>;
     typesFuel: (elem: any) => ReactNode;
+    filter: IFilter;
+    setFilter: Dispatch<IFilter>;
+    offSet: number;
+    setOffSet: Dispatch<number>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
@@ -40,6 +45,18 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const [carId, setCarId] = useState("");
     const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
     const { onClose, loadUser } = useUserContext();
+    const [offSet, setOffSet] = useState(0);
+    const [filter, setFilter] = useState<IFilter>({
+        brand: "",
+        model: "",
+        color: "",
+        year: "",
+        fuel: "",
+        minKm: "",
+        maxKm: "",
+        minPrice: "",
+        maxPrice: "",
+    });
 
     const token = localStorage.getItem("@token");
 
@@ -58,8 +75,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            setRecentCar(data);
-            setFilteredCars(data);
+            setRecentCar(data.allCars);
+            setFilteredCars(data.allCars);
         } catch (error) {
             console.log(error);
         }
@@ -113,6 +130,10 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 priceFipe,
                 setPriceFipe,
                 typesFuel,
+                filter,
+                setFilter,
+                offSet,
+                setOffSet,
             }}
         >
             {children}
