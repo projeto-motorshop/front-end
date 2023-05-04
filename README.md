@@ -23,15 +23,15 @@ Principais tecnologias usadas:
 
 ### Digite os comandos no terminal
 
-<strong>Para instalar dependências: </strong>yarn
+<strong>Instalar dependências: </strong>yarn
 
-<strong>Para iniciar a aplicação: </strong> yarn dev
+<strong>Iniciar aplicação: </strong> yarn dev
 
 ### BACK-END:
 
 <strong>Preencha as informações sensíveis no arquivo ENV para se conectar ao BANCO DE DADOS que você criou:</strong>
 
-Nas segintes chaves preencha dessa forma:</br>
+Nas seguintes chaves preencha dessa forma:</br></br>
 SMTP_USER="motorsportgrupo27@gmail.com"</br>
 SMTP_PASS="dvbrwwzuppuxlptb"
 
@@ -48,7 +48,6 @@ SMTP_PASS="dvbrwwzuppuxlptb"
 **URL local: http://localhost:3000**
 
 **Documentação:**
-
 http://localhost:3000/docs
 
 ## **Devs**
