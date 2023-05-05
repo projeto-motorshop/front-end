@@ -23,8 +23,7 @@ import {
     IUserUpdate,
 } from "../interfaces/user";
 import api from "../service/api";
-//  import { toast } from "react-toastify";
-// import api from "../services/api";
+
 
 export interface IUserProviderProps {
     children: ReactNode;
