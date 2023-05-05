@@ -61,26 +61,33 @@ export const EditAdModal = () => {
         let variant = {};
 
         if (published === "Sim") {
-            variant = { published: true };
+            variant = { isPublished: true };
         } else {
-            variant = { published: false };
+            variant = { isPublished: false };
         }
 
         const dataForm = {
             ...formData,
             ...variant,
         };
-
         const newData = Object.fromEntries(
             Object.entries(dataForm).filter(([_, v]) => v != "")
         );
 
-        const { data } = await api.patch(`/cars/${carId}`, newData, {
+        const teste = {
+            ...newData,
+            ...variant,
+        };
+        console.log(teste);
+        
+
+        const { data } = await api.patch(`/cars/${carId}`, teste, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
 
+        console.log(data);
         setUserCar(userCar.map((e: any) => (e.id === data.id ? data : e)));
 
         onClose();

@@ -16,14 +16,14 @@ import api from "../../../service/api";
 export function FilterCar() {
     const { isMobile, onClose } = useUserContext();
     const {
-        filteredCars,
-        setFilteredCars,
         loadCar,
         typesFuel,
         filter,
         setFilter,
         setRecentCar,
         recentCar,
+        setCurrentPage,
+        setTotalPages,
     } = useCarContext();
 
     let brands = [...new Set(recentCar?.map((car: ICarsRequest) => car.brand))];
@@ -39,7 +39,6 @@ export function FilterCar() {
                     `/cars/allCars?brand=${filter.brand}&model=${filter.model}&color=${filter.color}&year=${filter.year}&fuel=${filter.fuel}&minKm=${filter.minKm}&maxKm=${filter.maxKm}&minPrice=${filter.minPrice}&maxPrice=${filter.maxPrice}`
                 );
                 setRecentCar(data);
-                // setFilteredCars(data);
             } catch (error) {
                 console.log(error);
             }
