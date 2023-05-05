@@ -1,3 +1,4 @@
+import { IComment, ICommentRequest } from "./comment";
 import { IUser, IUserCar } from "./user";
 
 export interface IImageRequest {
@@ -20,7 +21,7 @@ export interface ICarsResponse {
     fuel: string;
     mileage: number;
     price: number;
-    priceFipe: number;
+    priceFipe: string;
     frontImg: string;
     description: string;
     images: IImageResponse[];
@@ -38,11 +39,12 @@ export interface ICarProduct {
     fuel: string;
     mileage: number;
     price: number;
-    priceFipe: number;
+    priceFipe: string;
     frontImg: string;
     description: string;
     images: IImageResponse[];
     user: IUserCar;
+    comments: IComment[];
 }
 
 export interface ICarsRequest {
@@ -54,7 +56,7 @@ export interface ICarsRequest {
     mileage: number;
     images: IImageRequest[];
     price: number;
-    priceFipe: number;
+    priceFipe: string;
     frontImg: string;
     description: string;
 }
@@ -66,10 +68,21 @@ export interface ICarsUpdate {
     model?: string;
     year?: string;
     fuel?: string;
-    mileage?: number;
-    price?: number;
-    priceFipe?: number;
+    mileage?: string;
+    price?: string;
+    priceFipe?: string;
     frontImg?: string;
     description?: string;
     images?: IImageRequest[];
+}
+export interface IFilter {
+    brand: string;
+    model: string;
+    color: string;
+    year: string;
+    fuel: string;
+    minKm: string;
+    maxKm: string;
+    minPrice: string;
+    maxPrice: string;
 }
