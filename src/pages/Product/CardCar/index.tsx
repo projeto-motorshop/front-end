@@ -1,7 +1,5 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { useCarContext } from "../../../providers/CarContext";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
 import "./styles.css";
 
 export function CardCar() {
@@ -22,37 +20,6 @@ export function CardCar() {
                     borderRadius={4}
                 />
             </Flex>
-            {/* <Flex
-                w="100%"
-                h="22rem"
-            >
-                <Swiper
-                    navigation={true}
-                    slidesPerView={1}
-                    modules={[Navigation]}
-                    className="mySwiper"
-                >
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src="../../../../public/card-image.svg" alt="" />
-                    </SwiperSlide>
-                </Swiper>
-            </Flex> */}
-
             <Flex
                 flexDir={"column"}
                 justifyContent="space-around"

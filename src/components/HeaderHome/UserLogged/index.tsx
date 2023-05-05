@@ -37,7 +37,7 @@ export function UserLogged() {
                         onOpen();
                     }}
                 >
-                    Editar Perdil
+                    Editar Perfil
                 </MenuItem>
                 <MenuItem
                     onClick={() => {

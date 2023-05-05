@@ -4,8 +4,7 @@ import { CardUser } from "./CardUser";
 import { CardCarProfile } from "./CardCarProfile";
 import { useUserContext } from "../../providers/UserContext";
 import { useEffect, useState } from "react";
-import { useCarContext } from "../../providers/CarContext";
-import api from "../../service/api";
+import { Navigate } from "react-router-dom";
 
 export function Profile() {
     const { isMobile, isFullHd, user, loadUser } = useUserContext();
@@ -16,38 +15,55 @@ export function Profile() {
 
     return (
         <>
-            <Flex flexDir="column">
-                <Box w="100%" height="23rem" pos="absolute" bg="brand.1" />
-                <Box pb={"2rem"}>
-                    <CardUser />
-                </Box>
-                <Flex justifyContent={"center"} h={"100%"}>
-                    {user?.cars.length == 0 ? (
-                        <Flex
-                            w={"100%"}
-                            h={"20vh"}
-                            justifyContent={"center"}
-                            alignItems={"center"}
-                        >
-                            <Text
-                                fontSize={isMobile ? "2rem" : "1.5rem"}
-                                fontWeight={"bold"}
-                            >
-                                Adicione seu Anuncio
-                            </Text>
+            {user ? (
+                <>
+                    <Flex flexDir="column">
+                        <Box
+                            w="100%"
+                            height="23rem"
+                            pos="absolute"
+                            bg="brand.1"
+                        />
+                        <Box pb={"2rem"}>
+                            <CardUser />
+                        </Box>
+                        <Flex justifyContent={"center"} h={"100%"}>
+                            {user?.cars.length == 0 ? (
+                                <Flex
+                                    w={"100%"}
+                                    h={"20vh"}
+                                    justifyContent={"center"}
+                                    alignItems={"center"}
+                                >
+                                    <Text
+                                        fontSize={isMobile ? "2rem" : "1.5rem"}
+                                        fontWeight={"bold"}
+                                    >
+                                        Adicione seu Anuncio
+                                    </Text>
+                                </Flex>
+                            ) : isMobile ? (
+                                <Wrap overflow={"hidden"} w={"80%"} p={"1rem"}>
+                                    <CardCarProfile />
+                                </Wrap>
+                            ) : (
+                                <Flex
+                                    gap={"1.5rem"}
+                                    overflow={"auto"}
+                                    py={"2rem"}
+                                >
+                                    <CardCarProfile />;
+                                </Flex>
+                            )}
                         </Flex>
-                    ) : isMobile ? (
-                        <Wrap overflow={"hidden"} w={"80%"} p={"1rem"}>
-                            <CardCarProfile />
-                        </Wrap>
-                    ) : (
-                        <Flex gap={"1.5rem"} overflow={"auto"} py={"2rem"}>
-                            <CardCarProfile />;
-                        </Flex>
-                    )}
-                </Flex>
-            </Flex>
-            <FooterHome />
+                    </Flex>
+                    <FooterHome />
+                </>
+            ) : (
+                <>
+                    <Navigate to={"/home"} />
+                </>
+            )}
         </>
     );
 }

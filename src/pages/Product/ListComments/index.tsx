@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { CardComment } from "./CardComment";
 import cars from "../../../components-moks";
 import { useCarContext } from "../../../providers/CarContext";
@@ -16,7 +16,8 @@ export function ListComment() {
                 p="2.5rem"
                 bg="#FDFDFD"
                 borderRadius={4}
-                overflow={"auto"}
+                overflowX={"hidden"}
+                overflowY={"auto"}
             >
                 <Text fontSize={20} mt="5%" mb="5%">
                     Comentários
