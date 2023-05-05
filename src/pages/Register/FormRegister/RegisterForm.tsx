@@ -9,7 +9,7 @@ import {
     Input,
     Text,
     Textarea,
-    useRadioGroup
+    useRadioGroup,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
@@ -112,6 +112,7 @@ export function FormRegister() {
                             <FormLabel>Senha</FormLabel>
                             <Input
                                 placeholder="Ex: Digitar senha"
+                                type="password"
                                 {...register("password")}
                             />
                             <Text color="red">{errors.password?.message}</Text>
@@ -121,6 +122,7 @@ export function FormRegister() {
                             <FormLabel>Confirmar senha</FormLabel>
                             <Input
                                 placeholder="Ex: Confirmar senha"
+                                type="password"
                                 {...register("passwordConfirm")}
                             />
                             <Text color="red">
