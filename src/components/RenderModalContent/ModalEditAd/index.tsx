@@ -32,15 +32,15 @@ export const EditAdModal = () => {
     const { onClose, setUserCar, userCar } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
-    const [carCard, setCarCard] = useState<any>();
+    const [carCard, setCarCard] = useState<ICarsUpdate>();
 
     useEffect(() => {
-        const funcTeste = async () => {
+        const infoCarCard = async () => {
             const { data } = await api.get(`/cars/${carId}`);
             setCarCard(data);
         };
 
-        funcTeste();
+        infoCarCard();
     }, []);
 
     const token = localStorage.getItem("@token");
@@ -122,6 +122,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Marca</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.brand}
                                     placeholder="Mercedes Benz"
                                     {...register("brand")}
                                 />
@@ -130,6 +131,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Modelo</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.model}
                                     placeholder="A 200 CGI ADVANCE SEDAN"
                                     {...register("model")}
                                 />
@@ -139,6 +141,7 @@ export const EditAdModal = () => {
                                 <Box w={"50%"}>
                                     <FormLabel>Ano</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.year}
                                         type="number"
                                         placeholder="2018"
                                         {...register("year")}
@@ -172,6 +175,7 @@ export const EditAdModal = () => {
                                 <Box>
                                     <FormLabel>Cor</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.color}
                                         placeholder="Cor"
                                         {...register("color")}
                                     />
@@ -182,6 +186,7 @@ export const EditAdModal = () => {
                                 <Box w={"50%"}>
                                     <FormLabel>Preço Tabela Fipe</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.priceFipe}
                                         placeholder="R$ 48.000,00"
                                         {...register("priceFipe")}
                                     />
@@ -200,6 +205,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Descrição</FormLabel>
                                 <Textarea
+                                    defaultValue={carCard?.description}
                                     resize={"none"}
                                     {...register("description")}
                                 />
@@ -237,6 +243,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Imagem da Capa</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.frontImg}
                                     placeholder="https://image.com"
                                     {...register("frontImg")}
                                 />

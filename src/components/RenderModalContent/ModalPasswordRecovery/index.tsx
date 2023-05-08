@@ -11,7 +11,6 @@ import {
     ModalOverlay,
     UseDisclosureProps,
 } from "@chakra-ui/react";
-// import {BeatLoader} from "@chakra-ui/icons"
 import React from "react";
 import { useForm } from "react-hook-form";
 import { IPasswordRecovery } from "../../../interfaces/user";
