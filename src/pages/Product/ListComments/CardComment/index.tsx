@@ -42,13 +42,15 @@ export function CardComment() {
                             >
                                 <Flex alignItems={"center"} gap={"1rem"}>
                                     <Avatar
-                                        src={elem.user.urlImg}
-                                        name={elem.user.name}
+                                        src={elem?.user?.urlImg}
+                                        name={elem?.user?.name}
                                     />
-                                    <Text fontSize={14}>{elem.user.name}</Text>
+                                    <Text fontSize={14}>
+                                        {elem?.user?.name}
+                                    </Text>
                                 </Flex>
                                 <Text fontSize={14}>
-                                    {convertMS(elem.createdAt)}
+                                    {convertMS(elem?.createdAt)}
                                 </Text>
                             </Flex>
 
