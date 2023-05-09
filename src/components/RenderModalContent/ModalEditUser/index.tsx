@@ -1,12 +1,10 @@
 import {
     Button,
-    Modal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
     ModalFooter,
     ModalBody,
-    useDisclosure,
     Input,
     ModalCloseButton,
     Textarea,
@@ -15,7 +13,6 @@ import {
     FormControl,
     Flex,
     Text,
-    UseDisclosureProps,
 } from "@chakra-ui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";

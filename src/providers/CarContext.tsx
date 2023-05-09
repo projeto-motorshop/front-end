@@ -35,6 +35,10 @@ interface ICarContext {
     setFilter: Dispatch<IFilter>;
     offSet: number;
     setOffSet: Dispatch<number>;
+    currentPage: number;
+    setCurrentPage: Dispatch<number>;
+    totalPages: number;
+    setTotalPages: Dispatch<number>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
@@ -46,6 +50,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
     const { onClose, loadUser } = useUserContext();
     const [offSet, setOffSet] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
     const [filter, setFilter] = useState<IFilter>({
         brand: "",
         model: "",
@@ -134,6 +140,10 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setFilter,
                 offSet,
                 setOffSet,
+                currentPage,
+                setCurrentPage,
+                totalPages,
+                setTotalPages,
             }}
         >
             {children}

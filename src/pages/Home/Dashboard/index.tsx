@@ -19,9 +19,15 @@ import api from "../../../service/api";
 
 export function Dashboard() {
     const { isMobile, isFullHd, isOpen, onOpen, onClose } = useUserContext();
-    const { loadCar, setFilteredCars, offSet, setOffSet } = useCarContext();
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
+    const {
+        setFilteredCars,
+        offSet,
+        setOffSet,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        setTotalPages,
+    } = useCarContext();
 
     useEffect(() => {
         async function fetchData() {
@@ -96,7 +102,7 @@ export function Dashboard() {
                     color={"brand.2"}
                     variant="ghost"
                     onClick={() => {
-                        setCurrentPage((page) => page - 1);
+                        setCurrentPage(currentPage - 1);
                         setOffSet(offSet - 12);
                     }}
                     isDisabled={currentPage === 1}
@@ -111,7 +117,7 @@ export function Dashboard() {
                     variant="ghost"
                     onClick={() => {
                         setOffSet(offSet + 12);
-                        setCurrentPage((page) => page + 1);
+                        setCurrentPage(currentPage + 1);
                     }}
                     isDisabled={currentPage === totalPages}
                     _hover={{ bg: "brand.1", color: "white" }}
