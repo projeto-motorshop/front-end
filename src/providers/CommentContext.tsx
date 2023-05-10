@@ -19,7 +19,7 @@ export const CommentContext = createContext<ICommentContext>(
 );
 
 export const CommentProvider = ({ children }: IUserProviderProps) => {
-    const { car, setCar, loadProduct } = useCarContext();
+    const { car, loadProduct } = useCarContext();
     const { onClose } = useUserContext();
     const [commentId, setCommentId] = useState("");
     const [comment, setComment] = useState("");

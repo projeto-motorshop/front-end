@@ -91,6 +91,12 @@ export const EditAdModal = () => {
             },
         });
 
+        await api.patch(`/cars/images/${carId}`, teste, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
         setUserCar(userCar.map((e: any) => (e.id === data.id ? data : e)));
 
         onClose();
