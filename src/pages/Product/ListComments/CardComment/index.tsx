@@ -1,4 +1,12 @@
-import { Avatar, Box, Button, Flex, Image, Modal, Text } from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Button,
+    Flex,
+    Image,
+    Modal,
+    Text,
+} from "@chakra-ui/react";
 import { useCarContext } from "../../../../providers/CarContext";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { ModalEditComment } from "../../../../components/RenderModalContent/ModalEditComment";
@@ -9,8 +17,9 @@ import { useForm } from "react-hook-form";
 
 export function CardComment() {
     const { car } = useCarContext();
-    const { deleteComment, setCommentId, setIsDeleteComment } = useCommentContext()
-    const { overlay, setOverlay, onOpen, isOpen, onClose } = useUserContext()
+    const { deleteComment, setCommentId } = useCommentContext();
+    const { overlay, setOverlay, onOpen, isOpen, onClose, user } =
+        useUserContext();
 
     function convertMS(ms: number | string) {
         ms = Date.now() - new Date(ms).getTime();
@@ -42,22 +51,14 @@ export function CardComment() {
             {car?.comments.map((elem) => {
                 return (
                     <>
-                        <Flex
-                            flexDir="column"
-                            mb="2.5rem"
-                        >
-                            <Flex
-                                justifyContent={"space-between"}
-                            >
+                        <Flex flexDir="column" mb="2.5rem">
+                            <Flex justifyContent={"space-between"}>
                                 <Flex
                                     w="19rem"
                                     alignItems={"center"}
                                     gap={"2.5rem"}
                                 >
-                                    <Flex
-                                        alignItems={"center"}
-                                        gap={"1rem"}
-                                    >
+                                    <Flex alignItems={"center"} gap={"1rem"}>
                                         <Avatar
                                             src={elem?.user?.urlImg}
                                             name={elem?.user?.name}
@@ -70,30 +71,33 @@ export function CardComment() {
                                         {convertMS(elem?.updatedAt)}
                                     </Text>
                                 </Flex>
-                                <Flex
-                                    justifyContent={"space-between"}
-                                >
-                                    
-                                    <RiEdit2Fill
-                                        cursor={"pointer"}
-                                        fontSize={25}
-                                        onClick={() => {
-                                            setCommentId(elem.id)
-                                            setOverlay(<ModalEditComment />);
-                                            onOpen();
-                                        }}
-                                    />
+                                <Flex justifyContent={"space-between"}>
+                                    {elem.user.id === user?.id ? (
+                                        <>
+                                            <RiEdit2Fill
+                                                cursor={"pointer"}
+                                                fontSize={25}
+                                                onClick={() => {
+                                                    setCommentId(elem.id);
+                                                    setOverlay(
+                                                        <ModalEditComment />
+                                                    );
+                                                    onOpen();
+                                                }}
+                                            />
 
-                                    <DeleteIcon
-                                        cursor={"pointer"}
-                                        onClick={() => {
-                                            setCommentId(elem.id)
-                                            deleteComment()
-                                            setIsDeleteComment("delete")
-                                        }}
-                                        fontSize={23}
-                                        ml={5}
-                                    />
+                                            <DeleteIcon
+                                                cursor={"pointer"}
+                                                onClick={() => {
+                                                    deleteComment(elem.id);
+                                                }}
+                                                fontSize={23}
+                                                ml={5}
+                                            />
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
                                 </Flex>
                             </Flex>
                             <Text fontSize={14} pt={"0.5rem"}>

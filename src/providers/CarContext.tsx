@@ -15,6 +15,7 @@ import {
     IFilter,
 } from "../interfaces/car";
 import { toast } from "react-toastify";
+import { useCommentContext } from "./CommentContext";
 
 interface ICarContext {
     loadCar(): void;
@@ -39,20 +40,23 @@ interface ICarContext {
     setCurrentPage: Dispatch<number>;
     totalPages: number;
     setTotalPages: Dispatch<number>;
-    loadProduct: () => void 
+    loadProduct: () => void;
+    productId: string;
+    setProductId: Dispatch<string>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
 export const CarProvider = ({ children }: IUserProviderProps) => {
+    const { onClose, loadUser } = useUserContext();
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [priceFipe, setPriceFipe] = useState("0");
     const [car, setCar] = useState<ICarProduct | undefined>();
     const [carId, setCarId] = useState("");
     const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
-    const { onClose, loadUser } = useUserContext();
     const [offSet, setOffSet] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
+    const [productId, setProductId] = useState("");
     const [filter, setFilter] = useState<IFilter>({
         brand: "",
         model: "",
@@ -66,10 +70,11 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     });
 
     const token = localStorage.getItem("@token");
-    
+
     const loadProduct = async () => {
         try {
-            const { data } = await api.get(`/cars/${carId}`);
+            console.log(productId);
+            const { data } = await api.get(`/cars/${productId}`);
             setCar(data);
         } catch (error) {
             console.log(error);
@@ -153,7 +158,9 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setCurrentPage,
                 totalPages,
                 setTotalPages,
-                loadProduct
+                loadProduct,
+                productId,
+                setProductId,
             }}
         >
             {children}

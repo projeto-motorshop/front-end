@@ -2,7 +2,7 @@ import { IComment, ICommentRequest } from "./comment";
 import { IUser, IUserCar } from "./user";
 
 export interface IImageRequest {
-    urlImg: string | null | undefined;
+    urlImg: any | void;
 }
 export interface IImageResponse {
     id: string;

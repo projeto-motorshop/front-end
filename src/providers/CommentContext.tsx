@@ -11,24 +11,19 @@ interface ICommentContext {
     setCommentId: Dispatch<string>;
     comment: string;
     setComment: Dispatch<string>;
-    deleteComment: () => void;
+    deleteComment: (deleteId: string) => void;
     patchComment: (formData: ICommentRequest) => void;
-    setLoadingComment: Dispatch<string>;
-    loadingComment: string;
-    setIsDeleteComment: Dispatch<string>;
-    isdeleteComment: string;
 }
 export const CommentContext = createContext<ICommentContext>(
     {} as ICommentContext
 );
 
 export const CommentProvider = ({ children }: IUserProviderProps) => {
-    const { car, loadProduct } = useCarContext();
+    const { car, setCar, loadProduct } = useCarContext();
     const { onClose } = useUserContext();
     const [commentId, setCommentId] = useState("");
-    const [loadingComment, setLoadingComment] = useState("")
-    const [isdeleteComment, setIsDeleteComment] = useState("")
     const [comment, setComment] = useState("");
+
     const token = localStorage.getItem("@token");
 
     const createComment = async (formData: ICommentRequest) => {
@@ -38,7 +33,6 @@ export const CommentProvider = ({ children }: IUserProviderProps) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            loadProduct()
             setComment("");
             toast.success("comentario criado com sucesso");
         } catch (error) {
@@ -53,30 +47,27 @@ export const CommentProvider = ({ children }: IUserProviderProps) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            onClose()
-            loadProduct()
+            onClose();
+            loadProduct();
             toast.success("comentário atualizado com sucesso");
         } catch (error) {
             console.log(error);
         }
     };
-    console.log(loadingComment)
 
-
-    const deleteComment = (): void => {
+    const deleteComment = async (deleteId: string) => {
         try {
-            api.delete(`/comments/${commentId}`, {
+            await api.delete(`/comments/${deleteId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            loadProduct()
+            loadProduct();
             toast.success("comentário deletado");
         } catch (error) {
             toast.error("algo deu errado");
         }
     };
-    console.log(loadingComment)
 
     return (
         <CommentContext.Provider
@@ -88,10 +79,6 @@ export const CommentProvider = ({ children }: IUserProviderProps) => {
                 setComment,
                 deleteComment,
                 patchComment,
-                setLoadingComment,
-                loadingComment,
-                isdeleteComment, 
-                setIsDeleteComment
             }}
         >
             {children}

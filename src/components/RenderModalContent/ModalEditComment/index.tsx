@@ -8,40 +8,35 @@ import {
     ModalHeader,
     ModalOverlay,
     Textarea,
-    useDisclosure
-} from "@chakra-ui/react"
-import { useCommentContext } from "../../../providers/CommentContext"
-import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { commentSchema } from "../../../schemas/comment.schema"
-import { ICommentRequest } from "../../../interfaces/comment"
-
+    useDisclosure,
+} from "@chakra-ui/react";
+import { useCommentContext } from "../../../providers/CommentContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { commentSchema } from "../../../schemas/comment.schema";
+import { ICommentRequest } from "../../../interfaces/comment";
 
 export function ModalEditComment() {
-
-    const { onClose } = useDisclosure()
-    const { patchComment, setLoadingComment } = useCommentContext()
+    const { patchComment } = useCommentContext();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<ICommentRequest>({ resolver: yupResolver(commentSchema) })
+    } = useForm<ICommentRequest>({ resolver: yupResolver(commentSchema) });
 
     return (
         <>
-
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Editar Comentário</ModalHeader>
                 <ModalCloseButton />
-                <FormControl
-                    as="form"
-                    onSubmit={handleSubmit(patchComment)}
-                >
+                <FormControl as="form" onSubmit={handleSubmit(patchComment)}>
                     <ModalBody>
                         <Textarea
-                            placeholder="Digite seu comentário" size="lg"
+                            placeholder="Digite seu comentário"
+                            size="lg"
+                            resize={"none"}
                             {...register("description")}
                             h={"10rem"}
                         />
@@ -52,9 +47,6 @@ export function ModalEditComment() {
                             color={"#FFFFFF"}
                             mr={3}
                             type="submit"
-                            onClick={() => {
-                                setLoadingComment("update")
-                            }}
                         >
                             Comentar
                         </Button>
@@ -62,5 +54,5 @@ export function ModalEditComment() {
                 </FormControl>
             </ModalContent>
         </>
-    )
+    );
 }
