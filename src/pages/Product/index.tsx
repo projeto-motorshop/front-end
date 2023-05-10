@@ -17,7 +17,8 @@ export function Product() {
     const { carId } = useParams();
     const { setCar } = useCarContext();
     const { isMobile } = useUserContext();
-    const { comment } = useCommentContext();
+    const { comment, loadingComment } = useCommentContext();
+
 
     useEffect(() => {
         const loadProduct = async () => {
@@ -30,7 +31,7 @@ export function Product() {
         };
 
         loadProduct();
-    }, [comment]);
+    }, [comment, loadingComment,]);
 
     return (
         <>

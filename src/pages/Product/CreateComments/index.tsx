@@ -68,6 +68,7 @@ export function CreateComment() {
                             <Button
                                 w="7rem"
                                 h="3rem"
+                                cursor="pointer"
                                 bg="#4529E6"
                                 color="#fff"
                                 fontSize={16}
@@ -91,7 +92,7 @@ export function CreateComment() {
                             h={"100%"}
                         >
                             <Text fontWeight={"bold"} fontSize={"1.5rem"}>
-                                para comentar tem que estar logado
+                                para comentar é preciso estar logado.
                             </Text>
                         </Flex>
                     </>

@@ -9,7 +9,6 @@ export function CardPictures() {
     const { isFullHd, isNotebook, isMobile } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState(<ModalImagesCar />);
-    console.log(car);
 
     return (
         <>

@@ -39,6 +39,7 @@ interface ICarContext {
     setCurrentPage: Dispatch<number>;
     totalPages: number;
     setTotalPages: Dispatch<number>;
+    loadProduct: () => void 
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
@@ -65,6 +66,15 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     });
 
     const token = localStorage.getItem("@token");
+    
+    const loadProduct = async () => {
+        try {
+            const { data } = await api.get(`/cars/${carId}`);
+            setCar(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const typesFuel = (elem: string | number) => {
         if (elem == 1) {
@@ -81,8 +91,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            setRecentCar(data.allCars);
-            setFilteredCars(data.allCars);
+            setRecentCar(data);
         } catch (error) {
             console.log(error);
         }
@@ -144,6 +153,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setCurrentPage,
                 totalPages,
                 setTotalPages,
+                loadProduct
             }}
         >
             {children}
