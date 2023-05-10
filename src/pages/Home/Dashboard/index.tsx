@@ -41,10 +41,6 @@ export function Dashboard() {
         fetchData();
     }, [currentPage]);
 
-    // useEffect(() => {
-    //     loadCar();
-    // }, []);
-
     return (
         <>
             <Flex w={isFullHd ? "65%" : "100%"}>
@@ -97,6 +93,7 @@ export function Dashboard() {
                     </>
                 )}
             </Flex>
+            {}
             <Flex alignItems={"baseline"} gap={"1rem"} mb={"1rem"}>
                 <Button
                     color={"brand.2"}
