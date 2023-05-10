@@ -3,11 +3,11 @@ import { FooterHome } from "../../components/FooterHome";
 import { CardUser } from "./CardUser";
 import { CardCarProfile } from "./CardCarProfile";
 import { useUserContext } from "../../providers/UserContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 
 export function Profile() {
-    const { isMobile, isFullHd, user, loadUser } = useUserContext();
+    const { isMobile, user, loadUser } = useUserContext();
 
     useEffect(() => {
         loadUser();

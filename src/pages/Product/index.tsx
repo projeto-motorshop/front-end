@@ -15,21 +15,21 @@ import { useCommentContext } from "../../providers/CommentContext";
 
 export function Product() {
     const { carId } = useParams();
-    const { setCar } = useCarContext();
+    const { setCar, setProductId } = useCarContext();
     const { isMobile } = useUserContext();
     const { comment } = useCommentContext();
 
+    setProductId(carId as string);
+
     useEffect(() => {
-        const loadProduct = async () => {
+        (async () => {
             try {
                 const { data } = await api.get(`/cars/${carId}`);
                 setCar(data);
             } catch (error) {
                 console.log(error);
             }
-        };
-
-        loadProduct();
+        })();
     }, [comment]);
 
     return (

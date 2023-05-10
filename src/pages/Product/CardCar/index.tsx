@@ -1,13 +1,8 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { useCarContext } from "../../../providers/CarContext";
 
-
 export function CardCar() {
     const { car } = useCarContext();
-    function teste() {
-        console.log('cdubhcd')
-        console.log(car?.user.phone);
-    }
 
     return (
         <Flex flexDir="column" mt={30} w="100%">
@@ -71,12 +66,12 @@ export function CardCar() {
                         fontSize={16}
                         border="none"
                         borderRadius={4}
-                        onClick={teste}
                     >
-
-                        <a href={`https://api.whatsapp.com/send?phone=+55+${car?.user.phone}&text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20site%20na%20internet%2C%20gostaria%20de%20conhecer%20melhor%20seus%20servi%C3%A7os`}>COMPRAR</a>
-
-
+                        <a
+                            href={`https://api.whatsapp.com/send?phone=+55+${car?.user.phone}&text=Ol%C3%A1%2C%20venho%20por%20meio%20do%20seu%20site%20na%20internet%2C%20gostaria%20de%20conhecer%20melhor%20seus%20servi%C3%A7os`}
+                        >
+                            COMPRAR
+                        </a>
                     </Button>
                 </Box>
             </Flex>

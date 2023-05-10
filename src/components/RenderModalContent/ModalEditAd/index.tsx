@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     ModalOverlay,
     ModalContent,
@@ -34,14 +34,20 @@ export const EditAdModal = () => {
     const [published, setPublished] = useState({});
     const [carCard, setCarCard] = useState<ICarsUpdate>();
 
-    useEffect(() => {
+    useMemo(() => {
         const infoCarCard = async () => {
             const { data } = await api.get(`/cars/${carId}`);
             setCarCard(data);
-        };
+            const img = data?.images;
 
+            return img?.forEach((image: any) => {
+                append({
+                    urlImg: image.urlImg,
+                });
+            });
+        };
         infoCarCard();
-    }, []);
+    }, [carId]);
 
     const token = localStorage.getItem("@token");
 
@@ -78,8 +84,6 @@ export const EditAdModal = () => {
             ...newData,
             ...variant,
         };
-        console.log(teste);
-        
 
         const { data } = await api.patch(`/cars/${carId}`, teste, {
             headers: {
@@ -87,7 +91,6 @@ export const EditAdModal = () => {
             },
         });
 
-        console.log(data);
         setUserCar(userCar.map((e: any) => (e.id === data.id ? data : e)));
 
         onClose();
@@ -100,7 +103,8 @@ export const EditAdModal = () => {
         formState: { errors },
     } = useForm<ICarsUpdate>({
         defaultValues: {
-            images: [{ urlImg: "" }],
+            // images: [{ urlImg: "" }],
+            // images: carCard?.images?.length == 0 ? [{ urlImg: "" }] : "",
         },
         resolver: yupResolver(updateCarSchema),
     });
@@ -109,6 +113,21 @@ export const EditAdModal = () => {
         control,
         name: "images",
     });
+
+    // useEffect(() => {
+    //     (async () => {
+    //         const { data } = await api.get(`/cars/${carId}`);
+    //         setCarCard(data);
+    //         const img = carCard?.images;
+    //         return img?.forEach((image: any) => {
+    //             append({
+    //                 urlImg: image.urlImg,
+    //             });
+    //         });
+    //     })();
+    // }, [carId]);
+
+    const img = () => {};
 
     return (
         <>
@@ -257,38 +276,43 @@ export const EditAdModal = () => {
                                 {errors.frontImg?.message}
                             </Box>
                             <Flex flexDir={"column"} gap={"1rem"}>
-                                {fields.map((item, index) => (
-                                    <>
-                                        <Flex
-                                            key={item.id}
-                                            alignItems={"flex-end"}
-                                            gap={"2rem"}
-                                        >
-                                            <Flex flexDir={"column"} w={"100%"}>
-                                                <FormLabel>
-                                                    {index + 1}° Imagem da
-                                                    galeria
-                                                </FormLabel>
-                                                <Input
-                                                    placeholder="https://image.com"
-                                                    {...register(
-                                                        `images.${index}.urlImg`
-                                                    )}
-                                                />
-                                                {errors.images?.message}
-                                            </Flex>
-                                            {index > 0 && (
-                                                <Button
-                                                    onClick={() => {
-                                                        remove(index);
-                                                    }}
+                                {fields.map((item, index) => {
+                                    return (
+                                        <>
+                                            <Flex
+                                                key={item.id}
+                                                alignItems={"flex-end"}
+                                                gap={"2rem"}
+                                            >
+                                                <Flex
+                                                    flexDir={"column"}
+                                                    w={"100%"}
                                                 >
-                                                    X
-                                                </Button>
-                                            )}
-                                        </Flex>
-                                    </>
-                                ))}
+                                                    <FormLabel>
+                                                        {index + 1}° Imagem da
+                                                        galeria
+                                                    </FormLabel>
+                                                    <Input
+                                                        placeholder="https://image.com"
+                                                        {...register(
+                                                            `images.${index}.urlImg`
+                                                        )}
+                                                    />
+                                                    {errors.images?.message}
+                                                </Flex>
+                                                {index > 0 && (
+                                                    <Button
+                                                        onClick={() => {
+                                                            remove(index);
+                                                        }}
+                                                    >
+                                                        X
+                                                    </Button>
+                                                )}
+                                            </Flex>
+                                        </>
+                                    );
+                                })}
                                 <Button
                                     bg={"brand.4"}
                                     color={"brand.1"}
