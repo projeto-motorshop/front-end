@@ -11,7 +11,6 @@ import {
     ICarProduct,
     ICarsRequest,
     ICarsResponse,
-    ICarsUpdate,
     IFilter,
 } from "../interfaces/car";
 import { toast } from "react-toastify";
@@ -35,17 +34,30 @@ interface ICarContext {
     setFilter: Dispatch<IFilter>;
     offSet: number;
     setOffSet: Dispatch<number>;
+    currentPage: number;
+    setCurrentPage: Dispatch<number>;
+    totalPages: number;
+    setTotalPages: Dispatch<number>;
+    loadProduct: () => void;
+    productId: string;
+    setProductId: Dispatch<string>;
+    paginate: string;
+    setPaginate: Dispatch<string>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
 export const CarProvider = ({ children }: IUserProviderProps) => {
+    const { onClose, loadUser } = useUserContext();
     const [recentCar, setRecentCar] = useState<ICarsResponse[]>([]);
     const [priceFipe, setPriceFipe] = useState("0");
     const [car, setCar] = useState<ICarProduct | undefined>();
     const [carId, setCarId] = useState("");
     const [filteredCars, setFilteredCars] = useState<ICarsResponse[]>([]);
-    const { onClose, loadUser } = useUserContext();
     const [offSet, setOffSet] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [productId, setProductId] = useState("");
+    const [paginate, setPaginate] = useState("");
     const [filter, setFilter] = useState<IFilter>({
         brand: "",
         model: "",
@@ -59,6 +71,15 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     });
 
     const token = localStorage.getItem("@token");
+
+    const loadProduct = async () => {
+        try {
+            const { data } = await api.get(`/cars/${productId}`);
+            setCar(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const typesFuel = (elem: string | number) => {
         if (elem == 1) {
@@ -75,8 +96,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const loadCar = async () => {
         try {
             const { data } = await api.get("/cars");
-            setRecentCar(data.allCars);
-            setFilteredCars(data.allCars);
+            setRecentCar(data);
         } catch (error) {
             console.log(error);
         }
@@ -134,6 +154,15 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 setFilter,
                 offSet,
                 setOffSet,
+                currentPage,
+                setCurrentPage,
+                totalPages,
+                setTotalPages,
+                loadProduct,
+                productId,
+                setProductId,
+                paginate,
+                setPaginate,
             }}
         >
             {children}

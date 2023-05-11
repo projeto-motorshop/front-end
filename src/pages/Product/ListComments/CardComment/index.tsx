@@ -1,8 +1,16 @@
-import { Avatar, Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Modal, Text } from "@chakra-ui/react";
 import { useCarContext } from "../../../../providers/CarContext";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { ModalEditComment } from "../../../../components/RenderModalContent/ModalEditComment";
+import { useCommentContext } from "../../../../providers/CommentContext";
+import { useUserContext } from "../../../../providers/UserContext";
+import { RiEdit2Fill } from "react-icons/ri";
 
 export function CardComment() {
     const { car } = useCarContext();
+    const { deleteComment, setCommentId } = useCommentContext();
+    const { overlay, setOverlay, onOpen, isOpen, onClose, user } =
+        useUserContext();
 
     function convertMS(ms: number | string) {
         ms = Date.now() - new Date(ms).getTime();
@@ -35,27 +43,61 @@ export function CardComment() {
                 return (
                     <>
                         <Flex flexDir="column" mb="2.5rem">
-                            <Flex
-                                w="19rem"
-                                alignItems={"center"}
-                                gap={"2.5rem"}
-                            >
-                                <Flex alignItems={"center"} gap={"1rem"}>
-                                    <Avatar
-                                        src={elem.user.urlImg}
-                                        name={elem.user.name}
-                                    />
-                                    <Text fontSize={14}>{elem.user.name}</Text>
+                            <Flex justifyContent={"space-between"}>
+                                <Flex
+                                    w="19rem"
+                                    alignItems={"center"}
+                                    gap={"2.5rem"}
+                                >
+                                    <Flex alignItems={"center"} gap={"1rem"}>
+                                        <Avatar
+                                            src={elem?.user?.urlImg}
+                                            name={elem?.user?.name}
+                                        />
+                                        <Text fontSize={14}>
+                                            {elem?.user?.name}
+                                        </Text>
+                                    </Flex>
+                                    <Text fontSize={14}>
+                                        {convertMS(elem?.updatedAt)}
+                                    </Text>
                                 </Flex>
-                                <Text fontSize={14}>
-                                    {convertMS(elem.createdAt)}
-                                </Text>
-                            </Flex>
+                                <Flex justifyContent={"space-between"}>
+                                    {elem.user.id === user?.id ? (
+                                        <>
+                                            <RiEdit2Fill
+                                                cursor={"pointer"}
+                                                fontSize={25}
+                                                onClick={() => {
+                                                    setCommentId(elem.id);
+                                                    setOverlay(
+                                                        <ModalEditComment />
+                                                    );
+                                                    onOpen();
+                                                }}
+                                            />
 
+                                            <DeleteIcon
+                                                cursor={"pointer"}
+                                                onClick={() => {
+                                                    deleteComment(elem.id);
+                                                }}
+                                                fontSize={23}
+                                                ml={5}
+                                            />
+                                        </>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </Flex>
+                            </Flex>
                             <Text fontSize={14} pt={"0.5rem"}>
                                 {elem.description}
                             </Text>
                         </Flex>
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            {overlay}
+                        </Modal>
                     </>
                 );
             })}

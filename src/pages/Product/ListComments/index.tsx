@@ -1,6 +1,5 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { CardComment } from "./CardComment";
-import cars from "../../../components-moks";
 import { useCarContext } from "../../../providers/CarContext";
 
 export function ListComment() {

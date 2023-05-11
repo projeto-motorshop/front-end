@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import {
     ModalOverlay,
     ModalContent,
@@ -32,16 +32,22 @@ export const EditAdModal = () => {
     const { onClose, setUserCar, userCar } = useUserContext();
     const options = ["Sim", "Não"];
     const [published, setPublished] = useState({});
-    const [carCard, setCarCard] = useState<any>();
+    const [carCard, setCarCard] = useState<ICarsUpdate>();
 
-    useEffect(() => {
-        const funcTeste = async () => {
+    useMemo(() => {
+        const infoCarCard = async () => {
             const { data } = await api.get(`/cars/${carId}`);
             setCarCard(data);
-        };
+            const img = data?.images;
 
-        funcTeste();
-    }, []);
+            return img?.forEach((image: any) => {
+                append({
+                    urlImg: image.urlImg,
+                });
+            });
+        };
+        infoCarCard();
+    }, [carId]);
 
     const token = localStorage.getItem("@token");
 
@@ -61,21 +67,31 @@ export const EditAdModal = () => {
         let variant = {};
 
         if (published === "Sim") {
-            variant = { published: true };
+            variant = { isPublished: true };
         } else {
-            variant = { published: false };
+            variant = { isPublished: false };
         }
 
         const dataForm = {
             ...formData,
             ...variant,
         };
-
         const newData = Object.fromEntries(
             Object.entries(dataForm).filter(([_, v]) => v != "")
         );
 
-        const { data } = await api.patch(`/cars/${carId}`, newData, {
+        const teste = {
+            ...newData,
+            ...variant,
+        };
+
+        const { data } = await api.patch(`/cars/${carId}`, teste, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        await api.patch(`/cars/images/${carId}`, teste, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -92,9 +108,7 @@ export const EditAdModal = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<ICarsUpdate>({
-        defaultValues: {
-            images: [{ urlImg: "" }],
-        },
+        defaultValues: {},
         resolver: yupResolver(updateCarSchema),
     });
 
@@ -122,6 +136,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Marca</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.brand}
                                     placeholder="Mercedes Benz"
                                     {...register("brand")}
                                 />
@@ -130,6 +145,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Modelo</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.model}
                                     placeholder="A 200 CGI ADVANCE SEDAN"
                                     {...register("model")}
                                 />
@@ -139,6 +155,7 @@ export const EditAdModal = () => {
                                 <Box w={"50%"}>
                                     <FormLabel>Ano</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.year}
                                         type="number"
                                         placeholder="2018"
                                         {...register("year")}
@@ -172,6 +189,7 @@ export const EditAdModal = () => {
                                 <Box>
                                     <FormLabel>Cor</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.color}
                                         placeholder="Cor"
                                         {...register("color")}
                                     />
@@ -182,6 +200,7 @@ export const EditAdModal = () => {
                                 <Box w={"50%"}>
                                     <FormLabel>Preço Tabela Fipe</FormLabel>
                                     <Input
+                                        defaultValue={carCard?.priceFipe}
                                         placeholder="R$ 48.000,00"
                                         {...register("priceFipe")}
                                     />
@@ -200,6 +219,7 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Descrição</FormLabel>
                                 <Textarea
+                                    defaultValue={carCard?.description}
                                     resize={"none"}
                                     {...register("description")}
                                 />
@@ -237,44 +257,50 @@ export const EditAdModal = () => {
                             <Box>
                                 <FormLabel>Imagem da Capa</FormLabel>
                                 <Input
+                                    defaultValue={carCard?.frontImg}
                                     placeholder="https://image.com"
                                     {...register("frontImg")}
                                 />
                                 {errors.frontImg?.message}
                             </Box>
                             <Flex flexDir={"column"} gap={"1rem"}>
-                                {fields.map((item, index) => (
-                                    <>
-                                        <Flex
-                                            key={item.id}
-                                            alignItems={"flex-end"}
-                                            gap={"2rem"}
-                                        >
-                                            <Flex flexDir={"column"} w={"100%"}>
-                                                <FormLabel>
-                                                    {index + 1}° Imagem da
-                                                    galeria
-                                                </FormLabel>
-                                                <Input
-                                                    placeholder="https://image.com"
-                                                    {...register(
-                                                        `images.${index}.urlImg`
-                                                    )}
-                                                />
-                                                {errors.images?.message}
-                                            </Flex>
-                                            {index > 0 && (
-                                                <Button
-                                                    onClick={() => {
-                                                        remove(index);
-                                                    }}
+                                {fields.map((item, index) => {
+                                    return (
+                                        <>
+                                            <Flex
+                                                key={item.id}
+                                                alignItems={"flex-end"}
+                                                gap={"2rem"}
+                                            >
+                                                <Flex
+                                                    flexDir={"column"}
+                                                    w={"100%"}
                                                 >
-                                                    X
-                                                </Button>
-                                            )}
-                                        </Flex>
-                                    </>
-                                ))}
+                                                    <FormLabel>
+                                                        {index + 1}° Imagem da
+                                                        galeria
+                                                    </FormLabel>
+                                                    <Input
+                                                        placeholder="https://image.com"
+                                                        {...register(
+                                                            `images.${index}.urlImg`
+                                                        )}
+                                                    />
+                                                    {errors.images?.message}
+                                                </Flex>
+                                                {index > 0 && (
+                                                    <Button
+                                                        onClick={() => {
+                                                            remove(index);
+                                                        }}
+                                                    >
+                                                        X
+                                                    </Button>
+                                                )}
+                                            </Flex>
+                                        </>
+                                    );
+                                })}
                                 <Button
                                     bg={"brand.4"}
                                     color={"brand.1"}

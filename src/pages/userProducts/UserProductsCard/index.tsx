@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-
 import {
     Avatar,
     Badge,
@@ -9,7 +8,6 @@ import {
     Image,
     Text,
 } from "@chakra-ui/react";
-import { MdAttachMoney } from "react-icons/md";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function UserProductsCard(): any {
@@ -26,7 +24,6 @@ export function UserProductsCard(): any {
                 return (
                     <>
                         <Flex
-
                             align="flex-start"
                             justifyContent={"flex-start"}
                             w={isFullHd ? "70%" : isMobile ? "80%" : "100%"}
@@ -55,29 +52,6 @@ export function UserProductsCard(): any {
                                     border={"2px solid transparent"}
                                     _hover={{ border: "2px solid #4529E6" }}
                                 >
-                                    {elem.goodDeal ? (
-                                        <Flex
-                                            pos={"absolute"}
-                                            right="4px"
-                                            top={"5px"}
-                                            zIndex={3}
-                                            bg={"random.7"}
-                                            h={"1.5rem"}
-                                            alignItems={"center"}
-                                            borderRadius={"2px"}
-                                        >
-                                            <Badge
-                                                bg={"random.7"}
-                                                color={"white"}
-                                                fontSize={"1rem"}
-                                                fontWeight={"500"}
-                                            >
-                                                <MdAttachMoney />
-                                            </Badge>
-                                        </Flex>
-                                    ) : (
-                                        <></>
-                                    )}
                                     {elem.isPublished ? (
                                         <Flex
                                             pos={"absolute"}
@@ -102,7 +76,6 @@ export function UserProductsCard(): any {
                                         <>
                                             <Flex
                                                 pos={"absolute"}
-                                                w={"100%"}
                                                 left="4px"
                                                 top={"5px"}
                                                 zIndex={3}
@@ -151,8 +124,8 @@ export function UserProductsCard(): any {
                                 <Flex>
                                     <Center gap={isMobile ? "1rem" : ".5rem"}>
                                         <Avatar
-                                            name={elem.brand}
-                                            src={elem.frontImg}
+                                            name={userData.name}
+                                            src={userData.urlImg}
                                         />
                                         <Text
                                             fontWeight={"700"}
@@ -160,7 +133,7 @@ export function UserProductsCard(): any {
                                                 isMobile ? "14px" : "10px"
                                             }
                                         >
-                                            {elem.brand}
+                                            {userData.name}
                                         </Text>
                                     </Center>
                                 </Flex>

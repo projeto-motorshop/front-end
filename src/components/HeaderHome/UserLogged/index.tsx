@@ -7,7 +7,7 @@ import {
     MenuItem,
     MenuList,
     Modal,
-    Text
+    Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../../providers/UserContext";

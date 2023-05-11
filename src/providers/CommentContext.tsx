@@ -1,5 +1,5 @@
 import { Dispatch, createContext, useContext, useState } from "react";
-import { IUserProviderProps } from "./UserContext";
+import { IUserProviderProps, useUserContext } from "./UserContext";
 import api from "../service/api";
 import { toast } from "react-toastify";
 import { ICommentRequest } from "../interfaces/comment";
@@ -11,7 +11,7 @@ interface ICommentContext {
     setCommentId: Dispatch<string>;
     comment: string;
     setComment: Dispatch<string>;
-    deleteComment: () => void;
+    deleteComment: (deleteId: string) => void;
     patchComment: (formData: ICommentRequest) => void;
 }
 export const CommentContext = createContext<ICommentContext>(
@@ -19,9 +19,11 @@ export const CommentContext = createContext<ICommentContext>(
 );
 
 export const CommentProvider = ({ children }: IUserProviderProps) => {
-    const { car } = useCarContext();
+    const { car, loadProduct } = useCarContext();
+    const { onClose } = useUserContext();
     const [commentId, setCommentId] = useState("");
     const [comment, setComment] = useState("");
+
     const token = localStorage.getItem("@token");
 
     const createComment = async (formData: ICommentRequest) => {
@@ -45,19 +47,22 @@ export const CommentProvider = ({ children }: IUserProviderProps) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            onClose();
+            loadProduct();
             toast.success("comentário atualizado com sucesso");
         } catch (error) {
             console.log(error);
         }
     };
 
-    const deleteComment = (): void => {
+    const deleteComment = async (deleteId: string) => {
         try {
-            api.delete(`/comments/${commentId}`, {
+            await api.delete(`/comments/${deleteId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            loadProduct();
             toast.success("comentário deletado");
         } catch (error) {
             toast.error("algo deu errado");

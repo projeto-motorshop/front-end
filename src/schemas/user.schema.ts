@@ -7,9 +7,6 @@ import {
     IUserUpdate,
 } from "../interfaces/user";
 
-const regexPhone =
-    /^\s*(\d{2}|\d{0})|\(\d{2}|\d{0}\)?[-. ]?(\d{5}|\d{4})[-. ]?(\d{4})[-. ]?\s*$/;
-
 const userSchema = yup.object().shape({
     complement: yup.string().notRequired().nullable(),
     number: yup.string().required("Número da casa Obrigatório"),
@@ -17,7 +14,6 @@ const userSchema = yup.object().shape({
     cep: yup.string().required("CEP Obrigatório"),
     state: yup.string().required("Estado Obrigatório"),
     city: yup.string().required("Cidade Obrigatório"),
-    // salesman: yup.string().required(),
     description: yup.string().notRequired().nullable(),
     birthdate: yup.date().required("Data de aniversário Obrigatório"),
     cpf: yup.string().required("CPF Obrigatório"),
