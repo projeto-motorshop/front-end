@@ -1,19 +1,10 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Flex,
-    Image,
-    Modal,
-    Text,
-} from "@chakra-ui/react";
+import { Avatar, Flex, Modal, Text } from "@chakra-ui/react";
 import { useCarContext } from "../../../../providers/CarContext";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { ModalEditComment } from "../../../../components/RenderModalContent/ModalEditComment";
 import { useCommentContext } from "../../../../providers/CommentContext";
 import { useUserContext } from "../../../../providers/UserContext";
 import { RiEdit2Fill } from "react-icons/ri";
-import { useForm } from "react-hook-form";
 
 export function CardComment() {
     const { car } = useCarContext();

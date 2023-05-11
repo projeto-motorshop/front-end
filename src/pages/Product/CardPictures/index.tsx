@@ -6,7 +6,7 @@ import { ModalImagesCar } from "../../../components/RenderModalContent/ModalImag
 
 export function CardPictures() {
     const { car } = useCarContext();
-    const { isFullHd, isNotebook, isMobile } = useUserContext();
+    const { isFullHd, isMobile } = useUserContext();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [overlay, setOverlay] = useState(<ModalImagesCar />);
 

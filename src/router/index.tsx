@@ -7,15 +7,12 @@ import { Product } from "../pages/Product";
 import { Profile } from "../pages/Profile";
 import { Register } from "../pages/Register";
 import { ResetPassword } from "../pages/ResetPassword";
-import { TestePage } from "../pages/TestePage";
 import UserProducts from "../pages/userProducts";
 const Router: React.FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Login />} />
-
             <Route element={<HeaderHome />}>
-                <Route path="/testePage" element={<TestePage />} />
                 <Route path="/userproducts">
                     <Route path=":userId" element={<UserProducts />} />
                 </Route>

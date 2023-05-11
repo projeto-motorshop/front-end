@@ -11,11 +11,9 @@ import {
     ICarProduct,
     ICarsRequest,
     ICarsResponse,
-    ICarsUpdate,
     IFilter,
 } from "../interfaces/car";
 import { toast } from "react-toastify";
-import { useCommentContext } from "./CommentContext";
 
 interface ICarContext {
     loadCar(): void;
@@ -43,6 +41,8 @@ interface ICarContext {
     loadProduct: () => void;
     productId: string;
     setProductId: Dispatch<string>;
+    paginate: string;
+    setPaginate: Dispatch<string>;
 }
 export const CarContext = createContext<ICarContext>({} as ICarContext);
 
@@ -57,6 +57,7 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [productId, setProductId] = useState("");
+    const [paginate, setPaginate] = useState("");
     const [filter, setFilter] = useState<IFilter>({
         brand: "",
         model: "",
@@ -73,7 +74,6 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
 
     const loadProduct = async () => {
         try {
-            console.log(productId);
             const { data } = await api.get(`/cars/${productId}`);
             setCar(data);
         } catch (error) {
@@ -161,6 +161,8 @@ export const CarProvider = ({ children }: IUserProviderProps) => {
                 loadProduct,
                 productId,
                 setProductId,
+                paginate,
+                setPaginate,
             }}
         >
             {children}

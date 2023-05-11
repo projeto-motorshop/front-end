@@ -6,7 +6,6 @@ export const ResetPasswordHeader = () => {
             <Flex
                 justifyContent={"center"}
                 alignItems={"center"}
-                // marginTop={"5rem"}
                 paddingTop={"6rem"}
                 marginBottom={"3rem"}
             >

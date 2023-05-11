@@ -1,12 +1,4 @@
-import {
-    Box,
-    Text,
-    Flex,
-    Button,
-    Stack,
-    Portal,
-    useMediaQuery,
-} from "@chakra-ui/react";
+import { Box, Text, Flex } from "@chakra-ui/react";
 import { UserLogged } from "./UserLogged";
 import { BtnLogin } from "./BtnLogin";
 import { MenuHamb } from "./MenuHamb";

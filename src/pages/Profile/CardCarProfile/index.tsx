@@ -1,6 +1,4 @@
 import {
-    Avatar,
-    Box,
     Button,
     Center,
     Flex,

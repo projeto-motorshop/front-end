@@ -1,4 +1,4 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 import { CardCar } from "./CardCar";
 import { CardPictures } from "./CardPictures";
 import { CardUser } from "./CardUser";

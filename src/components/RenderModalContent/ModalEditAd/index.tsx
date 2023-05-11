@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
     ModalOverlay,
     ModalContent,
@@ -108,10 +108,7 @@ export const EditAdModal = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<ICarsUpdate>({
-        defaultValues: {
-            // images: [{ urlImg: "" }],
-            // images: carCard?.images?.length == 0 ? [{ urlImg: "" }] : "",
-        },
+        defaultValues: {},
         resolver: yupResolver(updateCarSchema),
     });
 
@@ -119,21 +116,6 @@ export const EditAdModal = () => {
         control,
         name: "images",
     });
-
-    // useEffect(() => {
-    //     (async () => {
-    //         const { data } = await api.get(`/cars/${carId}`);
-    //         setCarCard(data);
-    //         const img = carCard?.images;
-    //         return img?.forEach((image: any) => {
-    //             append({
-    //                 urlImg: image.urlImg,
-    //             });
-    //         });
-    //     })();
-    // }, [carId]);
-
-    const img = () => {};
 
     return (
         <>

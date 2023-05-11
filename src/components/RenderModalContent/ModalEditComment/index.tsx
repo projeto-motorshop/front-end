@@ -8,7 +8,6 @@ import {
     ModalHeader,
     ModalOverlay,
     Textarea,
-    useDisclosure,
 } from "@chakra-ui/react";
 import { useCommentContext } from "../../../providers/CommentContext";
 import { useForm } from "react-hook-form";
