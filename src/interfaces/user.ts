@@ -47,7 +47,6 @@ export interface IUserRequest {
     phone: string;
     cpf: string;
     description?: string | null;
-    // salesman: string;
     birthdate: Date;
     city: string;
     state: string;

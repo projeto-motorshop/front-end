@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router";
-
 import {
     Avatar,
     Badge,
@@ -9,7 +8,6 @@ import {
     Image,
     Text,
 } from "@chakra-ui/react";
-import { MdAttachMoney } from "react-icons/md";
 import { useUserContext } from "../../../providers/UserContext";
 
 export function UserProductsCard(): any {

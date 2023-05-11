@@ -12,13 +12,3 @@ export const BannerStyle = styled.div`
     -webkit-mask-image: linear-gradient(black, transparent);
     mask-image: linear-gradient(black, transparent);
 `;
-
-// pos={"absolute"}
-// zIndex={1}
-// w={"100%"}
-// h={"100%"}
-// display={"flex"}
-// justifyContent={"center"}
-// alignItems={"center"}
-// bgImage={banner}
-// bgRepeat={"no-repeat"}

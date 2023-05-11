@@ -12,18 +12,17 @@ import { ICarsRequest } from "../../../interfaces/car";
 import { ReactNode, useEffect, useState } from "react";
 import { useCarContext } from "../../../providers/CarContext";
 import api from "../../../service/api";
+import { useCommentContext } from "../../../providers/CommentContext";
 
 export function FilterCar() {
     const { isMobile, onClose } = useUserContext();
     const {
-        loadCar,
         typesFuel,
         filter,
         setFilter,
         setRecentCar,
         recentCar,
-        setCurrentPage,
-        setTotalPages,
+        setPaginate,
     } = useCarContext();
 
     let brands = [...new Set(recentCar?.map((car: ICarsRequest) => car.brand))];
@@ -66,9 +65,10 @@ export function FilterCar() {
                                 <ListItem
                                     cursor={"pointer"}
                                     key={index}
-                                    onClick={() =>
-                                        setFilter({ ...filter, brand: elem })
-                                    }
+                                    onClick={() => {
+                                        setFilter({ ...filter, brand: elem });
+                                        setPaginate("filter");
+                                    }}
                                 >
                                     {elem as ReactNode}
                                 </ListItem>
@@ -95,9 +95,10 @@ export function FilterCar() {
                                 <ListItem
                                     cursor={"pointer"}
                                     key={index}
-                                    onClick={() =>
-                                        setFilter({ ...filter, model: elem })
-                                    }
+                                    onClick={() => {
+                                        setFilter({ ...filter, model: elem });
+                                        setPaginate("filter");
+                                    }}
                                 >
                                     {elem as ReactNode}
                                 </ListItem>
@@ -124,9 +125,10 @@ export function FilterCar() {
                                 <ListItem
                                     cursor={"pointer"}
                                     key={index}
-                                    onClick={() =>
-                                        setFilter({ ...filter, color: elem })
-                                    }
+                                    onClick={() => {
+                                        setPaginate("filter");
+                                        setFilter({ ...filter, color: elem });
+                                    }}
                                 >
                                     {elem as ReactNode}
                                 </ListItem>
@@ -153,9 +155,10 @@ export function FilterCar() {
                                 <ListItem
                                     cursor={"pointer"}
                                     key={index}
-                                    onClick={() =>
-                                        setFilter({ ...filter, year: elem })
-                                    }
+                                    onClick={() => {
+                                        setPaginate("filter");
+                                        setFilter({ ...filter, year: elem });
+                                    }}
                                 >
                                     {elem as ReactNode}
                                 </ListItem>
@@ -181,9 +184,10 @@ export function FilterCar() {
                                 <ListItem
                                     cursor={"pointer"}
                                     key={index}
-                                    onClick={() =>
-                                        setFilter({ ...filter, fuel: elem })
-                                    }
+                                    onClick={() => {
+                                        setPaginate("filter");
+                                        setFilter({ ...filter, fuel: elem });
+                                    }}
                                 >
                                     {typesFuel(elem)}
                                 </ListItem>
@@ -207,24 +211,26 @@ export function FilterCar() {
                         width="auto"
                         placeholder="Mínima"
                         bg={"grey.5"}
-                        onKeyUp={(e) =>
+                        onKeyUp={(e) => {
+                            setPaginate("filter");
                             setFilter({
                                 ...filter,
                                 minKm: e.currentTarget.value,
-                            })
-                        }
+                            });
+                        }}
                     />
                     <Input
                         htmlSize={6}
                         width="auto"
                         placeholder="Máxima"
                         bg={"grey.5"}
-                        onKeyUp={(e) =>
+                        onKeyUp={(e) => {
+                            setPaginate("filter");
                             setFilter({
                                 ...filter,
                                 maxKm: e.currentTarget.value,
-                            })
-                        }
+                            });
+                        }}
                     />
                 </Flex>
             </Flex>
@@ -243,24 +249,26 @@ export function FilterCar() {
                         width="auto"
                         placeholder="Mínima"
                         bg={"grey.5"}
-                        onKeyUp={(e) =>
+                        onKeyUp={(e) => {
+                            setPaginate("filter");
                             setFilter({
                                 ...filter,
                                 minPrice: e.currentTarget.value,
-                            })
-                        }
+                            });
+                        }}
                     />
                     <Input
                         htmlSize={6}
                         width="auto"
                         placeholder="Máxima"
                         bg={"grey.5"}
-                        onKeyUp={(e) =>
+                        onKeyUp={(e) => {
+                            setPaginate("filter");
                             setFilter({
                                 ...filter,
                                 maxPrice: e.currentTarget.value,
-                            })
-                        }
+                            });
+                        }}
                     />
                 </Flex>
             </Flex>
@@ -286,7 +294,7 @@ export function FilterCar() {
                                     minPrice: "",
                                     maxPrice: "",
                                 });
-                                loadCar();
+                                setPaginate("");
                             }}
                         >
                             Limpar Filtros
@@ -314,7 +322,7 @@ export function FilterCar() {
                                         minPrice: "",
                                         maxPrice: "",
                                     });
-                                    loadCar();
+                                    setPaginate("");
                                 }}
                             >
                                 Limpar Filtros

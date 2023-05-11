@@ -1,15 +1,12 @@
 import {
     Button,
-    Image,
     ModalBody,
-    ModalCloseButton,
     ModalContent,
     ModalFooter,
     ModalOverlay,
     UseDisclosureProps,
 } from "@chakra-ui/react";
 import { useCarContext } from "../../../providers/CarContext";
-import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
